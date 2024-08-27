@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookSwap - Tela Inicial</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Seu CSS Personalizado -->
-    <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos-tela-inicial/styles.css" media="all">
+    <link rel="stylesheet" href="estilos-tela-inicial/media-query.css">
+    <title>BookSwap</title>
 </head>
-<body>
-    <!-- Cabeçalho -->
-    <header class="bg-light py-3">
-        <div class="container">
-            <h1 class="text-center">Bem-vindo ao BookSwap</h1>
-        </div>
-    </header>
 
-    <!-- Seção principal -->
-    <main class="container my-5">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Troque livros de forma fácil e rápida</h2>
-                <p>Descubra novos livros e troque os que você já leu com outras pessoas.</p>
-                <a href="#" class="btn btn-primary">Explorar Livros</a>
-            </div>
-            <div class="col-md-6">
-                <img src="images/tela-inicial.jpg" alt="Troca de livros" class="img-fluid">
-            </div>
+<body>
+    <header>
+        <div class="logo-text">
+            <img src="img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h2>BookSwap</h2>
+        </div>
+        <a href="#" onclick="telaComofunciona()">Como Funciona?</a>
+        <a href="#" onclick="TelaLogin()">Entrar</a>
+        <button onclick="TelaCadastrar()">Cadastrar</button>
+    </header>
+    <div class="imagem-frase">
+        <img src="img/banner-bookswap.jpg"
+            alt="Imagem com a frase 'Troque livros sem custo, Promova a leitura e a sustentabilidade">
+    </div>
+    <main>
+        <h2>Troca de Livros na Biblioteca da ETEC Sylvio de Mattos Carvalho</h2>
+        <p>
+            Nosso site oferece uma plataforma fácil e gratuita para a troca de livros entre alunos, professores(a) e
+            membros da comunidade da ETEC Sylvio de Mattos Carvalho, em Matão, SP. As trocas são realizadas na
+            biblioteca da escola, um espaço dedicado ao aprendizado e à interação comunitária. Para participar, basta se
+            cadastrar, explorar os livros disponíveis e agendar sua visita à biblioteca para efetuar a troca
+        </p>
+
+        <div class="container-button">
+            <button class="btnTelaInicial">Explore os livros disponíveis para troca</button>
+        </div>
+
+        <div class="container-button">
+            <button class="btnTelaInicial" id="btnCadastre">Cadastre-se gratuitamente no nosso site</button>
         </div>
     </main>
-
-    <!-- Rodapé -->
-    <footer class="bg-dark text-white py-3">
-        <div class="container text-center">
-            <p>&copy; 2024 BookSwap. Todos os direitos reservados.</p>
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS e dependências -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Seu JavaScript Personalizado -->
-    <script src="js/scripts.js"></script>
+    <script>
+        function TelaLogin(){
+             window.location.href = "tela-login/login.html"
+        }
+
+        function TelaCadastrar(){
+             window.location.href = "tela-cadastro/cadastro.html"
+        }
+
+        function telaComofunciona() {
+            window.location.href = 'tela-comoFunciona/comoFunciona.html'
+        }
+    </script>
 </body>
 </html>
