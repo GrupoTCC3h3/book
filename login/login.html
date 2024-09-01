@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos-login/style.css">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <main>
+        <form action="#" method="post" autocomplete="on">
+            <button class="btnCadastrar">Cadastre-Se</button>
+
+            <h1>Login</h1>
+            <div class="campo" id="espacoCampo">
+                <label for="iemail"><i class="material-icons">email</i></label>
+                <input type="email" name="email" id="iemail" required placeholder="E - m a i l"  minlength="5"
+                    autocomplete="email">
+            </div>
+            <div class="campo">
+                <label for="isenha"><i class="material-icons">vpn_key</i></label>
+                <input type="password" name="senha" id="isenha" required placeholder="S e n h a" minlength="8"
+                    maxlength="128" autocomplete="on">
+            </div>
+            <div class="containerLembrarEEsqueci">
+                <label class="lembrar-me">
+                    <input type="checkbox" name="caixa-de-lembre-me">
+                    Lembrar-me
+                </label>
+                <a href="#">Esqueci a senha</a>
+            </div>
+            <input type="submit" value="Entrar" id="entrar" name="btnEntrar">
+        </form>
+    </main>
+</body>
+
+</html>
