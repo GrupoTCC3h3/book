@@ -46,19 +46,23 @@ header > nav > h1 {
     color: var(--marromClaro);
 }
 
-header > nav > a {
+
+header >  nav > div >  a {
     color: var(--marromClaro);
     font-weight: lighter;
     text-decoration: none;
     font-size: 18px;
 }
 
-header > nav > a:hover {
+header > nav > div > a:hover {
     color: var(--marromEscuro);
     text-decoration: underline;
 }
 
-header > nav > .cadastrar{
+.ajusteEntrar {
+    margin-right: 20px;
+}
+header > nav > div > .cadastrar{
     background-color: var(--marromClaro);
     color: white;
     font-weight: bold;
@@ -69,13 +73,20 @@ header > nav > .cadastrar{
     text-align: center;
 }
 
+.container-entar-cadastrar{
+    text-align: center;
+    padding-top: 1.5vh;
+}
+
+
 header > nav > .cadastrar:hover {
     background-color: var(--marromMaisClaro);
 }
 
 .imagem img {
-    max-width: 100%; /* garante que a imagem não ultrapasse a largura do contêiner pai */
-    height: auto;
+    width: 100%; /* garante que a imagem não ultrapasse a largura do contêiner pai */
+    height: 50vh;
+    object-fit: cover;
 }
 
 main {

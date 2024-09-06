@@ -1,0 +1,79 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    color: var(--marromEscuro);
+    height: 150px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px; /* Espaço entre a logo e o texto */
+}
+
+header > div  > h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+header a, header button {
+    color: var(--marromClaro);
+    margin-left: 20px;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+    color: var(--marromEscuro);
+}
+
+header button {
+    background-color: #ac8f83;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+header button:hover{
+    background-color: var(--marromMaisClaro);
+    color: var(--marromEscuro);
+}
+
+h1 {
+    text-align: center;
+    color: var(--marromClaro);
+}
