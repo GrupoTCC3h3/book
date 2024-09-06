@@ -1,0 +1,61 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    color: var(--marromEscuro);
+    height: 150px;
+    display: block;
+    margin: auto;
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo {
+    width: 50px;
+    /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px;
+    /* Espaço entre a logo e o texto */
+}
+
+header > div  > h1 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+hr {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+main > h2 {
+    text-align: center;
+}
+
+main p {
+    text-align: center;
+    padding: 10px;
+}
