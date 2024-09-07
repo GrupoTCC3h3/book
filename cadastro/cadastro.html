@@ -10,31 +10,35 @@
 </head>
 <body>
     <main>
-        <form action="#" method="post" autocomplete="on">
+        <form id="formCadastro" autocomplete="on">
             <nav>
-                <button class="btnLogin" onclick="TelaLogin()">Login</button>
+                <button class="btnLogin" type="button" onclick="TelaLogin()">Login</button>
             </nav>
 
             <h1>Cadastre-Se</h1>
             <div class="campo">
-                <label for="iusuario"><i class="material-icons">person</i></label>
+                <label for="iusuario" id="labelUsuario"><i class="material-icons">person</i></label>
                 <input type="text" name="nome-usuario" id="iusuario" required placeholder="Nome e Sobrenome" minlength="2" maxlength="50">
             </div>
             <div class="campo">
-                <label for="iemail"><i class="material-icons">email</i></label>
+                <label for="iemail" id="labelEmail"><i class="material-icons">email</i></label>
                 <input type="email" name="email" id="iemail" required placeholder="E-mail" minlength="5" autocomplete="email">
             </div>
             <div class="campo">
-                <label for="isenha"><i class="material-icons">vpn_key</i></label>
-                <input type="password" name="senha" id="isenha" required placeholder="Senha"   minlength="8" 
-                maxlength="128">
+                <label for="isenha" id="labelSenha"><i class="material-icons">vpn_key</i></label>
+                <input type="password" name="senha" id="isenha" required placeholder="Senha" minlength="8" maxlength="128">
             </div>
             <div class="campo">
-                <label for="iconfirmaSenha"><i class="material-icons">vpn_key</i></label>
-                <input type="password" name="confirmacaoSenha" id="iconfirmaSenha" required placeholder="Confirme a sua senha" minlength="8" maxlength="128">
+                <label for="confirmSenha" id="labelConfirmSenha"><i class="material-icons">vpn_key</i></label>
+                <input type="password" name="confirmacaoSenha" id="confirmSenha" required placeholder="Confirme a sua senha" minlength="8" maxlength="128">
             </div>
             <input type="submit" name="Cadastrar" id="btnCadastrar" value="Cadastrar">
+
+            <div id="msgSuccess" style="display:none; color: green;"></div>
+            <div id="msgError" style="display:none; color: red;"></div>
         </form>
     </main>    
+
+    <script src="cadastro.js"></script>
 </body>
 </html>
