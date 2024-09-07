@@ -1,0 +1,74 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    color: var(--marromEscuro);
+    height: 150px;
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo {
+    width: 50px;
+    /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px;
+    /* Espaço entre a logo e o texto */
+}
+
+header h1 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+hr {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.container_icones_laterais{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    top: -60px;
+}
+
+.icons_laterais{
+    background-color:#ada0a2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5.5px;
+    cursor: pointer;
+}
+
+main h2{
+    text-align: center;
+    color: var(--marromClaro);
+}
+
