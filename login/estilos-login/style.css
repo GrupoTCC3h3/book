@@ -21,6 +21,9 @@ body, html {
     height: 100dvh;
     background-color: var(--marromMaisClaro);
     color: white;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 main {
@@ -30,6 +33,42 @@ main {
     align-items: center;
     height: 100vh;
     width: 100vw;
+}
+
+/* Configurações do container que contém os ícones laterais */
+.container_icones_laterais {
+    display: flex;
+    justify-content: flex-start; /* Alinha os ícones à esquerda */
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    top: -60px;
+    max-width: 100%; /* Garante que o container não exceda a largura da tela */
+    overflow-x: hidden; /* Evita rolagem lateral no container */
+}
+
+/* Configurações do botão de voltar */
+#voltar {
+    background-color: var(--marromEscuro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    max-width: 100%; /* Garante que o botão não exceda a largura da tela */
+}
+
+/* Efeito hover no botão de voltar */
+#voltar:hover {
+    background-color: var(--marromClaro);
+}
+
+/* Prevenir qualquer rolagem adicional no botão */
+.icons_laterais {
+    overflow-x: hidden;
 }
 
 form {

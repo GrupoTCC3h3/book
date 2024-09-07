@@ -29,3 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function TelaCadastrar(){
+    window.document.location.href = "../cadastro/cadastro.html"
+}
+
+function voltarTelaInicial(){
+    window.document.location.href = "../index.html"
+  }

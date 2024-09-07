@@ -35,10 +35,8 @@ header .logo-text {
 
 header .logo {
     width: 50px;
-    /* Ajuste o tamanho da logo conforme necessário */
     height: auto;
     margin-right: 10px;
-    /* Espaço entre a logo e o texto */
 }
 
 header>div>h1 {
@@ -58,20 +56,18 @@ main>h2 {
 
 #menu {
     height: 50px;
-    /* Defina a altura desejada para os três elementos */
     background-color: #d5ccc7;
     border: none;
     border-radius: 10px;
     padding: 0 15px;
-    /* Ajuste o padding lateral */
     position: absolute;
     top: 95px;
-    right: 20px;  
+    right: 20px;
 }
 
 main p {
     color: var(--marromClaro);
-    font-weight: lighter;
+    font-weight: bold;
     text-align: center;
     padding: 10px;
     margin-bottom: 8%;
@@ -86,12 +82,10 @@ input,
 #filtrar,
 #buscar {
     height: 50px;
-    /* Defina a altura desejada para os três elementos */
     background-color: #d5ccc7;
     border: none;
     border-radius: 10px;
     padding: 0 15px;
-    /* Ajuste o padding lateral */
     cursor: pointer;
     display: inline-block;
 }
@@ -108,7 +102,6 @@ input {
 
 #filtrar i {
     vertical-align: middle;
-    /* Garante que o ícone fique centralizado */
 }
 
 .container_livros_amostra {
@@ -116,5 +109,55 @@ input {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    /* Espaço entre os elementos */
+}
+
+/* Menu lateral */
+nav#sideMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    background-color: var(--marromSuperClaro);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+nav#sideMenu ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav#sideMenu ul li {
+    margin: 15px 0;
+}
+
+nav#sideMenu ul li a {
+    color: var(--marromEscuro);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav#sideMenu.hidden {
+    transform: translateX(100%);
+}
+
+nav#sideMenu.visible {
+    transform: translateX(0);
+}
+
+#closeMenu {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#closeMenu i {
+    color: var(--marromEscuro);
 }

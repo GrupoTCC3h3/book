@@ -102,3 +102,11 @@ formCadastro.addEventListener('submit', (event) => {
     msgSuccess.setAttribute('style', 'display: none');
   }
 });
+
+function TelaLogin(){
+  window.document.location.href = "../login/login.html"
+}
+
+function voltarTelaInicial(){
+  window.document.location.href = "../index.html"
+}
