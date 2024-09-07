@@ -12,8 +12,8 @@
             <img src="../img/logo-bookswap.png" alt="Logo do site" class="logo">
             <h2>BookSwap</h2>
         </div>
-        <a href="#" onclick="TelaLogin()">Entrar</a>
-        <button onclick="TelaCadastrar()">Cadastrar</button>
+        <a href="../login/login.html" id="login">Entrar</a>
+        <a href="../cadastro/cadastro.html" id="cadastrar">Cadastar</a>
     </header> 
     <main>
         <h1>Livros disponiveis para troca na Etec</h1>
@@ -21,5 +21,15 @@
             
         </div>
     </main>
+
+    <script>
+         function TelaLogin(){
+             window.location.href = "login/login.html"
+        }
+
+        function TelaCadastrar(){
+             window.location.href = "cadastro/cadastro.html"
+        }
+    </script>
 </body>
 </html>

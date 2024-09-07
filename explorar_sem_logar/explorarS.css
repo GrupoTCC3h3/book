@@ -58,6 +58,18 @@ header a:hover {
     color: var(--marromEscuro);
 }
 
+#cadastrar{
+    background-color: var(--marromClaro);
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+}
+
+#cadastrar:hover{
+    text-decoration: none;
+}
+
 header button {
     background-color: #ac8f83;
     color: white;

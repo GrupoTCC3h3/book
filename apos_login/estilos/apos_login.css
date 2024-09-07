@@ -41,7 +41,7 @@ header .logo {
     /* Espaço entre a logo e o texto */
 }
 
-header > div  > h1 {
+header>div>h1 {
     margin: 0;
     color: var(--marromClaro);
 }
@@ -51,11 +51,70 @@ hr {
     margin-top: 10px;
 }
 
-main > h2 {
+main>h2 {
     text-align: center;
+    color: var(--marromClaro);
+}
+
+#menu {
+    height: 50px;
+    /* Defina a altura desejada para os três elementos */
+    background-color: #d5ccc7;
+    border: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    /* Ajuste o padding lateral */
+    position: absolute;
+    top: 95px;
+    right: 20px;  
 }
 
 main p {
+    color: var(--marromClaro);
+    font-weight: lighter;
     text-align: center;
     padding: 10px;
+    margin-bottom: 8%;
+}
+
+main .container_livros_amostra {
+    text-align: center;
+    margin-top: 2%;
+}
+
+input,
+#filtrar,
+#buscar {
+    height: 50px;
+    /* Defina a altura desejada para os três elementos */
+    background-color: #d5ccc7;
+    border: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    /* Ajuste o padding lateral */
+    cursor: pointer;
+    display: inline-block;
+}
+
+input {
+    background-color: #d5ccc7;
+    width: 50vw;
+    border-radius: 10px;
+    padding: 15px;
+    outline: none;
+    border: none;
+    cursor: text;
+}
+
+#filtrar i {
+    vertical-align: middle;
+    /* Garante que o ícone fique centralizado */
+}
+
+.container_livros_amostra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Espaço entre os elementos */
 }

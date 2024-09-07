@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="estilos/apos_login.css">
     <title>BookSwap</title>
 </head>
+
 <body>
     <header>
         <div class="logo-text">
@@ -13,14 +17,24 @@
             <h1>BookSwap</h1>
         </div>
         <hr>
-    </header>  
-    
+    </header>
+
     <main>
         <h2>Olá, <span>[Nome usuario]</span></h2>
+        <button id="menu"><i class="material-icons">menu</i></button>
         <p>
-            Seja muito bem vindo ao BookSwap,Comece dando uma olhada nos livros disponiveis para trocas 
-            ou pesquisando por livro disponivel. 
+            Seja muito bem vindo ao BookSwap,<br> Comece dando uma olhada nos livros disponiveis para trocas
+            ou pesquisando por livro disponivel.
         </p>
+
+        <h2>Troque livros com colegas da sua escola!</h2>
+
+        <div class="container_livros_amostra">
+            <input type="text" name="catalogo" id="catalogo" placeholder="Procure um livro em nosso catalogo" required
+                minlength="3" maxlength="50"> <button id="filtrar"><i class="material-icons">tune</i></button>
+            <button id="buscar">Buscar</button>
+        </div>
     </main>
 </body>
+
 </html>
