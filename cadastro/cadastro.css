@@ -1,4 +1,3 @@
-
 @charset "UTF-8";
 
 /* Paleta de Cores */
@@ -9,7 +8,7 @@
     --marromSuperClaro: #d5ccc7;
 }
 
-*{
+* {
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto', sans-serif;
@@ -40,7 +39,7 @@ main {
     margin: 10px;
 }
 
-#voltar:hover{
+#voltar:hover {
     background-color: var(--marromClaro);
 }
 
@@ -71,9 +70,9 @@ main > form > nav > button.btnLogin {
     cursor: pointer;
 }
 
-main > form > nav > button.btnLogin:hover  {
-        background-color: var(--marromMaisClaro);
-        color: white;
+main > form > nav > button.btnLogin:hover {
+    background-color: var(--marromMaisClaro);
+    color: white;
 }
 
 form h1 {
@@ -89,6 +88,7 @@ form h1 {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    position: relative; /* Adicionada para posicionar corretamente as mensagens de erro */
 }
 
 .campo i {
@@ -121,3 +121,23 @@ form h1 {
     background-color: var(--marromMaisClaro);
     color: white;
 }
+
+/* Mensagens de erro */
+.errorMessage {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: -15px; /* Posição para ficar logo abaixo do input */
+    left: 10px; /* Alinhamento à esquerda */
+    text-align: left;
+    width: 100%;
+}
+
+/* Ajustes na borda dos campos ao validar */
+/* input:invalid {
+    border: 2px solid red;
+}
+
+input:valid {
+    border: 2px solid green;
+} */

@@ -19,60 +19,57 @@ let msgError = document.querySelector('#msgError');
 let msgSuccess = document.querySelector('#msgSuccess');
 
 nome.addEventListener('keyup', () => {
-  if(nome.value.length < 2){
-    labelNome.setAttribute('style', 'color: red');
-    labelNome.innerHTML = 'Nome *Insira no mínimo 2 caracteres';
+  let errorNome = document.getElementById('errorNome');
+  if (nome.value.length < 2) {
+    errorNome.textContent = 'Nome *Insira no mínimo 2 caracteres';
     nome.setAttribute('style', 'border-color: red');
     validNome = false;
   } else {
-    labelNome.setAttribute('style', 'color: green');
-    labelNome.innerHTML = 'Nome';
+    errorNome.textContent = '';
     nome.setAttribute('style', 'border-color: green');
     validNome = true;
   }
 });
 
 usuario.addEventListener('keyup', () => {
-  if(usuario.value.length < 5){
-    labelUsuario.setAttribute('style', 'color: red');
-    labelUsuario.innerHTML = 'Email *Insira o padrão de email';
+  let errorEmail = document.getElementById('errorEmail');
+  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!emailPattern.test(usuario.value)) {
+    errorEmail.textContent = 'Email *Insira um email válido';
     usuario.setAttribute('style', 'border-color: red');
     validUsuario = false;
   } else {
-    labelUsuario.setAttribute('style', 'color: green');
-    labelUsuario.innerHTML = 'Email';
+    errorEmail.textContent = '';
     usuario.setAttribute('style', 'border-color: green');
     validUsuario = true;
   }
 });
 
 senha.addEventListener('keyup', () => {
-  if(senha.value.length < 8){
-    labelSenha.setAttribute('style', 'color: red');
-    labelSenha.innerHTML = 'Senha *Insira no mínimo 8 caracteres';
+  let errorSenha = document.getElementById('errorSenha');
+  if (senha.value.length < 8) {
+    errorSenha.textContent = 'Senha *Insira no mínimo 8 caracteres';
     senha.setAttribute('style', 'border-color: red');
     validSenha = false;
   } else {
-    labelSenha.setAttribute('style', 'color: green');
-    labelSenha.innerHTML = 'Senha';
+    errorSenha.textContent = '';
     senha.setAttribute('style', 'border-color: green');
     validSenha = true;
   }
 });
 
 confirmSenha.addEventListener('keyup', () => {
-  if(senha.value !== confirmSenha.value){
-    labelConfirmSenha.setAttribute('style', 'color: red');
-    labelConfirmSenha.innerHTML = 'Confirmar Senha *As senhas não conferem';
-    confirmSenha.setAttribute('style', 'border-color: red');
+  let errorConfirmSenha = document.getElementById('errorConfirmSenha');
+  if (senha.value !== confirmSenha.value) {
+    errorConfirmSenha.textContent = 'Confirmar Senha *As senhas não conferem';
     validConfirmSenha = false;
   } else {
-    labelConfirmSenha.setAttribute('style', 'color: green');
-    labelConfirmSenha.innerHTML = 'Confirmar Senha';
-    confirmSenha.setAttribute('style', 'border-color: green');
+    errorConfirmSenha.textContent = '';
     validConfirmSenha = true;
   }
 });
+
 
 formCadastro.addEventListener('submit', (event) => {
   event.preventDefault(); // Evita o envio padrão do formulário

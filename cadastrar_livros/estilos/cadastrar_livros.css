@@ -47,7 +47,7 @@ hr {
     margin-top: 10px;
 }
 
-.container_icones_laterais{
+.container_icones_laterais {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,8 +56,8 @@ hr {
     top: -60px;
 }
 
-.icons_laterais{
-    background-color:#ada0a2;
+.icons_laterais {
+    background-color: #ada0a2;
     border: none;
     border-radius: 5px;
     color: white;
@@ -65,7 +65,7 @@ hr {
     cursor: pointer;
 }
 
-main h2{
+main h2 {
     text-align: center;
     color: var(--marromClaro);
 }
@@ -76,7 +76,8 @@ nav#sideMenu {
     top: 0;
     right: 0;
     height: 100%;
-    width: 250px; /* Ajuste na largura do menu */
+    width: 250px;
+    /* Ajuste na largura do menu */
     background-color: var(--marromSuperClaro);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
@@ -119,4 +120,82 @@ nav#sideMenu.visible {
 
 #closeMenu i {
     color: var(--marromEscuro);
+}
+
+.container_cadastrar_livros {
+    background-color: var(--marromMaisClaro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Alinha os itens ao centro horizontalmente */
+    margin: auto;
+    padding: 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 80vw;
+    height: 80vh;
+}
+
+.imagem_capa {
+    display: flex;
+    flex-direction: column;
+    /* Adiciona esta linha para exibir a imagem e o botão em coluna */
+    align-items: center;
+    /* Alinha os itens ao centro horizontalmente */
+    margin-bottom: 20px;
+    /* Espaçamento entre o botão e o formulário */
+}
+
+.imagem_capa img {
+    display: block;
+    margin-bottom: 20px;
+    /* Espaçamento abaixo da imagem */
+    width: 80px;
+    border-radius: 10px;
+}
+
+.btnEscolherFoto {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 50px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    /* Espaçamento entre o botão e o formulário */
+}
+
+.btnEscolherFoto:hover {
+    background-color: var(--marromSuperClaro);
+    color: var(--marromClaro);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#form_cadastrar_livros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ 
+form input {
+    outline: none;
+}
+
+/* Remove as setinhas em navegadores baseados em WebKit */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove as setinhas em Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Usa a aparência padrão de campo de texto */
 }
