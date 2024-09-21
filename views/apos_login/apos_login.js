@@ -1,4 +1,4 @@
-// Menu lateral
+// Menu lateral e requisição para buscar livros
 document.addEventListener("DOMContentLoaded", function () {
     let listaUser = JSON.parse(localStorage.getItem('listaUser'));
 
@@ -37,4 +37,19 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = '../login/login.html'; // Redireciona para a página de login
         }
     });
+
+    // Exemplo de requisição para buscar livros
+    fetch('/livros')
+        .then(response => response.json())
+        .then(livros => {
+            console.log(livros); // Exibir livros no console
+            const listaLivros = document.getElementById('listaLivros'); // Assumindo que você tem um elemento para exibir os livros
+            listaLivros.innerHTML = ''; // Limpa a lista existente
+            livros.forEach(livro => {
+                const livroElemento = document.createElement('div');
+                livroElemento.textContent = `${livro.nome} - ${livro.autor}`; // Exemplo de formatação
+                listaLivros.appendChild(livroElemento);
+            });
+        })
+        .catch(error => console.error('Erro ao buscar livros:', error));
 });
