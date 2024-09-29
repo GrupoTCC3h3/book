@@ -21,7 +21,7 @@ body {
 header {
     width: 100%;
     color: var(--marromEscuro);
-    height: 150px;
+    /* height: 150px; */
     padding: 20px;
 }
 
@@ -47,13 +47,19 @@ hr {
     margin-top: 10px;
 }
 
+main h1 {
+    text-align: center;
+    color: var(--marromClaro);
+    margin-bottom: 15px;
+}
+
 .container_icones_laterais {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px; /* Adiciona espaçamento ao redor */
     position: relative;
-    top: -60px;
+    background-color: #fff; /* Cor de fundo para o cabeçalho */
 }
 
 .icons_laterais {
@@ -61,15 +67,12 @@ hr {
     border: none;
     border-radius: 5px;
     color: white;
-    padding: 5.5px;
+    padding: 5.5px 10px; /* Espaçamento interno */
     cursor: pointer;
+    margin: 0 5px; /* Espaçamento lateral entre os ícones */
 }
 
-main h1 {
-    text-align: center;
-    color: var(--marromClaro);
-    margin-bottom: 15px;
-}
+
 
 /* Menu lateral */
 nav#sideMenu {
@@ -128,9 +131,8 @@ nav#sideMenu.visible {
     flex-direction: column;
     align-items: center;
     margin: auto;
-    padding: 30px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    padding: 10px;
+    border-radius: 5px;
     width: 80vw;
     height: 100vh;
 }
@@ -176,7 +178,7 @@ input#ano_livro {
     display: block;
     margin-bottom: 20px;
     /* Espaçamento abaixo da imagem */
-    width: 80px;
+    width: 180px;
     border-radius: 10px;
     
 }
@@ -211,7 +213,7 @@ input[type="file"] {
 #form_cadastrar_livros {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     text-align: left;
 }
 
@@ -244,4 +246,18 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
     /* Usa a aparência padrão de campo de texto */
+}
+
+button{
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 15px;
+    margin: auto;
+    border: none;
+}
+
+button:hover{
+    color: var(--marromEscuro);
 }
