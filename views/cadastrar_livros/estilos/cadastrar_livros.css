@@ -129,7 +129,8 @@ nav#sideMenu.visible {
     align-items: center;
     margin: auto;
     padding: 30px;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     width: 80vw;
     height: 100vh;
 }
@@ -174,8 +175,10 @@ input#ano_livro {
 .imagem_capa img {
     display: block;
     margin-bottom: 20px;
-    width: 180px;
+    /* Espaçamento abaixo da imagem */
+    width: 80px;
     border-radius: 10px;
+    
 }
 
 .btnEscolherFoto {
@@ -208,11 +211,27 @@ input[type="file"] {
 #form_cadastrar_livros {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+    text-align: left;
 }
 
+#form_cadastrar_livros  label {
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+ 
 form input {
+    width: 50vw;
+    padding: 10px;
+    border-radius: 10px;
     outline: none;
+    border: none;
+}
+
+#ano_livro{
+    margin-bottom: 10px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -221,38 +240,8 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-input[type="text"]
-{
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--marromEscuro);
-    margin-bottom: 10px;
-    width: 50vw;
-    border: none;
-    outline: none;
-}
-
-input[type="number"]{
-    width: 20vw;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    border: none;
-    outline: none;
-}
-
-button[type="submit"] {
-    background-color: var(--marromClaro);
-    color: white;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button[type="submit"]:hover {
-    background-color:var(--marromClaro);
-    color: var(--marromEscuro);
-    font-weight: bolder;
+/* Remove as setinhas em Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Usa a aparência padrão de campo de texto */
 }
