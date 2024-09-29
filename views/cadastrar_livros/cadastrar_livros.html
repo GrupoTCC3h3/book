@@ -20,7 +20,6 @@
     </header>
     <div class="container_icones_laterais">
         <button id="voltar" class="icons_laterais"><i class="material-icons">arrow_back</i></button>
-
         <button id="menu" class="icons_laterais"><i class="material-icons">menu</i></button>
     </div>
 
@@ -37,19 +36,19 @@
             <li><a href="#" id="logout">Sair</a></li>
         </ul>
     </nav>
-    <main>
-        <h2>Cadastrar Livros</h2>
 
+    <main>
+        <h1>Cadastrar Livros</h1>
         <div class="container_cadastrar_livros">
             <div class="imagem_capa">
-                <img src="../img/teste_capa_livro.jpg" alt="teste de capa de livro">
+                <img src="" alt="">
                 <label class="btnEscolherFoto">
                     <input type="file" />
                     Escolher a foto da capa
                 </label>
             </div>
             <form id="form_cadastrar_livros" action="/cadastrar-livro" method="POST" autocomplete="on">
-                <label for="nome_livro">Nome do livro</label>
+                <label for="nome_livro">Nome do livro:</label>
                 <input 
                     type="text" 
                     id="nome_livro" 
@@ -60,8 +59,7 @@
                     pattern="[A-Za-z0-9\s]+"
                     title="O nome do livro deve conter apenas letras, números e espaços"
                 >
-            
-                <label for="genero_livro">Gênero do livro</label>
+                <label for="genero_livro">Gênero do livro:</label>
                 <input 
                     type="text"
                     id="genero_livro"
@@ -72,8 +70,7 @@
                     pattern="[A-Za-z0-9\s]+"
                     title="O gênero do livro deve conter apenas letras, números e espaços"
                 >
-            
-                <label for="cond_livro">Condições do livro</label>
+                <label for="cond_livro">Condições do livro:</label>
                 <input 
                     type="text"
                     id="cond_livro"
@@ -84,8 +81,7 @@
                     pattern="[A-Za-z0-9\s]+"
                     title="A condição do livro deve conter apenas letras, números e espaços"
                 >
-            
-                <label for="nome_autor">Autor do livro</label>
+                <label for="nome_autor">Autor do livro:</label>
                 <input 
                     type="text"
                     id="nome_autor"
@@ -96,24 +92,14 @@
                     pattern="[A-Za-z0-9\s]+"
                     title="O nome do autor deve conter apenas letras, números e espaços"
                 >
-            
-                <label for="ano_livro">Ano do livro</label>
-                <input 
-                    type="number"
-                    id="ano_livro"
-                    name="ano_livro"
-                    required
-                    min="1900" 
-                    max="2099" 
-                    step="1" 
-                    title="Insira um ano válido entre 1900 e 2099."
-                > 
-            
+                <div class="container_ano_livro">
+                    <label for="ano_livro" id="lblAnoLivro">Ano do livro:</label>
+                    <input type="number" id="ano_livro" name="ano_livro" required min="1900" max="2099" step="1" title="Insira um ano válido entre 1900 e 2099.">
+                </div>
+                 
                 <button type="submit">Cadastrar Livro</button>
             </form>
-            
         </div>
-
     </main>
 
     <script src="cadastrar_livros.js"></script>

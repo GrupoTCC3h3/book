@@ -65,9 +65,10 @@ hr {
     cursor: pointer;
 }
 
-main h2 {
+main h1 {
     text-align: center;
     color: var(--marromClaro);
+    margin-bottom: 15px;
 }
 
 /* Menu lateral */
@@ -77,7 +78,6 @@ nav#sideMenu {
     right: 0;
     height: 100%;
     width: 250px;
-    /* Ajuste na largura do menu */
     background-color: var(--marromSuperClaro);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
@@ -127,30 +127,54 @@ nav#sideMenu.visible {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Alinha os itens ao centro horizontalmente */
     margin: auto;
     padding: 30px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
     width: 80vw;
-    height: 80vh;
+    height: 100vh;
 }
+
+#form_cadastrar_livros label {
+    color: white;
+    padding-left: 7px;
+    align-self: flex-start; /* Alinha os labels à esquerda dentro do contêiner flex */
+}
+
+/* Container do label e do input */
+.container_ano_livro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container_ano_livro > #lblAnoLivro {
+    align-self: center;
+    margin-bottom: 5px;
+    color: white;
+}
+
+input#ano_livro {
+    width: 20vw;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
 
 .imagem_capa {
     display: flex;
     flex-direction: column;
-    /* Adiciona esta linha para exibir a imagem e o botão em coluna */
     align-items: center;
-    /* Alinha os itens ao centro horizontalmente */
     margin-bottom: 20px;
-    /* Espaçamento entre o botão e o formulário */
 }
 
 .imagem_capa img {
     display: block;
     margin-bottom: 20px;
-    /* Espaçamento abaixo da imagem */
-    width: 80px;
+    width: 180px;
     border-radius: 10px;
 }
 
@@ -165,12 +189,16 @@ nav#sideMenu.visible {
     font-weight: bold;
     border-radius: 4px;
     margin-bottom: 20px;
-    /* Espaçamento entre o botão e o formulário */
 }
 
 .btnEscolherFoto:hover {
-    background-color: var(--marromSuperClaro);
-    color: var(--marromClaro);
+    background-color:var(--marromClaro);
+    color: var(--marromEscuro);
+    font-weight: bolder;
+}
+
+.container_cadastrar_livros label{
+    text-align: left;
 }
 
 input[type="file"] {
@@ -182,20 +210,49 @@ input[type="file"] {
     flex-direction: column;
     align-items: center;
 }
- 
+
 form input {
     outline: none;
 }
 
-/* Remove as setinhas em navegadores baseados em WebKit */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Remove as setinhas em Firefox */
-input[type="number"] {
-    -moz-appearance: textfield;
-    /* Usa a aparência padrão de campo de texto */
+input[type="text"]
+{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--marromEscuro);
+    margin-bottom: 10px;
+    width: 50vw;
+    border: none;
+    outline: none;
+}
+
+input[type="number"]{
+    width: 20vw;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+}
+
+button[type="submit"] {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background-color:var(--marromClaro);
+    color: var(--marromEscuro);
+    font-weight: bolder;
 }
