@@ -21,7 +21,6 @@ body {
 header {
     width: 100%;
     color: var(--marromEscuro);
-    /* height: 150px; */
     padding: 20px;
 }
 
@@ -57,9 +56,9 @@ main h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Adiciona espaçamento ao redor */
+    padding: 10px 20px;
     position: relative;
-    background-color: #fff; /* Cor de fundo para o cabeçalho */
+    background-color: #fff;
 }
 
 .icons_laterais {
@@ -67,12 +66,10 @@ main h1 {
     border: none;
     border-radius: 5px;
     color: white;
-    padding: 5.5px 10px; /* Espaçamento interno */
+    padding: 5.5px 10px;
     cursor: pointer;
-    margin: 0 5px; /* Espaçamento lateral entre os ícones */
+    margin: 0 5px;
 }
-
-
 
 /* Menu lateral */
 nav#sideMenu {
@@ -132,18 +129,78 @@ nav#sideMenu.visible {
     align-items: center;
     margin: auto;
     padding: 10px;
-    border-radius: 5px;
-    width: 80vw;
-    height: 100vh;
+    border-radius: 15px;
+    width: 100%; /* Agora ocupa toda a largura */
+    max-width: 1200px; /* Limita a largura máxima em telas maiores */
+    height: auto;
+    margin-bottom: 15px;
+}
+
+form input {
+    width: 50vw; /* Agora os inputs ocupam toda a largura do contêiner */
+    /*max-width: 600px;  Limita a largura máxima dos inputs */
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+#ano_livro {
+    margin-bottom: 10px;
+}
+
+/* Responsividade para diferentes dispositivos */
+
+/* Para telas de laptops (a partir de 1024px) */
+@media (max-width: 1024px) {
+    .container_cadastrar_livros {
+        width: 90%;
+        height: auto;    
+    }
+
+    form input {
+        width: 90%; /* Ajusta os inputs para telas menores */
+    }
+}
+
+/* Para tablets (a partir de 768px) */
+@media (max-width: 768px) {
+    .container_cadastrar_livros {
+        width: 95%;
+        height: auto;
+    }
+
+    form input {
+        width: 95%; /* Ajusta os inputs para tablets */
+    }
+
+    input#ano_livro {
+        width: 40%; /* Ajusta o campo de ano */
+    }
+}
+
+/* Para smartphones (abaixo de 576px) */
+@media (max-width: 576px) {
+    .container_cadastrar_livros {
+        width: 100%; /* Ocupa toda a largura da tela */
+        padding: 10px;
+    }
+
+    form input {
+        width: 100%; /* Inputs ocupam toda a largura disponível */
+    }
+
+    input#ano_livro {
+        width: 100%; /* O campo de ano também ocupa toda a largura */
+    }
 }
 
 #form_cadastrar_livros label {
     color: white;
     padding-left: 7px;
-    align-self: flex-start; /* Alinha os labels à esquerda dentro do contêiner flex */
+    align-self: flex-start;
 }
 
-/* Container do label e do input */
 .container_ano_livro {
     display: flex;
     flex-direction: column;
@@ -166,7 +223,6 @@ input#ano_livro {
     outline: none;
 }
 
-
 .imagem_capa {
     display: flex;
     flex-direction: column;
@@ -177,10 +233,8 @@ input#ano_livro {
 .imagem_capa img {
     display: block;
     margin-bottom: 20px;
-    /* Espaçamento abaixo da imagem */
     width: 180px;
     border-radius: 10px;
-    
 }
 
 .btnEscolherFoto {
@@ -197,13 +251,9 @@ input#ano_livro {
 }
 
 .btnEscolherFoto:hover {
-    background-color:var(--marromClaro);
+    background-color: var(--marromClaro);
     color: var(--marromEscuro);
     font-weight: bolder;
-}
-
-.container_cadastrar_livros label{
-    text-align: left;
 }
 
 input[type="file"] {
@@ -217,23 +267,11 @@ input[type="file"] {
     text-align: left;
 }
 
-#form_cadastrar_livros  label {
+#form_cadastrar_livros label {
     color: white;
     font-weight: bolder;
     font-size: 18px;
     padding: 5px 10px;
-}
- 
-form input {
-    width: 50vw;
-    padding: 10px;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-}
-
-#ano_livro{
-    margin-bottom: 10px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -242,13 +280,11 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-/* Remove as setinhas em Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
-    /* Usa a aparência padrão de campo de texto */
 }
 
-button{
+button {
     background-color: var(--marromClaro);
     color: white;
     font-weight: bolder;
@@ -258,6 +294,6 @@ button{
     border: none;
 }
 
-button:hover{
+button:hover {
     color: var(--marromEscuro);
 }
