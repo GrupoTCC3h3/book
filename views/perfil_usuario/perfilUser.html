@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../img/favicon-bookswap.ico" type="image/x-icon">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="estilos/perfilUser.css"> <!-- Adicionei a folha de estilo -->
     <title>BookSwap</title>
 </head>
 
@@ -18,8 +18,9 @@
         </div>
         <hr>
     </header>
+
     <div class="container_icones_laterais">
-        <button id="voltar" class="icons_laterais"><i class="material-icons">arrow_back</i></button>
+        <button id="voltar" class="icons_laterais" onclick="voltarTelaInicial()"><i class="material-icons">arrow_back</i></button>
         <button id="menu" class="icons_laterais"><i class="material-icons">menu</i></button>
     </div>
 
@@ -40,11 +41,32 @@
     <main>
         <h1>Perfil</h1>
         <div class="container_perfil_user">
-            
+            <div class="container_foto_perfil">
+                <img src="" alt="Foto de perfil do usuario" class="profile-pic">
+            </div>
+            <div class="profile-info">
+                <p><strong>Nome do usuário: <span id="nomeUser"></span></strong></p>
+                <p><strong>Email:</strong> <span id="emailUser"></span></p>
+                <p><strong>Data de nascimento:</strong> <span id="dtNascUser"></span></p>
+                <p><strong>Endereço:</strong> <span id="enderecoUser"></span></p>
+                <p><strong>Bairro:</strong> <span id="bairroUser"></span></p>
+                <p><strong>Cidade:</strong> <span id="cidadeUser"></span></p>
+            </div>
+            <div class="profile-buttons">
+                <button class="btnOK">OK</button>
+                <button class="btnEditar" onclick="editarPerfil()">Editar Perfil</button>
+            </div>
         </div>
     </main>
 
-    <script src="perfilUser.js"></script>
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script src="../perfil_usuario/perfilUser.js"></script>
 </body>
 
 </html>

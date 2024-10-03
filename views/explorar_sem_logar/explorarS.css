@@ -89,3 +89,19 @@ h1 {
     text-align: center;
     color: var(--marromClaro);
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.copy {
+    margin-bottom: 10px;
+}

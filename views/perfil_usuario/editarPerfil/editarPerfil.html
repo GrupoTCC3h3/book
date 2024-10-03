@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../../img/favicon-bookswap.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../estilos/editarPerfil.css">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-text">
+            <img src="../../img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h1>BookSwap</h1>
+        </div>
+        <hr>
+    </header>
+
+    <div class="container_icones_laterais">
+        <button id="voltar" class="icons_laterais"><i class="material-icons" onclick="voltarPaginaAnterior()">arrow_back</i></button>
+        <button id="menu" class="icons_laterais"><i class="material-icons">menu</i></button>
+    </div>
+
+    <!-- Menu lateral direito -->
+    <nav id="sideMenu" class="hidden">
+        <button id="closeMenu"><i class="material-icons">close</i></button>
+        <ul>
+            <li><a href="#">Perfil (<span id="userName">Usuário</span>)</a></li>
+            <li><a href="#">Livros Disponíveis</a></li>
+            <li><a href="../cadastrar_livros/cadastrar_livros.html">Cadastrar Livros</a></li>
+            <li><a href="#">Livros Cadastrados</a></li>
+            <li><a href="#">Minhas Trocas</a></li>
+            <li><a href="#">Mensagens</a></li>
+            <li><a href="#" id="logout">Sair</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Editar Perfil</h1>
+        <div class="container_perfil_user">
+            <div class="container_foto_perfil">
+                <img src="../img/profile-placeholder.jpg" alt="Foto de perfil do usuario" class="profile-pic">
+                <button class="edit-foto-button">Alterar Foto</button>
+            </div>
+            <form id="editProfileForm">
+                <div class="profile-info">
+                    <label for="nomeUsuario">Nome do usuário:</label>
+                    <input type="text" id="nomeUsuario" value="Vinícius Oliveira">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="vini123@gmail.com">
+
+                    <label for="dataNascimento">Data de nascimento:</label>
+                    <input type="date" id="dataNascimento" value="2005-03-08">
+
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" id="endereco" value="Rua sem saída">
+
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" id="bairro" value="Jardim Valderez">
+
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" value="Dobrado-SP">
+                </div>
+                <div class="profile-buttons">
+                    <button type="submit" class="save-button">Salvar</button>
+                    <button type="button" class="cancel-button">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="editarPerfil.js"></script>
+</body>
+
+</html>

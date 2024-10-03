@@ -63,6 +63,7 @@ main>h2 {
     position: absolute;
     top: 95px;
     right: 20px;
+    cursor: pointer;
 }
 
 main p {
@@ -160,4 +161,20 @@ nav#sideMenu.visible {
 
 #closeMenu i {
     color: var(--marromEscuro);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.copy {
+    margin-bottom: 10px;
 }
