@@ -62,7 +62,7 @@ main h1 {
 }
 
 .icons_laterais {
-    background-color: #ada0a2;
+    background-color: var(--marromMaisClaro);
     border: none;
     border-radius: 5px;
     color: white;
@@ -123,7 +123,6 @@ nav#sideMenu.visible {
 }
 
 .container_perfil_user {
- 
     background-color: #D9CFC9;
     display: flex;
     flex-direction: column;
@@ -132,13 +131,9 @@ nav#sideMenu.visible {
     padding: 20px;
     border-radius: 15px;
     width: 100%;
-    /* Agora ocupa toda a largura */
-    max-width: 1200px;
-    /* Limita a largura máxima em telas maiores */
-    height: 50%;
+    max-width: 800px; /* Reduzi a largura máxima para telas maiores */
     margin-bottom: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
 }
 
 .container_foto_perfil {
@@ -158,16 +153,8 @@ nav#sideMenu.visible {
     border-radius: 5px;
     margin-bottom: 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    width: 30vw;
-}
-
-/* Responsividade para diferentes dispositivos */
-
-/* Para telas de laptops (a partir de 1024px) */
-@media (max-width: 1024px) {
-    .profile-info p {
-        width: 60vw;
-    }
+    width: 100%;
+    max-width: 600px; /* Adicionei uma largura máxima */
 }
 
 .profile-buttons {
@@ -203,21 +190,29 @@ nav#sideMenu.visible {
     border-color: #92634E;
 }
 
+/* Footer */
 footer {
     background-color: var(--marromClaro);
     width: 100%;
-    color: white;
-    font-weight: bold;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
-    margin-top: 50px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+.wrapper {
+    padding-bottom: 80px; /* Espaço reservado para o footer */
+}
+
+.content {
+    padding-bottom: 80px; /* Espaço para o footer */
 }
 
 .copy {
     margin-bottom: 10px;
 }
 
-.contato{
+.contato {
     margin-bottom: 10px;
 }
-
