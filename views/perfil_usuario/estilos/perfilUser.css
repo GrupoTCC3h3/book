@@ -135,7 +135,7 @@ nav#sideMenu.visible {
     /* Agora ocupa toda a largura */
     max-width: 1200px;
     /* Limita a largura máxima em telas maiores */
-    height: auto;
+    height: 50%;
     margin-bottom: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -204,18 +204,20 @@ nav#sideMenu.visible {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     background-color: var(--marromClaro);
+    width: 100%;
     color: white;
     font-weight: bold;
     padding: 30px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .copy {
+    margin-bottom: 10px;
+}
+
+.contato{
     margin-bottom: 10px;
 }
 

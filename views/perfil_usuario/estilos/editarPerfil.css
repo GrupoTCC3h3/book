@@ -223,3 +223,21 @@ nav#sideMenu.visible {
     color: white;
     border-color: #92634E;
 }
+
+footer {
+    background-color: var(--marromClaro);
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.copy {
+    margin-bottom: 10px;
+}
+
+.contato{
+    margin-bottom: 10px;
+}
