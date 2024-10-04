@@ -38,10 +38,34 @@ document.getElementById('logout').addEventListener('click', function() {
     window.location.href = '../index.html';
 });
 
-function voltarTelaInicial(){
-    window.location.href = "../apos_login/apos_login.html";
+// Função para obter parâmetros da URL
+function getQueryParams() {
+    const params = {};
+    const queryString = window.location.search.substring(1);
+    const regex = /([^&=]+)=([^&]*)/g;
+    let m;
+
+    while (m = regex.exec(queryString)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+    return params;
+}
+
+// Preencher os campos do perfil com os dados da URL
+window.onload = function() {
+    const userParams = getQueryParams();
+    document.getElementById('nomeUsuario').innerText = userParams.nome || 'Nome não disponível';
+    document.getElementById('email').innerText = userParams.email || 'Email não disponível';
+    document.getElementById('dataNascimento').innerText = userParams.data || 'Data de nascimento não disponível';
+    document.getElementById('endereco').innerText = userParams.endereco || 'Endereço não disponível';
+    document.getElementById('bairro').innerText = userParams.bairro || 'Bairro não disponível';
+    document.getElementById('cidade').innerText = userParams.cidade || 'Cidade não disponível';
+};
+
+function voltarPaginaAnterior() {
+    window.history.back();
 }
 
 function editarPerfil(){
-    window.location.href = "editarPerfil/editarUser.html";
+    window.location.href = 'editarPerfil/editarPerfil.html'
 }

@@ -38,6 +38,36 @@ document.getElementById('logout').addEventListener('click', function() {
     window.location.href = '../index.html';
 });
 
+// Função para lidar com o envio do formulário de edição de perfil
+document.getElementById('editProfileForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar o envio padrão do formulário
+
+    // Mostrar um alerta de confirmação
+    const confirmSave = confirm("Deseja realmente salvar as alterações?");
+
+    if (confirmSave) {
+        // Se o usuário confirmar, você pode redirecioná-lo para a página de perfil
+        // Aqui, você pode simular um redirecionamento. Substitua pela URL real da página de perfil.
+        const nomeUsuario = document.getElementById('nomeUsuario').value;
+        const email = document.getElementById('email').value;
+        const dataNascimento = document.getElementById('dataNascimento').value;
+        const endereco = document.getElementById('endereco').value;
+        const bairro = document.getElementById('bairro').value;
+        const cidade = document.getElementById('cidade').value;
+
+        // Aqui você pode armazenar as informações em um banco de dados ou localStorage
+        // Para fins de exemplo, estamos apenas redirecionando
+
+        // Substitua 'perfil.html' pela URL real da sua página de perfil
+        window.location.href = `/perfilUSer.html?nome=${encodeURIComponent(nomeUsuario)}&email=${encodeURIComponent(email)}&data=${encodeURIComponent(dataNascimento)}&endereco=${encodeURIComponent(endereco)}&bairro=${encodeURIComponent(bairro)}&cidade=${encodeURIComponent(cidade)}`;
+    } else {
+        // Se o usuário cancelar, você pode opcionalmente adicionar alguma lógica aqui
+        console.log("Alterações não salvas.");
+    }
+});
+
+// Função para voltar à página anterior
 function voltarPaginaAnterior() {
     window.history.back();
 }
+
