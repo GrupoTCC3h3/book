@@ -225,6 +225,8 @@ nav#sideMenu.visible {
 }
 
 footer {
+    position: absolute;
+    bottom: o;
     background-color: var(--marromClaro);
     width: 100%;
     color: white;
