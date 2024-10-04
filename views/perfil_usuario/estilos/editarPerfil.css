@@ -160,18 +160,42 @@ nav#sideMenu.visible {
     border-radius: 50%;
 }
 
-.edit-foto-button {
-    background-color: #A47C6A;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+
+.imagem_capa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.edit-foto-button:hover {
-    background-color: #92634E;
+.imagem_capa img {
+    display: block;
+    margin-bottom: 20px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.btnEscolherFoto {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 50px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.btnEscolherFoto:hover {
+    background-color: var(--marromClaro);
+    color: var(--marromEscuro);
+    font-weight: bolder;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 .profile-info {
