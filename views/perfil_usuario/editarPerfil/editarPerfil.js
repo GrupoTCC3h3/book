@@ -18,6 +18,16 @@ if (ultimoUsuarioCadastrado) {
     userName.textContent = ultimoUsuarioCadastrado;
 }
 
+// Carregar informações do usuário ao abrir a página
+window.onload = function() {
+    document.getElementById('nomeUsuario').value = localStorage.getItem('nomeUsuario') || '';
+    document.getElementById('email').value = localStorage.getItem('emailUsuario') || '';
+    document.getElementById('dataNascimento').value = localStorage.getItem('dataNascimento') || '';
+    document.getElementById('endereco').value = localStorage.getItem('endereco') || '';
+    document.getElementById('bairro').value = localStorage.getItem('bairro') || '';
+    document.getElementById('cidade').value = localStorage.getItem('cidade') || '';
+};
+
 // Previsualização da imagem de capa
 document.querySelector('input[type="file"]').addEventListener('change', function(event) {
     const preview = document.querySelector('.imagem_capa img');
@@ -46,20 +56,21 @@ document.getElementById('editProfileForm').addEventListener('submit', function (
     const confirmSave = confirm("Deseja realmente salvar as alterações?");
 
     if (confirmSave) {
-        // Se o usuário confirmar, você pode redirecioná-lo para a página de perfil
-        // Aqui, você pode simular um redirecionamento. Substitua pela URL real da página de perfil.
-        const nomeUsuario = document.getElementById('nomeUsuario').value;
-        const email = document.getElementById('email').value;
+        // Se o usuário confirmar, você pode armazenar as informações no localStorage
         const dataNascimento = document.getElementById('dataNascimento').value;
         const endereco = document.getElementById('endereco').value;
         const bairro = document.getElementById('bairro').value;
         const cidade = document.getElementById('cidade').value;
 
-        // Aqui você pode armazenar as informações em um banco de dados ou localStorage
-        // Para fins de exemplo, estamos apenas redirecionando
-
-        // Substitua 'perfil.html' pela URL real da sua página de perfil
-        window.location.href = `/perfilUSer.html?nome=${encodeURIComponent(nomeUsuario)}&email=${encodeURIComponent(email)}&data=${encodeURIComponent(dataNascimento)}&endereco=${encodeURIComponent(endereco)}&bairro=${encodeURIComponent(bairro)}&cidade=${encodeURIComponent(cidade)}`;
+        // Armazenar as informações no localStorage
+        localStorage.setItem('dataNascimento', dataNascimento);
+        localStorage.setItem('endereco', endereco);
+        localStorage.setItem('bairro', bairro);
+        localStorage.setItem('cidade', cidade);
+        
+        // Redirecionar de volta para a página de perfil após salvar
+         // Redirecionar para a página de perfil
+         window.location.href = `/book/book/views/perfil_usuario/perfilUser.html?nome=${encodeURIComponent(nomeUsuario)}&email=${encodeURIComponent(email)}&data=${encodeURIComponent(dataNascimento)}&endereco=${encodeURIComponent(endereco)}&bairro=${encodeURIComponent(bairro)}&cidade=${encodeURIComponent(cidade)}`;
     } else {
         // Se o usuário cancelar, você pode opcionalmente adicionar alguma lógica aqui
         console.log("Alterações não salvas.");
@@ -70,4 +81,3 @@ document.getElementById('editProfileForm').addEventListener('submit', function (
 function voltarPaginaAnterior() {
     window.history.back();
 }
-

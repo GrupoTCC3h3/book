@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('token', token);
             localStorage.setItem('userLogado', JSON.stringify(userValid));
             
+            // Salva o nome e email no localStorage após o login
+            salvarUsuarioNoLocalStorage(userValid.nomeCad, userValid.userCad);
+
             // Verifica se a opção de lembrar-me está marcada
             if (lembrarMe.checked) {
                 localStorage.setItem('savedEmail', usuario);
@@ -55,6 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Função para salvar nome e email no localStorage
+function salvarUsuarioNoLocalStorage(nome, email) {
+    localStorage.setItem('nomeUsuario', nome);
+    localStorage.setItem('emailUsuario', email);
+}
 
 function TelaCadastrar(){
     window.document.location.href = "../cadastro/cadastro.html";

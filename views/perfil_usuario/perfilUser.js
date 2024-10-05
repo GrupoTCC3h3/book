@@ -12,60 +12,55 @@ closeMenuButton.addEventListener('click', () => {
     sideMenu.classList.remove('visible');
 });
 
-// Exibir o nome do usuário no menu
+// Exibir o nome do último usuário cadastrado no menu
 const ultimoUsuarioCadastrado = localStorage.getItem('ultimoUsuario');
 if (ultimoUsuarioCadastrado) {
     userName.textContent = ultimoUsuarioCadastrado;
 }
 
-// Previsualização da imagem de capa
-document.querySelector('input[type="file"]').addEventListener('change', function(event) {
-    const preview = document.querySelector('.imagem_capa img');
-    const file = event.target.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-});
+// Carregar informações do usuário do localStorage
+const nomeUsuario = document.getElementById('nomeUsuario');
+const emailUsuario = document.getElementById('emailUsuario');
+const dataNascimento = document.getElementById('dataNascimento');
+const endereco = document.getElementById('endereco');
+const bairro = document.getElementById('bairro');
+const cidade = document.getElementById('cidade');
+
+// Função para preencher o perfil automaticamente ao carregar a página
+window.onload = function() {
+    const nome = localStorage.getItem('nomeUsuario');
+    const email = localStorage.getItem('emailUsuario');
+
+    // Exibir informações
+    nomeUsuario.textContent = nome ? nome : 'Nome não disponível';
+    emailUsuario.textContent = email ? email : 'Email não disponível';
+
+    // Verificar se as informações de perfil estão disponíveis e limpar campos se não
+    dataNascimento.textContent = localStorage.getItem('dataNascimento') || ''; // Limpar se não houver informação
+    endereco.textContent = localStorage.getItem('endereco') || ''; // Limpar se não houver informação
+    bairro.textContent = localStorage.getItem('bairro') || ''; // Limpar se não houver informação
+    cidade.textContent = localStorage.getItem('cidade') || ''; // Limpar se não houver informação
+};
 
 // Logout
 document.getElementById('logout').addEventListener('click', function() {
     localStorage.removeItem('ultimoUsuario');
+    // Remover todas as informações do usuário ao fazer logout
+    localStorage.removeItem('nomeUsuario');
+    localStorage.removeItem('emailUsuario');
+    localStorage.removeItem('dataNascimento');
+    localStorage.removeItem('endereco');
+    localStorage.removeItem('bairro');
+    localStorage.removeItem('cidade');
     window.location.href = '../index.html';
 });
 
-// Função para obter parâmetros da URL
-function getQueryParams() {
-    const params = {};
-    const queryString = window.location.search.substring(1);
-    const regex = /([^&=]+)=([^&]*)/g;
-    let m;
-
-    while (m = regex.exec(queryString)) {
-        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-    }
-    return params;
-}
-
-// Preencher os campos do perfil com os dados da URL
-window.onload = function() {
-    const userParams = getQueryParams();
-    document.getElementById('nomeUsuario').innerText = userParams.nome || 'Nome não disponível';
-    document.getElementById('email').innerText = userParams.email || 'Email não disponível';
-    document.getElementById('dataNascimento').innerText = userParams.data || 'Data de nascimento não disponível';
-    document.getElementById('endereco').innerText = userParams.endereco || 'Endereço não disponível';
-    document.getElementById('bairro').innerText = userParams.bairro || 'Bairro não disponível';
-    document.getElementById('cidade').innerText = userParams.cidade || 'Cidade não disponível';
-};
-
+// Função para voltar à página anterior
 function voltarPaginaAnterior() {
-    window.history.back();
+    window.history.back(); // Volta para a página anterior
 }
 
-function editarPerfil(){
-    window.location.href = 'editarPerfil/editarPerfil.html'
+// Função para redirecionar para a página de edição de perfil
+function editarPerfil() {
+    window.location.href = 'editarPerfil/editarPerfil.html';
 }
