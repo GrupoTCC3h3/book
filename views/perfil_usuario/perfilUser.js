@@ -36,16 +36,15 @@ window.onload = function() {
     emailUsuario.textContent = email ? email : 'Email não disponível';
 
     // Verificar se as informações de perfil estão disponíveis e limpar campos se não
-    dataNascimento.textContent = localStorage.getItem('dataNascimento') || ''; // Limpar se não houver informação
-    endereco.textContent = localStorage.getItem('endereco') || ''; // Limpar se não houver informação
-    bairro.textContent = localStorage.getItem('bairro') || ''; // Limpar se não houver informação
-    cidade.textContent = localStorage.getItem('cidade') || ''; // Limpar se não houver informação
+    dataNascimento.textContent = localStorage.getItem('dataNascimento') || ''; 
+    endereco.textContent = localStorage.getItem('endereco') || ''; 
+    bairro.textContent = localStorage.getItem('bairro') || ''; 
+    cidade.textContent = localStorage.getItem('cidade') || ''; 
 };
 
 // Logout
 document.getElementById('logout').addEventListener('click', function() {
     localStorage.removeItem('ultimoUsuario');
-    // Remover todas as informações do usuário ao fazer logout
     localStorage.removeItem('nomeUsuario');
     localStorage.removeItem('emailUsuario');
     localStorage.removeItem('dataNascimento');
@@ -57,10 +56,11 @@ document.getElementById('logout').addEventListener('click', function() {
 
 // Função para voltar à página anterior
 function voltarPaginaAnterior() {
-    window.history.back(); // Volta para a página anterior
+    window.document.location.href = "../apos_login/apos_login.html"
 }
 
 // Função para redirecionar para a página de edição de perfil
 function editarPerfil() {
     window.location.href = 'editarPerfil/editarPerfil.html';
 }
+

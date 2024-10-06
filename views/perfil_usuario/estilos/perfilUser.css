@@ -193,8 +193,7 @@ nav#sideMenu.visible {
 
 /* Footer */
 footer {
-    position: absolute;
-    bottom: o;
+    position: relative; /* Troquei de absolute para relative */
     background-color: var(--marromClaro);
     width: 100%;
     color: white;
@@ -202,13 +201,13 @@ footer {
     padding: 30px;
     text-align: center;
     margin-top: 50px;
-    /* Evitar sobreposição */
-    clear: both; /* Para evitar que flutuações acima o sobreponham */
+    clear: both; /* Evitar sobreposição */
 }
 
 /* Ajustando o main para evitar sobreposição */
 main {
-    padding-bottom: 100px; /* Adicione um padding inferior que corresponda à altura do footer */
+    min-height: calc(100vh - 100px); /* Altura mínima para garantir que o conteúdo ocupe o espaço restante */
+    padding-bottom: 50px; /* Adicione um padding inferior que corresponda à altura do footer */
 }
 
 /* Media Query para telas menores */
@@ -218,9 +217,11 @@ main {
     }
 
     main {
+        min-height: calc(100vh - 80px); /* Ajuste o main conforme o tamanho do footer menor */
         padding-bottom: 80px; /* Ajuste conforme necessário */
     }
 }
+
 
 .copy {
     margin-bottom: 10px;

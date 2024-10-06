@@ -37,3 +37,7 @@ document.getElementById('logout').addEventListener('click', function() {
     localStorage.removeItem('ultimoUsuario');
     window.location.href = '../index.html';
 });
+
+function voltarTelaInicial(){
+    window.document.location.href = "../apos_login/apos_login.html"
+}

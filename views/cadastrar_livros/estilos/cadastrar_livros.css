@@ -298,16 +298,35 @@ button:hover {
     color: var(--marromEscuro);
 }
 
+/* Footer */
 footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    position: relative; /* Troquei de absolute para relative */
     background-color: var(--marromClaro);
+    width: 100%;
     color: white;
     font-weight: bold;
     padding: 30px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
+    clear: both; /* Evitar sobreposição */
+}
+
+/* Ajustando o main para evitar sobreposição */
+main {
+    min-height: calc(100vh - 100px); /* Altura mínima para garantir que o conteúdo ocupe o espaço restante */
+    padding-bottom: 50px; /* Adicione um padding inferior que corresponda à altura do footer */
+}
+
+/* Media Query para telas menores */
+@media (max-width: 600px) {
+    footer {
+        padding: 20px; /* Reduzir o padding em telas menores */
+    }
+
+    main {
+        min-height: calc(100vh - 80px); /* Ajuste o main conforme o tamanho do footer menor */
+        padding-bottom: 80px; /* Ajuste conforme necessário */
+    }
 }
 
 .copy {

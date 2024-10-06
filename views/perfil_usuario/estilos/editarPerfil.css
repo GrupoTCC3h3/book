@@ -160,44 +160,6 @@ nav#sideMenu.visible {
     border-radius: 50%;
 }
 
-
-.imagem_capa {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.imagem_capa img {
-    display: block;
-    margin-bottom: 20px;
-    width: 180px;
-    border-radius: 10px;
-}
-
-.btnEscolherFoto {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 10px 50px;
-    border: none;
-    cursor: pointer;
-    background-color: var(--marromClaro);
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-
-.btnEscolherFoto:hover {
-    background-color: var(--marromClaro);
-    color: var(--marromEscuro);
-    font-weight: bolder;
-}
-
-input[type="file"] {
-    display: none;
-}
-
 .profile-info {
     display: flex;
     flex-direction: column;
@@ -248,9 +210,9 @@ input[type="file"] {
     border-color: #92634E;
 }
 
+/* Footer */
 footer {
-    position: absolute;
-    bottom: o;
+    position: relative; /* Troquei de absolute para relative */
     background-color: var(--marromClaro);
     width: 100%;
     color: white;
@@ -258,7 +220,27 @@ footer {
     padding: 30px;
     text-align: center;
     margin-top: 50px;
+    clear: both; /* Evitar sobreposição */
 }
+
+/* Ajustando o main para evitar sobreposição */
+main {
+    min-height: calc(100vh - 100px); /* Altura mínima para garantir que o conteúdo ocupe o espaço restante */
+    padding-bottom: 50px; /* Adicione um padding inferior que corresponda à altura do footer */
+}
+
+/* Media Query para telas menores */
+@media (max-width: 600px) {
+    footer {
+        padding: 20px; /* Reduzir o padding em telas menores */
+    }
+
+    main {
+        min-height: calc(100vh - 80px); /* Ajuste o main conforme o tamanho do footer menor */
+        padding-bottom: 80px; /* Ajuste conforme necessário */
+    }
+}
+
 
 .copy {
     margin-bottom: 10px;
