@@ -83,8 +83,8 @@ form h1 {
 .campo {
     background-color: var(--marromMaisClaro);
     text-align: center;
-    margin: 15px 0;
-    width: 100%;
+    margin: 15px auto;
+    width: 95%;
     display: flex;
     align-items: center;
     border-radius: 15px;
@@ -110,7 +110,9 @@ form h1 {
     background-color: white;
     color: var(--marromClaro);
     font-weight: bold;
-    width: 100%;
+    width: 95%;
+    display: block;
+    margin: auto;
     height: 45px;
     border-radius: 15px;
     border: none;
