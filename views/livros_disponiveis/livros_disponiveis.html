@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/favicon-bookswap.ico" type="image/x-icon">
+    <link rel="stylesheet" href="livros_disponiveis.css">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <header>
+        <div class="container_icones_laterais">
+            <button id="voltar" class="icons_laterais"><i class="material-icons"
+                    onclick="voltarPaginaAnterior()">arrow_back</i></button>
+        </div>
+        <div class="logo-text">
+            <img src="../img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h2>BookSwap</h2>
+        </div>
+    </header>
+    <hr>
+        <!-- Menu lateral direito -->
+        <nav id="sideMenu" class="hidden">
+            <button id="closeMenu"><i class="material-icons">close</i></button>
+            <ul>
+                <li><a href="../perfil_usuario/perfilUser.html">Perfil</a></li>
+                <li><a href="../comoFunciona_logado/como_funciona.html">Como Funciona</a></li>
+                <li><a href="../livros_disponiveis/livros_disponiveis.html">Livros Disponíveis</a></li>
+                <li><a href="../cadastrar_livros/cadastrar_livros.html">Cadastrar Livros</a></li>
+                <li><a href="../livros_cadastrados/livros_cadastrado.html">Livros Cadastrados</a></li>
+                <li><a href="#">Minhas Trocas</a></li>
+                <li><a href="#">Mensagens</a></li>
+                <li><a href="#" id="logout">Sair</a></li> 
+            </ul>
+        </nav>
+    <main>
+        <h1>Livros Disponiveis</h1>
+        <div class="container">
+
+        </div>
+    </main>
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
+        </div>
+    </footer>
+
+
+    <script src="livros_disponiveis.js">
+        
+    </script>
+</body>
+
+</html>

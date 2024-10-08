@@ -1,0 +1,169 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    color: var(--marromEscuro);
+    height: 100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.container_icones_laterais {
+    position: absolute;
+    left: 20px; /* Mantém o botão à esquerda */
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+hr {
+    margin-bottom: 15px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px; /* Espaço entre a logo e o texto */
+}
+
+header > div  > h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+h1 {
+    text-align: center;
+    color: var(--marromClaro);
+}
+
+#menu {
+    height: 50px;
+    background-color: #d5ccc7;
+    border: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    position: absolute;
+    top: 95px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/* Menu lateral */
+nav#sideMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    background-color: var(--marromSuperClaro);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+nav#sideMenu ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav#sideMenu ul li {
+    margin: 15px 0;
+}
+
+nav#sideMenu ul li a {
+    color: var(--marromEscuro);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav#sideMenu.hidden {
+    transform: translateX(100%);
+}
+
+nav#sideMenu.visible {
+    transform: translateX(0);
+}
+
+#closeMenu {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#closeMenu i {
+    color: var(--marromEscuro);
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.copy {
+    margin-bottom: 10px;
+}

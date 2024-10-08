@@ -20,12 +20,51 @@ body {
 
 header {
     color: var(--marromEscuro);
-    height: 150px;
+    height: 100px;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
     align-items: center;
     padding: 20px;
+    position: relative;
+}
+
+.container_icones_laterais {
+    position: absolute;
+    left: 20px; /* Mantém o botão à esquerda */
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+hr {
+    margin-bottom: 15px;
 }
 
 header .logo-text {
@@ -44,51 +83,11 @@ header > div  > h2 {
     color: var(--marromClaro);
 }
 
-header a, header button {
-    color: var(--marromClaro);
-    margin-left: 20px;
-}
-
-header a {
-    text-decoration: none;
-}
-
-header a:hover {
-    text-decoration: underline;
-    color: var(--marromEscuro);
-}
-
-#cadastrar{
-    background-color: var(--marromClaro);
-    border-radius: 10px;
-    color: white;
-    padding: 15px;
-    font-weight: bold;
-}
-
-#cadastrar:hover{
-    text-decoration: none;
-}
-
-header button {
-    background-color: #ac8f83;
-    color: white;
-    font-weight: bold;
-    padding: 8px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-header button:hover{
-    background-color: var(--marromMaisClaro);
-    color: var(--marromEscuro);
-}
-
 h1 {
     text-align: center;
     color: var(--marromClaro);
 }
+
 
 footer {
     position: absolute;

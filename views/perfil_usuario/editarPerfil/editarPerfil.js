@@ -40,12 +40,6 @@ window.onload = function() {
     cidade.value = localStorage.getItem('cidade') || '';
 };
 
-// Logout
-document.getElementById('logout').addEventListener('click', function() {
-    localStorage.removeItem('ultimoUsuario');
-    window.location.href = '../../index.html';
-});
-
 // Função para lidar com o envio do formulário de edição de perfil
 document.getElementById('editProfileForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Evitar o envio padrão do formulário
@@ -72,7 +66,7 @@ document.getElementById('editProfileForm').addEventListener('submit', function (
         localStorage.setItem('cidade', cidade);
 
         // Redirecionar para a página de perfil após salvar
-        window.location.href = '/book/book/views/perfil_usuario/perfilUser.html';
+        window.location.href = 'file:///C:/tcc/book/views/perfil_usuario/perfilUser.html';
     }
 });
 
