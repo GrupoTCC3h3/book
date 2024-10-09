@@ -18,7 +18,7 @@ if (ultimoUsuarioCadastrado) {
     userName.textContent = ultimoUsuarioCadastrado;
 }
 
-// Carregar informações do usuário ao abrir a página e manter os campos de nome e email desabilitados
+// Função para carregar informações do usuário ao abrir a página
 window.onload = function() {
     const nomeUsuario = document.getElementById('nomeUsuario');
     const email = document.getElementById('email');
@@ -27,17 +27,19 @@ window.onload = function() {
     const bairro = document.getElementById('bairro');
     const cidade = document.getElementById('cidade');
 
-    // Preencher os campos desabilitados com os dados do cadastro
+    // Preencher os campos com os dados do cadastro
     nomeUsuario.value = localStorage.getItem('nomeUsuario') || '';
     email.value = localStorage.getItem('emailUsuario') || '';
-    nomeUsuario.disabled = true;  // Campo de nome desabilitado
-    email.disabled = true;        // Campo de email desabilitado
-
-    // Preencher os demais campos com valores salvos ou vazios
+    
+    // Preencher campos editáveis com dados existentes ou valores padrão
     dataNascimento.value = localStorage.getItem('dataNascimento') || '';
     endereco.value = localStorage.getItem('endereco') || '';
     bairro.value = localStorage.getItem('bairro') || '';
     cidade.value = localStorage.getItem('cidade') || '';
+
+    // Desabilitar campos de nome e email
+    nomeUsuario.disabled = true;  // Campo de nome desabilitado
+    email.disabled = true;        // Campo de email desabilitado
 };
 
 // Função para lidar com o envio do formulário de edição de perfil
@@ -50,23 +52,37 @@ document.getElementById('editProfileForm').addEventListener('submit', function (
     const bairro = document.getElementById('bairro').value;
     const cidade = document.getElementById('cidade').value;
 
-    // Verificar se todos os campos obrigatórios foram preenchidos
-    if (dataNascimento === '' || endereco === '' || bairro === '' || cidade === '') {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-        return;
-    }
+    // Pegar os valores anteriores do localStorage
+    const oldDataNascimento = localStorage.getItem('dataNascimento');
+    const oldEndereco = localStorage.getItem('endereco');
+    const oldBairro = localStorage.getItem('bairro');
+    const oldCidade = localStorage.getItem('cidade');
 
-    // Confirmar se o usuário quer salvar as alterações
-    const confirmSave = confirm("Deseja realmente salvar as alterações?");
-    if (confirmSave) {
-        // Salvar as informações no localStorage
-        localStorage.setItem('dataNascimento', dataNascimento);
-        localStorage.setItem('endereco', endereco);
-        localStorage.setItem('bairro', bairro);
-        localStorage.setItem('cidade', cidade);
+    // Verificar se houve alguma alteração nos dados
+    const hasChanges = (
+        dataNascimento !== oldDataNascimento ||
+        endereco !== oldEndereco ||
+        bairro !== oldBairro ||
+        cidade !== oldCidade
+    );
 
-        // Redirecionar para a página de perfil após salvar
-        window.location.href = 'file:///C:/tcc/book/views/perfil_usuario/perfilUser.html';
+    if (hasChanges) {
+        // Confirmar se o usuário quer salvar as alterações
+        const confirmSave = confirm("Deseja realmente salvar as alterações?");
+        if (confirmSave) {
+            // Salvar as informações no localStorage
+            localStorage.setItem('dataNascimento', dataNascimento);
+            localStorage.setItem('endereco', endereco);
+            localStorage.setItem('bairro', bairro);
+            localStorage.setItem('cidade', cidade);
+
+            // Mostrar mensagem de sucesso
+            alert("Alterações salvas com sucesso!");
+            window.location.href = "file:///C:/tcc/book/views/perfil_usuario/perfilUser.html"
+        }
+    } else {
+        // Não faz nada se não houver alterações
+        console.log("Nenhuma alteração foi feita."); // Você pode remover esta linha ou manter para depuração
     }
 });
 

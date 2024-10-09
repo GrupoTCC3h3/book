@@ -66,7 +66,7 @@ main>h2 {
     cursor: pointer;
 }
 
-main p {
+main .colorP {
     color: var(--marromClaro);
     font-weight: bold;
     text-align: center;
