@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let userValid = listaUser.find(item => item.userCad === usuario && item.senhaCad === senha);
         
         if (userValid) {
+            sessionStorage.setItem("currentUser", JSON.stringify(userValid));
+
             // Usuário autenticado com sucesso
             let mathRandom = Math.random().toString(16).substr(2);
             let token = mathRandom + mathRandom;

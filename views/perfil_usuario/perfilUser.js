@@ -11,7 +11,7 @@ closeMenuButton.addEventListener('click', () => {
     sideMenu.classList.remove('visible');
 });
 
-// Carregar informações do usuário do localStorage
+// Carregar informações do usuário logado do localStorage
 const nomeUsuario = document.getElementById('nomeUsuario');
 const emailUsuario = document.getElementById('emailUsuario');
 const dataNascimento = document.getElementById('dataNascimento');
@@ -21,32 +21,25 @@ const cidade = document.getElementById('cidade');
 
 // Função para preencher o perfil automaticamente ao carregar a página
 window.onload = function () {
-    const nome = localStorage.getItem('nomeUsuario');
-    const email = localStorage.getItem('emailUsuario');
-    const dataNasc = localStorage.getItem('dataNascimento');
-    const end = localStorage.getItem('endereco');
-    const b = localStorage.getItem('bairro');
-    const c = localStorage.getItem('cidade');
+    const usuarioAtual = JSON.parse(sessionStorage.getItem('currentUser'));
 
-    // Exibir informações
-    nomeUsuario.textContent = nome ? nome : 'Nome não disponível';
-    emailUsuario.textContent = email ? email : 'Email não disponível';
-    dataNascimento.textContent = dataNasc ? dataNasc : 'Data não disponível';
-    endereco.textContent = end ? end : 'Endereço não disponível';
-    bairro.textContent = b ? b : 'Bairro não disponível';
-    cidade.textContent = c ? c : 'Cidade não disponível';
+    if (usuarioAtual) {
+        nomeUsuario.textContent = usuarioAtual.nomeCad || 'Nome não disponível';
+        emailUsuario.textContent = usuarioAtual.userCad || 'Email não disponível';
+        dataNascimento.textContent = usuarioAtual.dataNascimento || '';
+        endereco.textContent = usuarioAtual.endereco?.logradouro || '';
+        bairro.textContent = usuarioAtual.endereco?.bairro || '';
+        cidade.textContent = usuarioAtual.endereco?.cidade || '';
+    } else {
+        nomeUsuario.textContent = 'Nome não disponível';
+        emailUsuario.textContent = 'Email não disponível';
+    }
 };
 
 // Logout
 document.getElementById('logout').addEventListener('click', function () {
-    localStorage.removeItem('ultimoUsuario');
-    localStorage.removeItem('nomeUsuario');
-    localStorage.removeItem('emailUsuario');
-    localStorage.removeItem('dataNascimento');
-    localStorage.removeItem('endereco');
-    localStorage.removeItem('bairro');
-    localStorage.removeItem('cidade');
-    window.location.href = '../index.html';
+    localStorage.removeItem('usuarioAtual'); // Limpa apenas o usuário atual
+    window.location.href = '../index.html'; // Redireciona para a página inicial
 });
 
 // Função para voltar à página anterior
@@ -56,32 +49,5 @@ function voltarPaginaAnterior() {
 
 // Função para redirecionar para a página de edição de perfil
 function editarPerfil() {
-    // Redireciona para a página de edição de perfil
-    window.location.href = 'editarPerfil/editarPerfil.html';
-}
-
-// Função para salvar as informações editadas no localStorage
-function salvarEdicao() {
-    const nomeEditado = document.getElementById('editNome').value;
-    const emailEditado = document.getElementById('editEmail').value;
-    const dataNascEditado = document.getElementById('editDataNasc').value;
-    const enderecoEditado = document.getElementById('editEndereco').value;
-    const bairroEditado = document.getElementById('editBairro').value;
-    const cidadeEditada = document.getElementById('editCidade').value;
-
-    // Atualiza as informações no localStorage
-    localStorage.setItem('nomeUsuario', nomeEditado);
-    localStorage.setItem('emailUsuario', emailEditado);
-    localStorage.setItem('dataNascimento', dataNascEditado);
-    localStorage.setItem('endereco', enderecoEditado);
-    localStorage.setItem('bairro', bairroEditado);
-    localStorage.setItem('cidade', cidadeEditada);
-
-    // Retorna para a página de perfil
-    window.location.href = 'file:///C:/tcc/book/views/perfil_usuario/perfilUser.html';
-}
-
-// Adicione a função para voltar ao início (defina seu comportamento conforme necessário)
-function voltarInicio() {
-    window.location.href = '../index.html'; // Ajuste para a página inicial do seu site
+    window.location.href = 'editarPerfil/editarPerfil.html'; // Redireciona para a página de edição de perfil
 }

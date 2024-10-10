@@ -19,11 +19,12 @@ let formCadastro = document.querySelector('#formCadastro');
 let msgError = document.querySelector('#msgError');
 let msgSuccess = document.querySelector('#msgSuccess');
 
-// Funções de validação para os campos do formulário
+// Funções de validação
 function validarNome() {
     let errorNome = document.getElementById('errorNome');
     if (nome.value.length < 2) {
         errorNome.textContent = 'Insira no mínimo 2 caracteres para o campo nome';
+        errorNome.setAttribute('style', 'color: red; font-size: 15px');
         nome.setAttribute('style', 'border-color: red');
         validNome = false;
     } else {
@@ -38,6 +39,7 @@ function validarEmail() {
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(usuario.value)) {
         errorEmail.textContent = 'Insira um email válido';
+        errorEmail.setAttribute('style', 'color: red; font-size: 15px');
         usuario.setAttribute('style', 'border-color: red');
         validUsuario = false;
     } else {
@@ -51,6 +53,7 @@ function validarSenha() {
     let errorSenha = document.getElementById('errorSenha');
     if (senha.value.length < 8) {
         errorSenha.textContent = 'Insira no mínimo 8 caracteres para o campo senha';
+        errorSenha.setAttribute('style', 'color: red; font-size: 15px');
         senha.setAttribute('style', 'border-color: red');
         validSenha = false;
     } else {
@@ -64,6 +67,7 @@ function validarConfirmSenha() {
     let errorConfirmSenha = document.getElementById('errorConfirmSenha');
     if (senha.value !== confirmSenha.value) {
         errorConfirmSenha.textContent = 'As senhas não conferem';
+        errorConfirmSenha.setAttribute('style', 'color: red; font-size: 15px');
         confirmSenha.setAttribute('style', 'border-color: red');
         validConfirmSenha = false;
     } else {
@@ -85,6 +89,16 @@ formCadastro.addEventListener('submit', (event) => {
     if (validNome && validUsuario && validSenha && validConfirmSenha) {
         let listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
         
+        // Verifica se o e-mail já está cadastrado
+        const usuarioExistente = listaUser.find(user => user.userCad === usuario.value);
+        if (usuarioExistente) {
+            msgError.setAttribute('style', 'display: block');
+            msgError.innerHTML = '<strong>E-mail já cadastrado!</strong>';
+            msgSuccess.innerHTML = '';
+            msgSuccess.setAttribute('style', 'display: none');
+            return;
+        }
+
         listaUser.push({
             nomeCad: nome.value,
             userCad: usuario.value,
@@ -114,8 +128,11 @@ formCadastro.addEventListener('submit', (event) => {
 
 // Função para salvar nome e email no localStorage
 function salvarUsuarioNoLocalStorage(nome, email) {
-    localStorage.setItem('nomeUsuario', nome);
-    localStorage.setItem('emailUsuario', email);
+    const listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
+    
+    // Armazena o usuário atual no localStorage
+    const usuarioAtual = { nome, email };
+    localStorage.setItem('usuarioAtual', JSON.stringify(usuarioAtual));
 }
 
 // Funções de navegação

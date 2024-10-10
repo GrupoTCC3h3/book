@@ -13,13 +13,17 @@ closeMenuButton.addEventListener('click', () => {
 });
 
 // Exibir o nome do usuário no menu
-const ultimoUsuarioCadastrado = localStorage.getItem('ultimoUsuario');
-if (ultimoUsuarioCadastrado) {
-    userName.textContent = ultimoUsuarioCadastrado;
-}
+// const ultimoUsuarioCadastrado = localStorage.getItem('ultimoUsuario');
+// if (ultimoUsuarioCadastrado) {
+//     userName.textContent = ultimoUsuarioCadastrado;
+// }
 
 // Função para carregar informações do usuário ao abrir a página
 window.onload = function() {
+    const user = JSON.parse(sessionStorage.getItem("currentUser"));
+
+    userName.textContent = user.nomeCad;
+
     const nomeUsuario = document.getElementById('nomeUsuario');
     const email = document.getElementById('email');
     const dataNascimento = document.getElementById('dataNascimento');
@@ -28,14 +32,14 @@ window.onload = function() {
     const cidade = document.getElementById('cidade');
 
     // Preencher os campos com os dados do cadastro
-    nomeUsuario.value = localStorage.getItem('nomeUsuario') || '';
-    email.value = localStorage.getItem('emailUsuario') || '';
+    nomeUsuario.value = user.nomeCad || '';
+    email.value = user.userCad || '';
     
     // Preencher campos editáveis com dados existentes ou valores padrão
-    dataNascimento.value = localStorage.getItem('dataNascimento') || '';
-    endereco.value = localStorage.getItem('endereco') || '';
-    bairro.value = localStorage.getItem('bairro') || '';
-    cidade.value = localStorage.getItem('cidade') || '';
+    dataNascimento.value = user.dataNascimento || '';
+    endereco.value = user.endereco?.logradouro || '';
+    bairro.value = user.endereco?.bairro || '';
+    cidade.value = user.endereco?.cidade || '';
 
     // Desabilitar campos de nome e email
     nomeUsuario.disabled = true;  // Campo de nome desabilitado
@@ -46,17 +50,18 @@ window.onload = function() {
 document.getElementById('editProfileForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Evitar o envio padrão do formulário
 
+    const user = JSON.parse(sessionStorage.getItem("currentUser"));
+
     // Pegar os valores dos campos que podem ser editados
     const dataNascimento = document.getElementById('dataNascimento').value;
     const endereco = document.getElementById('endereco').value;
     const bairro = document.getElementById('bairro').value;
     const cidade = document.getElementById('cidade').value;
 
-    // Pegar os valores anteriores do localStorage
-    const oldDataNascimento = localStorage.getItem('dataNascimento');
-    const oldEndereco = localStorage.getItem('endereco');
-    const oldBairro = localStorage.getItem('bairro');
-    const oldCidade = localStorage.getItem('cidade');
+    const oldDataNascimento = user.dataNascimento || '';
+    const oldEndereco = user.endereco?.logradouro || '';
+    const oldBairro = user.endereco?.bairro || '';
+    const oldCidade = user.endereco?.cidade || '';
 
     // Verificar se houve alguma alteração nos dados
     const hasChanges = (
@@ -70,15 +75,24 @@ document.getElementById('editProfileForm').addEventListener('submit', function (
         // Confirmar se o usuário quer salvar as alterações
         const confirmSave = confirm("Deseja realmente salvar as alterações?");
         if (confirmSave) {
-            // Salvar as informações no localStorage
-            localStorage.setItem('dataNascimento', dataNascimento);
-            localStorage.setItem('endereco', endereco);
-            localStorage.setItem('bairro', bairro);
-            localStorage.setItem('cidade', cidade);
+            const listUsuarios = JSON.parse(localStorage.getItem("listaUser"));
+            const posicao = listUsuarios.findIndex(u => u.userCad == user.userCad && u.senhaCad == user.senhaCad);
+
+            user.dataNascimento = dataNascimento;
+            user.endereco = {
+                logradouro: endereco,
+                bairro: bairro,
+                cidade: cidade,
+            }
+
+            listUsuarios[posicao] = user;
+
+            localStorage.setItem("listaUser", JSON.stringify(listUsuarios));
+            sessionStorage.setItem("currentUser", JSON.stringify(user));
 
             // Mostrar mensagem de sucesso
             alert("Alterações salvas com sucesso!");
-            window.location.href = "file:///C:/tcc/book/views/perfil_usuario/perfilUser.html"
+            window.location.href = "file:///C:/tcc/book/views/perfil_usuario/perfilUser.html";
         }
     } else {
         // Não faz nada se não houver alterações
