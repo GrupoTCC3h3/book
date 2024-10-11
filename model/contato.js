@@ -1,39 +1,39 @@
-const Contato = sequelize.define('Contato', {
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db/database.js";
+
+const Livro = sequelize.define('Livro', {
     id: {
-        type: DataTypes.BIGINT,  // Altera para BIGINT
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
     },
-    id_livro: {
-        type: DataTypes.BIGINT,  // Altera para BIGINT
+    titulo: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+    },
+    estado: {
+        type: DataTypes.ENUM('otimo', 'bom', 'regular', 'ruim'),
+        allowNull: false,
+    },
+    ano_lancamento: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    autor: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+    },
+    id_dono: {
+        type: DataTypes.BIGINT,
         allowNull: false,
         references: {
-            model: 'livro',  // Referência à tabela livro
+            model: 'pessoa',
             key: 'id',
         },
-    },
-    id_iniciador: {
-        type: DataTypes.BIGINT,  // Altera para BIGINT
-        allowNull: false,
-        references: {
-            model: 'pessoa',  // Referência à tabela pessoa
-            key: 'id',
-        },
-    },
-    id_dono_livro: {
-        type: DataTypes.BIGINT,  // Altera para BIGINT
-        allowNull: false,
-        references: {
-            model: 'pessoa',  // Referência à tabela pessoa
-            key: 'id',
-        },
-    },
-    criado_em: {
-        type: DataTypes.DATE,  // Altera para DATE para datetime
-        defaultValue: DataTypes.NOW,  // Define valor padrão
     },
 }, {
-    tableName: "contato",  // Nome da tabela
+    tableName: "livro",
     timestamps: false,
 });
 
+export default Livro; // Exportação padrão

@@ -1,3 +1,6 @@
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db/database.js";
+
 const Livro = sequelize.define('Livro', {
     id: {
         type: DataTypes.BIGINT,  // Altera para BIGINT
@@ -33,3 +36,5 @@ const Livro = sequelize.define('Livro', {
     timestamps: false,
 });
 
+// Exportação do modelo
+export default Livro; // Default export
