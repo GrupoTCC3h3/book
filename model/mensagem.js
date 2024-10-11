@@ -1,3 +1,6 @@
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db/database.js";
+
 const Mensagem = sequelize.define('Mensagem', {
     id: {
         type: DataTypes.BIGINT,  // Altera para BIGINT
@@ -40,4 +43,7 @@ const Mensagem = sequelize.define('Mensagem', {
     tableName: "mensagem",  // Nome da tabela
     timestamps: false,
 });
+
+// Exportação do modelo
+export default Mensagem; // Default export
 
