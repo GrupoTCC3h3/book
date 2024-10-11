@@ -1,39 +1,33 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/database.js";
 
-const Livro = sequelize.define('Livro', {
+// Definição do modelo Contato
+const Contato = sequelize.define('Contato', {
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
     },
-    titulo: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-    },
-    estado: {
-        type: DataTypes.ENUM('otimo', 'bom', 'regular', 'ruim'),
-        allowNull: false,
-    },
-    ano_lancamento: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    autor: {
-        type: DataTypes.STRING(200),
-        allowNull: true,
-    },
-    id_dono: {
+    id_livro: {
         type: DataTypes.BIGINT,
         allowNull: false,
-        references: {
-            model: 'pessoa',
-            key: 'id',
-        },
+    },
+    id_iniciador: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+    },
+    id_dono_livro: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+    },
+    criado_em: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: "livro",
-    timestamps: false,
+    tableName: "contato", // Nome da tabela no banco de dados
+    timestamps: false, // Não usar timestamps automáticos
 });
 
-export default Livro; // Exportação padrão
+// Exportando o modelo Contato como exportação padrão
+export default Contato;

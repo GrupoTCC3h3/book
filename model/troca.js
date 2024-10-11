@@ -1,3 +1,6 @@
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db/database.js";
+
 const Troca = sequelize.define('Troca', {
     id: {
         type: DataTypes.BIGINT,  // Altera para BIGINT
@@ -44,4 +47,7 @@ const Troca = sequelize.define('Troca', {
     tableName: "troca",  // Nome da tabela
     timestamps: false,
 });
+
+// Exportação do modelo
+export default Troca; // Default export
 

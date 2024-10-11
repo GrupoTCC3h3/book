@@ -2,11 +2,13 @@ import express from 'express';
 import dotenv from 'dotenv';
 import pessoas from './routes/pessoa.js';
 import contato from './routes/contato.js';
-import livro from './routes/livro.js'; // Importando as rotas do livro
+import livro from './routes/livro.js'; 
+import Troca from './routes/troca.js';
 import { sequelize } from './db/database.js';
 import swaggerUI from 'swagger-ui-express';
 import swagger from './swagger/swagger.js';
 import cors from 'cors';
+
 
 dotenv.config();
 
@@ -21,7 +23,8 @@ app.use(cors({
 // Definindo as rotas
 app.use("/pessoa", pessoas);
 app.use("/contato", contato);
-app.use("/livro", livro); // Usando as rotas de livro
+app.use("/livro", livro);
+app.use("/troca", Troca) 
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger)); // Swagger já configurado aqui
 
 // Sincronizando com o banco de dados
