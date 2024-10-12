@@ -19,7 +19,8 @@
         <hr>
     </header>
     <div class="container_icones_laterais">
-        <button id="voltar" class="icons_laterais"><i class="material-icons" onclick="voltarTelaInicial()">arrow_back</i></button>
+        <button id="voltar" class="icons_laterais"><i class="material-icons"
+                onclick="voltarTelaInicial()">arrow_back</i></button>
         <button id="menu" class="icons_laterais"><i class="material-icons">menu</i></button>
     </div>
 
@@ -46,56 +47,27 @@
                     Escolher a foto da capa
                 </label>
             </div>
-            <form id="form_cadastrar_livros" action="/cadastrar-livro" method="POST" autocomplete="on">
-                <label for="nome_livro">Nome do livro:</label>
-                <input 
-                    type="text" 
-                    id="nome_livro" 
-                    name="nome_livro" 
-                    required 
-                    maxlength="100" 
-                    minlength="2" 
-                    pattern="[A-Za-z0-9\s]+"
-                    title="O nome do livro deve conter apenas letras, números e espaços"
-                >
-                <label for="genero_livro">Gênero do livro:</label>
-                <input 
-                    type="text"
-                    id="genero_livro"
-                    name="genero_livro"
-                    required
-                    maxlength="100" 
-                    minlength="2" 
-                    pattern="[A-Za-z0-9\s]+"
-                    title="O gênero do livro deve conter apenas letras, números e espaços"
-                >
-                <label for="cond_livro">Condições do livro:</label>
-                <input 
-                    type="text"
-                    id="cond_livro"
-                    name="cond_livro"
-                    required
-                    maxlength="100" 
-                    minlength="2" 
-                    pattern="[A-Za-z0-9\s]+"
-                    title="A condição do livro deve conter apenas letras, números e espaços"
-                >
-                <label for="nome_autor">Autor do livro:</label>
-                <input 
-                    type="text"
-                    id="nome_autor"
-                    name="nome_autor"
-                    required
-                    maxlength="100" 
-                    minlength="2" 
-                    pattern="[A-Za-z0-9\s]+"
-                    title="O nome do autor deve conter apenas letras, números e espaços"
-                >
-                <div class="container_ano_livro">
-                    <label for="ano_livro" id="lblAnoLivro">Ano do livro:</label>
-                    <input type="number" id="ano_livro" name="ano_livro" required min="1900" max="2099" step="1" title="Insira um ano válido entre 1900 e 2099.">
-                </div>
-                
+            <form id="form_cadastrar_livros">
+                <label for="nome_livro">Nome do Livro:</label>
+                <input type="text" id="nome_livro" required>
+
+                <label for="genero_livro">Gênero:</label>
+                <input type="text" id="genero_livro" required>
+
+                <label for="cond_livro">Condição:</label>
+                <select id="cond_livro" required>
+                    <option value="otimo">Ótimo</option>
+                    <option value="bom">Bom</option>
+                    <option value="regular">Regular</option>
+                    <option value="ruim">Ruim</option>
+                </select>
+
+                <label for="nome_autor">Autor:</label>
+                <input type="text" id="nome_autor" required>
+
+                <label for="ano_livro">Ano de Lançamento:</label>
+                <input type="number" id="ano_livro" required>
+
                 <button type="submit">Cadastrar Livro</button>
             </form>
         </div>
@@ -107,7 +79,7 @@
             <p>Contato: <a href="#">bookswap@gmail.com</a></p>
         </div>
     </footer>
-    
+
 
     <script src="cadastrar_livros.js"></script>
 </body>
