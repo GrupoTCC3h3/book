@@ -22,7 +22,7 @@ if (ultimoUsuarioCadastrado) {
 document.querySelector('input[type="file"]').addEventListener('change', function(event) {
     const preview = document.querySelector('.imagem_capa img');
     const file = event.target.files[0];
-    
+
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -38,6 +38,27 @@ document.getElementById('logout').addEventListener('click', function() {
     window.location.href = '../index.html';
 });
 
-function voltarTelaInicial(){
-    window.document.location.href = "../apos_login/apos_login.html"
-}
+// Função para cadastrar livro
+document.getElementById('cadastrarLivro').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const nomeLivro = document.getElementById('nomeLivro').value;
+    const autorLivro = document.getElementById('autorLivro').value;
+    const imagemCapa = document.querySelector('input[type="file"]').files[0];
+
+    // Aqui você deve salvar o livro em algum lugar (ex. localStorage, banco de dados, etc.)
+    const livros = JSON.parse(localStorage.getItem('livros')) || [];
+    const novoLivro = {
+        nome: nomeLivro,
+        autor: autorLivro,
+        imagem: imagemCapa ? URL.createObjectURL(imagemCapa) : '',
+    };
+    
+    livros.push(novoLivro);
+    localStorage.setItem('livros', JSON.stringify(livros));
+
+    alert("Livro cadastrado com sucesso")
+
+    // Redirecionar para a tela de livros disponíveis
+    // window.location.href = "../livros_disponiveis/livros_disponiveis.html"; // Ajuste o caminho se necessário
+});

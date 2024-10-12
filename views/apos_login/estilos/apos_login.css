@@ -163,6 +163,24 @@ nav#sideMenu.visible {
     color: var(--marromEscuro);
 }
 
+.livro-card {
+    border: 1px solid #ddd; /* Borda do card */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px; /* Espaçamento interno */
+    margin: 10px; /* Espaçamento externo */
+    text-align: center; /* Centraliza o texto */
+    display: inline-block; /* Exibe como bloco em linha */
+    width: calc(25% - 20px); /* Largura do card, ajustando para espaçamentos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra do card */
+}
+
+.livro-imagem {
+    width: 100%; /* Largura da imagem */
+    height: auto; /* Altura automática para manter a proporção */
+    border-radius: 5px; /* Bordas arredondadas na imagem */
+}
+
+
 footer {
     position: absolute;
     bottom: 0;

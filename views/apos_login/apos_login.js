@@ -1,4 +1,3 @@
-// Menu lateral e requisição para buscar livros
 document.addEventListener("DOMContentLoaded", function () {
     let listaUser = JSON.parse(localStorage.getItem('listaUser'));
 
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById('menu');
     const sideMenu = document.getElementById('sideMenu');
     const closeMenuButton = document.getElementById('closeMenu');
-    const logoutButton = document.getElementById('logout'); // Referência ao botão "Sair"
+    const logoutButton = document.getElementById('logout');
 
     // Abrir o menu
     menuButton.addEventListener('click', function () {
@@ -30,26 +29,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Confirmar saída
     logoutButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Previne que o link redirecione imediatamente
+        event.preventDefault();
         let confirmarSaida = confirm("Deseja realmente sair?");
         if (confirmarSaida) {
-            // Ação de logout, por exemplo, redirecionar para a tela de login
-            window.location.href = '../login/login.html'; // Redireciona para a página de login
+            window.location.href = '../login/login.html';
         }
     });
 
-    // Exemplo de requisição para buscar livros
-    fetch('/livros')
-        .then(response => response.json())
-        .then(livros => {
-            console.log(livros); // Exibir livros no console
-            const listaLivros = document.getElementById('listaLivros'); // Assumindo que você tem um elemento para exibir os livros
-            listaLivros.innerHTML = ''; // Limpa a lista existente
-            livros.forEach(livro => {
-                const livroElemento = document.createElement('div');
-                livroElemento.textContent = `${livro.nome} - ${livro.autor}`; // Exemplo de formatação
-                listaLivros.appendChild(livroElemento);
-            });
-        })
-        .catch(error => console.error('Erro ao buscar livros:', error));
+    // Carregar livros e exibi-los
+    const livros = JSON.parse(localStorage.getItem('livros')) || [];
+    const listaLivros = document.getElementById('listaLivros');
+    listaLivros.innerHTML = ''; // Limpa a lista existente
+    livros.forEach(livro => {
+        const livroElemento = document.createElement('div');
+        livroElemento.className = 'livro-card'; // Classe para estilização
+        livroElemento.innerHTML = `
+            <img src="${livro.imagem}" alt="${livro.nome}" class="livro-imagem">
+            <h3>${livro.nome}</h3>
+            <p>${livro.autor}</p>
+        `;
+        listaLivros.appendChild(livroElemento);
+    });
 });
