@@ -34,7 +34,6 @@ function exibirNomeUsuario() {
 // Chama a função ao carregar a página
 window.onload = exibirNomeUsuario;
 
-// Função para cadastrar livro
 document.getElementById('form_cadastrar_livros').addEventListener('submit', async function(event) {
     event.preventDefault(); // Previne o comportamento padrão do formulário
 
@@ -65,16 +64,17 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
         });
 
         if (response.ok) {
+            const novoLivro = await response.json();
+            console.log('Livro cadastrado:', novoLivro); // Adicione isto
             alert("Livro cadastrado com sucesso!");
-            // Redireciona para a tela de livros disponíveis
-            //window.location.href = "../livros_disponiveis/livros_disponiveis.html";
+            document.getElementById('form_cadastrar_livros').reset();
         } else {
-            alert("Erro ao cadastrar o livro.");
+            const errorResponse = await response.json(); // Obtenha a resposta de erro do servidor
+            console.error('Erro ao cadastrar livro:', errorResponse); // Exibe o erro no console
+            alert("Erro ao cadastrar o livro: " + errorResponse.message);
         }
     } catch (error) {
         alert("Erro ao se conectar ao servidor.");
         console.error(error);
     }
 });
-
-;
