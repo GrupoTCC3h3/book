@@ -15,12 +15,6 @@ closeMenuButton.addEventListener('click', function () {
     sideMenu.classList.add('hidden');
 });
 
-
-
-
-
-
-
 document.getElementById('form_cadastrar_livros').addEventListener('submit', async function(event) {
     event.preventDefault(); // Previne o comportamento padrão do formulário
 
@@ -68,3 +62,7 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
         console.error(error);
     }
 });
+
+function voltarTelaInicial(){
+    window.document.location.href = '../apos_login/apos_login.html'
+}
