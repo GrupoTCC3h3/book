@@ -72,6 +72,6 @@ function TelaCadastrar(){
 }
 
 function voltarTelaInicial(){
-    window.history.back();
+    window.document.location.href = '../index.html'
 }
 
