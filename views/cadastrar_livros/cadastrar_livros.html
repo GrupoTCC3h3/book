@@ -32,8 +32,8 @@
             <li><a href="../comoFunciona_logado/como_funciona.html">Como Funciona</a></li>
             <li><a href="../livros_disponiveis/livros_disponiveis.html">Livros Disponíveis</a></li>
             <li><a href="../livros_cadastrados/livros_cadastrado.html">Livros Cadastrados</a></li>
-            <li><a href="#">Minhas Trocas</a></li>
-            <li><a href="#">Mensagens</a></li>
+            <li><a href="../trocas_usuario/trocas_user.html">Minhas Trocas</a></li>
+            <li><a href="../mensagens/mensagens.html">Mensagens</a></li>
         </ul>
     </nav>
 
@@ -41,12 +41,13 @@
         <h1>Cadastrar Livros</h1>
         <div class="container_cadastrar_livros">
             <div class="imagem_capa">
-                <img src="" alt="">
+                <img id="imgCapa" src="" alt="Capa do livro">
                 <label class="btnEscolherFoto">
-                    <input type="file" />
+                    <input type="file" id="inputCapa" />
                     Escolher a foto da capa
                 </label>
             </div>
+            
             <form id="form_cadastrar_livros" action="javascript:void(0);">
                 <label for="nome_livro">Nome do Livro:</label>
                 <input type="text" id="nome_livro" required>

@@ -4,13 +4,13 @@ const closeMenuButton = document.getElementById('closeMenu');
 const logoutButton = document.getElementById('logout');
 
 // Abrir o menu
-menuButton.addEventListener('click', function () {
+menuButton?.addEventListener('click', function () {
     sideMenu.classList.remove('hidden');
     sideMenu.classList.add('visible');
 });
 
 // Fechar o menu
-closeMenuButton.addEventListener('click', function () {
+closeMenuButton?.addEventListener('click', function () {
     sideMenu.classList.remove('visible');
     sideMenu.classList.add('hidden');
 });
@@ -63,6 +63,24 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
     }
 });
 
+// Script para exibir a imagem selecionada
+const inputCapa = document.getElementById('inputCapa');
+const imgCapa = document.getElementById('imgCapa');
+
+inputCapa.addEventListener('change', function() {
+    const file = inputCapa.files[0]; // Obtém o arquivo selecionado
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgCapa.src = e.target.result; // Define o src da imagem
+        };
+
+        reader.readAsDataURL(file); // Lê o arquivo como URL de dados
+    }
+});
+
 function voltarTelaInicial(){
-    window.document.location.href = '../apos_login/apos_login.html'
+    window.history.back();
 }

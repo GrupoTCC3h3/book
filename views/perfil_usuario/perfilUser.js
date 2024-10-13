@@ -51,3 +51,7 @@ function voltarPaginaAnterior() {
 function editarPerfil() {
     window.location.href = 'editarPerfil/editarPerfil.html'; // Redireciona para a página de edição de perfil
 }
+
+function voltarInicio(){
+    window.document.location.href = '../apos_login/apos_login.html'
+}

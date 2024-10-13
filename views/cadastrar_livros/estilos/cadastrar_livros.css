@@ -161,6 +161,10 @@ form input {
     form input {
         width: 90%; /* Ajusta os inputs para telas menores */
     }
+
+    #cond_livro{
+        width: 90%;
+    }
 }
 
 /* Para tablets (a partir de 768px) */
@@ -177,6 +181,10 @@ form input {
     input#ano_livro {
         width: 40%; /* Ajusta o campo de ano */
     }
+
+    #cond_livro{
+        width: 95vw;
+    }
 }
 
 /* Para smartphones (abaixo de 576px) */
@@ -192,6 +200,10 @@ form input {
 
     input#ano_livro {
         width: 100%; /* O campo de ano também ocupa toda a largura */
+    }
+
+    #cond_livro{
+        width: 100%;
     }
 }
 
@@ -296,6 +308,14 @@ button {
 
 button:hover {
     color: var(--marromEscuro);
+}
+
+#cond_livro{
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 50vw;
+    padding: 10px;
 }
 
 /* Footer */
