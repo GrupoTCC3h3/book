@@ -11,33 +11,55 @@ closeMenuButton.addEventListener('click', () => {
     sideMenu.classList.remove('visible');
 });
 
-// Carregar informações do usuário logado do localStorage
+// Carregar informações do usuário logado do sessionStorage
 const nomeUsuario = document.getElementById('nomeUsuario');
 const emailUsuario = document.getElementById('emailUsuario');
 const dataNascimento = document.getElementById('dataNascimento');
 const endereco = document.getElementById('endereco');
 const bairro = document.getElementById('bairro');
 const cidade = document.getElementById('cidade');
+const saveButton = document.querySelector('.save-button');
 
 // Função para preencher o perfil automaticamente ao carregar a página
 window.onload = function () {
     const usuarioAtual = JSON.parse(sessionStorage.getItem('currentUser'));
 
     if (usuarioAtual) {
-        nomeUsuario.textContent = usuarioAtual.nome; // Altere para acessar o nome corretamente
-        emailUsuario.textContent = usuarioAtual.email; // Altere para acessar o email corretamente
-        // Você pode adicionar mais campos aqui, conforme necessário
+        nomeUsuario.textContent = usuarioAtual.nome || 'Não informado ainda';
+        emailUsuario.textContent = usuarioAtual.email || 'Não informado ainda';
+        dataNascimento.textContent = usuarioAtual.dataNascimento || 'Não informado ainda';
+        endereco.textContent = usuarioAtual.endereco?.logradouro || 'Não informado ainda';
+        bairro.textContent = usuarioAtual.endereco?.bairro || 'Não informado ainda';
+        cidade.textContent = usuarioAtual.endereco?.cidade || 'Não informado ainda';
     } else {
-        nomeUsuario.textContent = 'Nome não disponível';
-        emailUsuario.textContent = 'Email não disponível';
+        nomeUsuario.textContent = 'Não informado ainda';
+        emailUsuario.textContent = 'Não informado ainda';
     }
+
+    // Desabilita o botão de salvar inicialmente
+    saveButton.disabled = true;
+
+    // Adiciona event listeners para detectar alterações nos campos editáveis
+    [dataNascimento, endereco, bairro, cidade].forEach((campo) => {
+        campo.addEventListener('input', verificarAlteracoes);
+    });
 };
 
-// Logout
-// document.getElementById('logout').addEventListener('click', function () {
-//     localStorage.removeItem('usuarioAtual'); // Limpa apenas o usuário atual
-//     window.location.href = '../index.html'; // Redireciona para a página inicial
-// });
+// Função para verificar se houve alterações nos campos
+function verificarAlteracoes() {
+    const usuarioAtual = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    // Verifica se os valores atuais são diferentes dos valores originais
+    const hasChanges = (
+        dataNascimento.value !== (usuarioAtual.dataNascimento || '') ||
+        endereco.value !== (usuarioAtual.endereco?.logradouro || '') ||
+        bairro.value !== (usuarioAtual.endereco?.bairro || '') ||
+        cidade.value !== (usuarioAtual.endereco?.cidade || '')
+    );
+
+    // Ativa o botão de salvar se houver mudanças, caso contrário desativa
+    saveButton.disabled = !hasChanges;
+}
 
 // Função para voltar à página anterior
 function voltarPaginaAnterior() {
@@ -48,3 +70,4 @@ function voltarPaginaAnterior() {
 function editarPerfil() {
     window.location.href = 'editarPerfil/editarPerfil.html'; // Redireciona para a página de edição de perfil
 }
+

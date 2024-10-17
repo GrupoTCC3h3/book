@@ -31,3 +31,8 @@ document.getElementById('formCadastro').addEventListener('submit', function(even
         console.error('Erro:', error);
     });
 });
+
+
+function voltarTelaInicial(){
+    window.history.back();
+}
