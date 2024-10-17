@@ -22,28 +22,25 @@ closeMenuButton.addEventListener('click', () => {
 window.onload = function() {
     const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    userName.textContent = user.nomeCad;
+    // Verifica se o usuário está autenticado
+    if (user) {
+        // Carrega os dados do usuário nos campos
+        document.getElementById('nomeUsuario').value = user.nome; // Use o nome do usuário
+        document.getElementById('email').value = user.email; // Use o email do usuário
+        
+        // Preencher campos editáveis com dados existentes ou valores padrão
+        dataNascimento.value = user.dataNascimento || '';
+        endereco.value = user.endereco?.logradouro || '';
+        bairro.value = user.endereco?.bairro || '';
+        cidade.value = user.endereco?.cidade || '';
 
-    const nomeUsuario = document.getElementById('nomeUsuario');
-    const email = document.getElementById('email');
-    const dataNascimento = document.getElementById('dataNascimento');
-    const endereco = document.getElementById('endereco');
-    const bairro = document.getElementById('bairro');
-    const cidade = document.getElementById('cidade');
-
-    // Preencher os campos com os dados do cadastro
-    nomeUsuario.value = user.nomeCad || '';
-    email.value = user.userCad || '';
-    
-    // Preencher campos editáveis com dados existentes ou valores padrão
-    dataNascimento.value = user.dataNascimento || '';
-    endereco.value = user.endereco?.logradouro || '';
-    bairro.value = user.endereco?.bairro || '';
-    cidade.value = user.endereco?.cidade || '';
-
-    // Desabilitar campos de nome e email
-    nomeUsuario.disabled = true;  // Campo de nome desabilitado
-    email.disabled = true;        // Campo de email desabilitado
+        // Desabilitar campos de nome e email
+        document.getElementById('nomeUsuario').disabled = true;  // Campo de nome desabilitado
+        document.getElementById('email').disabled = true;        // Campo de email desabilitado
+    } else {
+        console.log("Usuário não autenticado.");
+        // Se o usuário não estiver autenticado, redirecione ou exiba uma mensagem
+    }
 };
 
 // Função para lidar com o envio do formulário de edição de perfil

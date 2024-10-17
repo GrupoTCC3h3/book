@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let listaUser = JSON.parse(localStorage.getItem('listaUser'));
+    // Obtenha o usuário logado da sessionStorage
+    const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    if (listaUser && listaUser.length > 0) {
-        let ultimoUsuario = listaUser[listaUser.length - 1];
-        let nomeUsuario = ultimoUsuario.nomeCad;
-
-        document.getElementById('userName').textContent = nomeUsuario;
+    // Verifica se existe um usuário logado e define o nome
+    if (usuarioAtual) {
+        document.getElementById('userName').textContent = usuarioAtual.nome; // Exibe o nome do usuário
     } else {
-        document.getElementById('userName').textContent = "Usuário";
+        document.getElementById('userName').textContent = "Usuário"; // Valor padrão
     }
 
     const menuButton = document.getElementById('menu');
@@ -32,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         let confirmarSaida = confirm("Deseja realmente sair?");
         if (confirmarSaida) {
+            sessionStorage.removeItem("currentUser"); // Remove o usuário da sessão
             window.location.href = '../login/login.html';
         }
     });

@@ -24,12 +24,9 @@ window.onload = function () {
     const usuarioAtual = JSON.parse(sessionStorage.getItem('currentUser'));
 
     if (usuarioAtual) {
-        nomeUsuario.textContent = usuarioAtual.nomeCad || 'Nome não disponível';
-        emailUsuario.textContent = usuarioAtual.userCad || 'Email não disponível';
-        dataNascimento.textContent = usuarioAtual.dataNascimento || '';
-        endereco.textContent = usuarioAtual.endereco?.logradouro || '';
-        bairro.textContent = usuarioAtual.endereco?.bairro || '';
-        cidade.textContent = usuarioAtual.endereco?.cidade || '';
+        nomeUsuario.textContent = usuarioAtual.nome; // Altere para acessar o nome corretamente
+        emailUsuario.textContent = usuarioAtual.email; // Altere para acessar o email corretamente
+        // Você pode adicionar mais campos aqui, conforme necessário
     } else {
         nomeUsuario.textContent = 'Nome não disponível';
         emailUsuario.textContent = 'Email não disponível';
@@ -37,10 +34,10 @@ window.onload = function () {
 };
 
 // Logout
-document.getElementById('logout').addEventListener('click', function () {
-    localStorage.removeItem('usuarioAtual'); // Limpa apenas o usuário atual
-    window.location.href = '../index.html'; // Redireciona para a página inicial
-});
+// document.getElementById('logout').addEventListener('click', function () {
+//     localStorage.removeItem('usuarioAtual'); // Limpa apenas o usuário atual
+//     window.location.href = '../index.html'; // Redireciona para a página inicial
+// });
 
 // Função para voltar à página anterior
 function voltarPaginaAnterior() {
@@ -50,8 +47,4 @@ function voltarPaginaAnterior() {
 // Função para redirecionar para a página de edição de perfil
 function editarPerfil() {
     window.location.href = 'editarPerfil/editarPerfil.html'; // Redireciona para a página de edição de perfil
-}
-
-function voltarInicio(){
-    window.document.location.href = '../apos_login/apos_login.html'
 }
