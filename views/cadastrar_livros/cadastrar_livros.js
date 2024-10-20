@@ -80,3 +80,6 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
     }
 });
 
+function voltarPaginaAnterior(){
+    window.history.back();
+}

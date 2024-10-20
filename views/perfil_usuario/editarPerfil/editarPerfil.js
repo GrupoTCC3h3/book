@@ -12,57 +12,77 @@ closeMenuButton.addEventListener('click', () => {
     sideMenu.classList.remove('visible');
 });
 
+// Variável para armazenar os valores originais do perfil
+let originalData = {};
+
 // Função para carregar informações do usuário ao abrir a página
 window.onload = function() {
     const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    // Verifica se o usuário está autenticado
     if (user) {
-        // Carrega os dados do usuário nos campos
-        document.getElementById('nomeUsuario').value = user.nome; // Use o nome do usuário
-        document.getElementById('email').value = user.email; // Use o email do usuário
-
-        // Preencher campos editáveis com dados existentes ou valores padrão
+        document.getElementById('nomeUsuario').value = user.nome;
+        document.getElementById('email').value = user.email;
         document.getElementById('dataNascimento').value = user.dataNascimento || '';
         document.getElementById('endereco').value = user.endereco?.logradouro || '';
         document.getElementById('bairro').value = user.endereco?.bairro || '';
         document.getElementById('cidade').value = user.endereco?.cidade || '';
 
-        // Desabilitar campos de nome e email
-        document.getElementById('nomeUsuario').disabled = true;
-        document.getElementById('email').disabled = true;
+        // Armazenando os valores originais
+        originalData = {
+            dataNascimento: user.dataNascimento || '',
+            endereco: user.endereco?.logradouro || '',
+            bairro: user.endereco?.bairro || '',
+            cidade: user.endereco?.cidade || ''
+        };
     } else {
         console.log("Usuário não autenticado.");
     }
 };
 
-// Função para lidar com o envio do formulário de edição de perfil
-document.getElementById('editProfileForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Evitar o envio padrão do formulário
+// Desabilitar o botão "Salvar" até que algo seja alterado
+const saveButton = document.querySelector('.save-button');
+saveButton.disabled = true;
 
-    const user = JSON.parse(sessionStorage.getItem("currentUser"));
-
-    // Pegar os valores dos campos que podem ser editados
+document.getElementById('editProfileForm').addEventListener('input', function() {
     const dataNascimento = document.getElementById('dataNascimento').value;
     const endereco = document.getElementById('endereco').value;
     const bairro = document.getElementById('bairro').value;
     const cidade = document.getElementById('cidade').value;
 
-    // Atualizar os dados do usuário com os novos valores
-    user.dataNascimento = dataNascimento;
-    user.endereco = {
-        logradouro: endereco,
-        bairro: bairro,
-        cidade: cidade,
-    };
+    // Habilitar o botão "Salvar" se houver alterações
+    if (dataNascimento !== originalData.dataNascimento || endereco !== originalData.endereco ||
+        bairro !== originalData.bairro || cidade !== originalData.cidade) {
+        saveButton.disabled = false;
+    } else {
+        saveButton.disabled = true;
+    }
+});
 
-    // Atualizar o `sessionStorage` com as novas informações
-    sessionStorage.setItem("currentUser", JSON.stringify(user));
+// Função para lidar com o envio do formulário de edição de perfil
+document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar o envio padrão do formulário
 
-    // Mostrar mensagem de sucesso e redirecionar para a tela de perfil
-    alert("Alterações salvas com sucesso!");
-    window.location.href = "../perfilUser.html"; // Subir um nível e redirecionar para o perfil
+    const dataNascimento = document.getElementById('dataNascimento').value;
+    const endereco = document.getElementById('endereco').value;
+    const bairro = document.getElementById('bairro').value;
+    const cidade = document.getElementById('cidade').value;
 
+    // Verificando se houve alteração nos dados
+    if (dataNascimento !== originalData.dataNascimento || endereco !== originalData.endereco ||
+        bairro !== originalData.bairro || cidade !== originalData.cidade) {
+
+        const user = JSON.parse(sessionStorage.getItem("currentUser"));
+
+        // Atualizar os dados no `sessionStorage`
+        user.dataNascimento = dataNascimento;
+        user.endereco = { logradouro: endereco, bairro: bairro, cidade: cidade };
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
+
+        alert("Alterações salvas com sucesso!");
+        window.location.href = "../perfilUser.html"; // Redireciona para a página de perfil
+    } else {
+        alert("Nenhuma alteração foi feita.");
+    }
 });
 
 // Função para voltar à página anterior
