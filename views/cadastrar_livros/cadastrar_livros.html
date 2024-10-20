@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,13 +17,12 @@
         </div>
         <hr>
     </header>
+    
     <div class="container_icones_laterais">
-        <button id="voltar" class="icons_laterais"><i class="material-icons"
-                onclick="voltarTelaInicial()">arrow_back</i></button>
+        <button id="voltar" class="icons_laterais"><i class="material-icons" onclick="voltarTelaInicial()">arrow_back</i></button>
         <button id="menu" class="icons_laterais"><i class="material-icons">menu</i></button>
     </div>
 
-    <!-- Menu lateral direito -->
     <nav id="sideMenu" class="hidden">
         <button id="closeMenu"><i class="material-icons">close</i></button>
         <ul>
@@ -41,14 +39,16 @@
         <h1>Cadastrar Livros</h1>
         <div class="container_cadastrar_livros">
             <div class="imagem_capa">
-                <img id="imgCapa" src="" alt="Capa do livro">
+                <img id="imgCapa" src="" alt="Capa do livro" style="display:none;"> <!-- Inicialmente oculta a imagem -->
                 <label class="btnEscolherFoto">
                     <input type="file" id="inputCapa" />
                     Escolher a foto da capa
                 </label>
             </div>
-            
+
             <form id="form_cadastrar_livros" action="javascript:void(0);">
+                <input type="hidden" id="id_dono" value=""> <!-- Campo oculto para id_dono -->
+                
                 <label for="nome_livro">Nome do Livro:</label>
                 <input type="text" id="nome_livro" required>
 
@@ -81,8 +81,6 @@
         </div>
     </footer>
 
-
     <script src="cadastrar_livros.js"></script>
 </body>
-
 </html>

@@ -1,7 +1,6 @@
 const menuButton = document.getElementById('menu');
 const sideMenu = document.getElementById('sideMenu');
 const closeMenuButton = document.getElementById('closeMenu');
-const logoutButton = document.getElementById('logout');
 
 // Abrir o menu
 menuButton?.addEventListener('click', function () {
@@ -15,72 +14,69 @@ closeMenuButton?.addEventListener('click', function () {
     sideMenu.classList.add('hidden');
 });
 
-document.getElementById('form_cadastrar_livros').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Previne o comportamento padrão do formulário
+// Mostrar imagem da capa
+document.getElementById('inputCapa').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
-    // Obtém os valores dos campos
-    const nomeLivro = document.getElementById('nome_livro').value;
-    const generoLivro = document.getElementById('genero_livro').value;
-    const condicaoLivro = document.getElementById('cond_livro').value;
-    const nomeAutor = document.getElementById('nome_autor').value;
-    const anoLivro = document.getElementById('ano_livro').value;
-
-    // Monta o objeto com os dados do livro
-    const livro = {
-        titulo: nomeLivro,
-        estado: condicaoLivro,
-        ano_lancamento: anoLivro,
-        autor: nomeAutor,
-        id_dono: idDono
+    reader.onload = (e) => {
+        const img = document.getElementById('imgCapa');
+        img.src = e.target.result;
+        img.style.display = 'block'; // Mostra a imagem
     };
 
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        img.style.display = 'none';
+    }
+});
+
+document.getElementById('form_cadastrar_livros').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    const titulo = document.getElementById('nome_livro').value;
+    const estado = document.getElementById('cond_livro').value;
+    const ano_lancamento = document.getElementById('ano_livro').value;
+    const autor = document.getElementById('nome_autor').value;
+    const genero = document.getElementById('genero_livro').value;
+    const capa_livro = document.getElementById('inputCapa').files[0];
+
+    // Obtém o ID do usuário do sessionStorage
+    const user = JSON.parse(sessionStorage.getItem('currentUser')); 
+    const userId = user ? user.userId : null;
+
+    if (!userId) {
+        alert('Usuário não está logado. Por favor, faça login.');
+        return;
+    }
+
+    formData.append('titulo', titulo);
+    formData.append('estado', estado);
+    formData.append('ano_lancamento', ano_lancamento);
+    formData.append('autor', autor);
+    formData.append('genero', genero);
+    formData.append('id_dono', userId);  // ID do dono
+    if (capa_livro) {
+        formData.append('capa_livro', capa_livro);
+    }
+
     try {
-        // Faz a requisição para o back-end
-        const response = await fetch('http://localhost:3000/livro', {
+        const response = await fetch('http://localhost:3000/livro/cadastrar', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(livro) // Envia o objeto livro como JSON
+            body: formData,
         });
 
+        const data = await response.json();
         if (response.ok) {
-            const novoLivro = await response.json();
-            console.log('Livro cadastrado:', novoLivro); // Log para depuração
-            alert("Livro cadastrado com sucesso!");
-
-            // Limpa os campos do formulário
+            alert('Livro cadastrado com sucesso!');
             document.getElementById('form_cadastrar_livros').reset();
         } else {
-            const errorText = await response.text(); // Captura a resposta como texto
-            console.error('Erro ao cadastrar livro:', errorText);
-            alert("Erro ao cadastrar o livro. Verifique os dados e tente novamente.");
+            alert(data.error);
         }
-        
     } catch (error) {
-        alert("Erro ao se conectar ao servidor.");
-        console.error(error);
+        alert('Erro ao cadastrar livro.');
     }
 });
 
-// Script para exibir a imagem selecionada
-const inputCapa = document.getElementById('inputCapa');
-const imgCapa = document.getElementById('imgCapa');
-
-inputCapa.addEventListener('change', function() {
-    const file = inputCapa.files[0]; // Obtém o arquivo selecionado
-
-    if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgCapa.src = e.target.result; // Define o src da imagem
-        };
-
-        reader.readAsDataURL(file); // Lê o arquivo como URL de dados
-    }
-});
-
-function voltarTelaInicial(){
-    window.history.back();
-}

@@ -5,19 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const senhaInput = document.querySelector('#isenha');
     const lembrarMe = document.querySelector('#lembrar-me');
 
-    // Verifica se existem dados salvos no localStorage
+    // Verifica se existem dados salvos no localStorage (para "lembrar-me")
     const savedEmail = localStorage.getItem('savedEmail');
     const savedPassword = localStorage.getItem('savedPassword');
     const isRemembered = localStorage.getItem('rememberMe');
 
+    // Preenche os campos de email e senha se o "lembrar-me" estiver ativo
     if (isRemembered === 'true') {
         emailInput.value = savedEmail;
         senhaInput.value = savedPassword;
         lembrarMe.checked = true;
     }
 
+    // Função de login
     formLogin.addEventListener('submit', (event) => {
-        event.preventDefault(); // Evita o envio padrão do formulário
+        event.preventDefault();
 
         const email = emailInput.value;
         const senha = senhaInput.value;
@@ -27,43 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, senha }), // Envia o email e a senha
+            body: JSON.stringify({ email, senha }),
         })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => {
-                        throw new Error(data.message || 'Erro desconhecido'); // Lança erro com a mensagem do servidor
-                    });
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                // Armazena os dados do usuário na sessionStorage
-                sessionStorage.setItem('currentUser', JSON.stringify({
-                    nome: data.nome,
-                    email: data.email,
-                }));
-
-                // Verifica se a opção de lembrar-me está marcada
-                if (lembrarMe.checked) {
-                    localStorage.setItem('savedEmail', email);
-                    localStorage.setItem('savedPassword', senha);
-                    localStorage.setItem('rememberMe', 'true');
+                if (data.erro) {
+                    msgError.setAttribute('style', 'display: block');
+                    msgError.innerHTML = data.message;
                 } else {
-                    localStorage.removeItem('savedEmail');
-                    localStorage.removeItem('savedPassword');
-                    localStorage.removeItem('rememberMe');
-                }
+                    // Salva os dados do usuário no sessionStorage
+                    sessionStorage.setItem('currentUser', JSON.stringify({
+                        userId: data.id,  // Aqui está o ID do usuário
+                        nome: data.nome,
+                        email: data.email,
+                    }));
 
-                window.location.href = '../apos_login/apos_login.html'; // Redireciona após o login
+                    window.location.href = '../apos_login/apos_login.html';  // Redireciona após o login
+                }
             })
             .catch(error => {
                 msgError.setAttribute('style', 'display: block');
-                msgError.innerHTML = 'Erro: ' + error.message; // Exibe a mensagem de erro
-                console.error('Erro ao fazer login:', error);
+                msgError.innerHTML = 'Erro: ' + error.message;
             });
     });
 });
+
 
 // Função para redirecionar para a tela de cadastro
 function TelaCadastrar() {

@@ -1,46 +1,48 @@
-// routes/livro.js
 import express from 'express';
+import multer from 'multer';
+import path from 'path';
 import Livro from '../model/livro.js';
+import { Usuario } from '../model/usuario.js'; // Importando o modelo de usuário
 
 const router = express.Router();
 
-/**
- * @swagger
- * /livro:
- *   post:
- *     tags: [Livros]
- *     summary: Cria um novo livro
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               titulo:
- *                 type: string
- *               estado:
- *                 type: string
- *                 enum: [otimo, bom, regular, ruim]
- *               ano_lancamento:
- *                 type: integer
- *               autor:
- *                 type: string
- *               id_dono:
- *                 type: integer
- *     responses:
- *       201:
- *         description: Livro criado com sucesso
- *       400:
- *         description: Erro ao criar livro
- */
-router.post('/', async (req, res) => {
+// Configuração do multer para salvar imagens em uma pasta local chamada 'uploads'
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Pasta onde as imagens serão salvas
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); // Nome único para cada imagem
+    }
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
+    const { titulo, estado, ano_lancamento, autor, genero, id_dono } = req.body; // id_dono
+    const capa = req.file ? req.file.path : null;
+
     try {
-        const { titulo, estado, ano_lancamento, autor, id_dono } = req.body; // Captura os dados do corpo da requisição
-        const livro = await Livro.create({ titulo, estado, ano_lancamento, autor, id_dono });
-        res.status(201).json(livro);
+        const usuario = await Usuario.findByPk(id_dono);
+        if (!usuario) {
+            return res.status(400).json({ error: 'ID do usuário não existe.' });
+        }
+
+        const novoLivro = await Livro.create({
+            titulo,
+            estado,
+            ano_lancamento,
+            autor,
+            genero,
+            id_usuario: id_dono, // Alterado de id_dono para id_usuario
+            capa,
+        });
+
+        res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        console.error("Erro ao cadastrar livro:", error); // Adicione um log de erro
+        res.status(500).json({ error: 'Erro ao cadastrar livro.' });
     }
 });
 

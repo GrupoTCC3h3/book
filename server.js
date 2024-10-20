@@ -10,16 +10,29 @@ import { sequelize } from './db/database.js'; // Usando a instância de sequeliz
 import swaggerUI from 'swagger-ui-express';
 import swagger from './swagger/swagger.js';
 import cors from 'cors';
+import multer from 'multer';
+import path from 'path';
 
-// Carregar as variáveis do arquivo .env
+// Configuração do Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Pasta para armazenar as capas dos livros
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Renomeia o arquivo com um timestamp
+    },
+});
+
+const upload = multer({ storage: storage });
+
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Usar PORT do .env, se existir
+const PORT = process.env.PORT || 3000; 
 
 app.use(express.json());
 app.use(cors({
-    origin: '*'
+    origin: '*' // Permitir todas as origens. Ajuste conforme necessário para produção.
 }));
 
 // Testar a conexão com o banco de dados
@@ -38,7 +51,40 @@ app.use("/contato", contato);
 app.use("/livro", livro);
 app.use("/troca", Troca); 
 app.use("/mensagem", mensagem);
+
+// Servir arquivos estáticos da pasta 'uploads'
+app.use('/uploads', express.static('uploads'));
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger)); // Swagger já configurado aqui
+
+// Rota para cadastro de livros com upload da capa
+app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
+    const { titulo, estado, ano_lancamento, autor, id_dono } = req.body;
+    const capa = req.file ? req.file.path : null;
+
+    // Verifique se id_dono é válido
+    const usuario = await Usuario.findByPk(id_dono);
+    if (!usuario) {
+        console.error('ID do usuário não existe:', id_dono);
+        return res.status(400).json({ error: 'ID do usuário não existe.' });
+    }
+
+    try {
+        const novoLivro = await Livro.create({
+            titulo,
+            estado,
+            ano_lancamento,
+            autor,
+            id_dono,
+            capa,
+        });
+
+        console.log('Livro cadastrado com sucesso:', novoLivro);
+        res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
+    } catch (error) {
+        console.error('Erro ao cadastrar livro:', error);
+        res.status(500).json({ error: 'Erro ao cadastrar livro.' });
+    }
+});
 
 // Sincronizando com o banco de dados
 sequelize.sync()
