@@ -28,8 +28,7 @@ const Livro = sequelize.define('livro', {
         allowNull: false
     }
 }, {
-    tableName: 'livro', // Agora esta linha está no lugar correto
-    timestamps: false
+    tableName: 'livro',
 });
 
 export default Livro;

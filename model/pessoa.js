@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db/database.js';
-import bcrypt from 'bcrypt';  // Para criptografia de senha
+
 
 const Pessoa = sequelize.define('Pessoa', {
     id: {

@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import Livro from '../model/livro.js';
-import { Usuario } from '../model/usuario.js'; // Importando o modelo de usuário
+import { Pessoa } from '../model/pessoa.js'; // Importando o modelo de usuário
 
 const router = express.Router();
 
@@ -20,12 +20,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
-    const { titulo, estado, ano_lancamento, autor, genero, id_dono } = req.body; // id_dono
+    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body; // id_dono
     const capa = req.file ? req.file.path : null;
 
     try {
-        const usuario = await Usuario.findByPk(id_dono);
-        if (!usuario) {
+        const pessoa = await Pessoa.findByPk(id_pessoa);
+        if (!pessoa) {
             return res.status(400).json({ error: 'ID do usuário não existe.' });
         }
 
@@ -35,7 +35,7 @@ router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
             ano_lancamento,
             autor,
             genero,
-            id_usuario: id_dono, // Alterado de id_dono para id_usuario
+            id_pessoa,
             capa,
         });
 
