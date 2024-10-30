@@ -3,6 +3,7 @@ const menuButton = document.getElementById('menu');
 const sideMenu = document.getElementById('sideMenu');
 const closeMenuButton = document.getElementById('closeMenu');
 const userName = document.getElementById('userName');
+let pessoaId;
 
 menuButton.addEventListener('click', () => {
     sideMenu.classList.add('visible');
@@ -16,34 +17,46 @@ closeMenuButton.addEventListener('click', () => {
 let originalData = {};
 
 // Função para carregar informações do usuário ao abrir a página
-window.onload = function() {
-    const user = JSON.parse(sessionStorage.getItem("currentUser"));
+window.onload = function () {
+    const usuario = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    if (user) {
-        document.getElementById('nomeUsuario').value = user.nome;
-        document.getElementById('email').value = user.email;
-        document.getElementById('dataNascimento').value = user.dataNascimento || '';
-        document.getElementById('endereco').value = user.endereco?.logradouro || '';
-        document.getElementById('bairro').value = user.endereco?.bairro || '';
-        document.getElementById('cidade').value = user.endereco?.cidade || '';
+    if (usuario) {
+        document.getElementById('nomeUsuario').value = usuario.nome;
+        document.getElementById('email').value = usuario.email;
 
-        // Armazenando os valores originais
-        originalData = {
-            dataNascimento: user.dataNascimento || '',
-            endereco: user.endereco?.logradouro || '',
-            bairro: user.endereco?.bairro || '',
-            cidade: user.endereco?.cidade || ''
-        };
-    } else {
-        console.log("Usuário não autenticado.");
+        fetch('http://localhost:3000/pessoa/' + usuario.userId, { // Certifique-se de que esta URL está correta
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dataNascimento').value = data.data_nascimento || '';
+                document.getElementById('endereco').value = data.endereco || '';
+                document.getElementById('bairro').value = data.bairro || '';
+                document.getElementById('cidade').value = data.cidade || '';
+
+                pessoaId = data.id;
+
+                // Armazenando os valores originais
+                originalData = {
+                    dataNascimento: data.data_nascimento || '',
+                    endereco: data.endereco || '',
+                    bairro: data.bairro || '',
+                    cidade: data.cidade || ''
+                };
+            })
+            .catch(error => {
+                msgError.setAttribute('style', 'display: block');
+                msgError.innerHTML = 'Erro: ' + error.message;
+            });
     }
+
 };
 
 // Desabilitar o botão "Salvar" até que algo seja alterado
 const saveButton = document.querySelector('.save-button');
 saveButton.disabled = true;
 
-document.getElementById('editProfileForm').addEventListener('input', function() {
+document.getElementById('editProfileForm').addEventListener('input', function () {
     const dataNascimento = document.getElementById('dataNascimento').value;
     const endereco = document.getElementById('endereco').value;
     const bairro = document.getElementById('bairro').value;
@@ -59,7 +72,7 @@ document.getElementById('editProfileForm').addEventListener('input', function() 
 });
 
 // Função para lidar com o envio do formulário de edição de perfil
-document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+document.getElementById('editProfileForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Evitar o envio padrão do formulário
 
     const dataNascimento = document.getElementById('dataNascimento').value;
@@ -71,15 +84,31 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
     if (dataNascimento !== originalData.dataNascimento || endereco !== originalData.endereco ||
         bairro !== originalData.bairro || cidade !== originalData.cidade) {
 
-        const user = JSON.parse(sessionStorage.getItem("currentUser"));
+        fetch('http://localhost:3000/pessoa/' + pessoaId, { // Certifique-se de que esta URL está correta
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data_nascimento: dataNascimento,
+                endereco,
+                bairro,
+                cidade
+            }), // Converte os dados para JSON
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Alterações salvas com sucesso!");
+                    window.location.href = "../perfilUser.html"; // Redireciona para a página de perfil
+                } else {
+                    alert('Erro ao alterar perfil: ' + response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
 
-        // Atualizar os dados no `sessionStorage`
-        user.dataNascimento = dataNascimento;
-        user.endereco = { logradouro: endereco, bairro: bairro, cidade: cidade };
-        sessionStorage.setItem("currentUser", JSON.stringify(user));
 
-        alert("Alterações salvas com sucesso!");
-        window.location.href = "../perfilUser.html"; // Redireciona para a página de perfil
     } else {
         alert("Nenhuma alteração foi feita.");
     }

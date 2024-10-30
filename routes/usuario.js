@@ -1,6 +1,7 @@
 import express from 'express';
 import { Usuario } from '../model/usuario.js';
 import bcrypt from 'bcrypt'; // Usar para criptografar/verificar senhas
+import { Pessoa } from '../model/pessoa.js';
 
 const router = express.Router();
 
@@ -40,6 +41,10 @@ router.post('/', async (req, res) => {
             nome: nome,
             email: email,
             senha: hashedPassword
+        });
+
+        await Pessoa.create({
+            id_usuario: usuario.id
         });
 
         res.status(201).json(usuario);

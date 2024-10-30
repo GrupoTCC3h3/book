@@ -23,7 +23,7 @@ const Livro = sequelize.define('livro', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    id_usuario: {
+    id_pessoa: {
         type: DataTypes.INTEGER,
         allowNull: false
     }

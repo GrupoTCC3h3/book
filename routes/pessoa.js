@@ -32,57 +32,43 @@ router.get('/', async (req, res) => {
     }
 });
 
-/**
- * @swagger
- * /pessoa:
- *   post:
- *     tags: [Pessoas]
- *     summary: Cria uma nova pessoa
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nome:
- *                 type: string
- *               usuario:
- *                 type: string
- *               senha:
- *                 type: string
- *               data_nascimento:
- *                 type: string
- *                 format: date
- *               endereco:
- *                 type: string
- *               bairro:
- *                 type: string
- *               cidade:
- *                 type: string
- *     responses:
- *       201:
- *         description: Pessoa criada com sucesso
- *       400:
- *         description: Erro ao criar pessoa
- */
-router.post('/', async (req, res) => {
+
+router.put("/:id", async (req, res) => {
     try {
-        // Criptografar a senha antes de salvar no banco
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.senha, salt);
-
         // Criar pessoa com a senha criptografada
-        const pessoa = await Pessoa.create({
-            ...req.body,
-            senha: hashedPassword
-        });
+        const pessoa = await Pessoa.update(
+            {
+                endereco: req.body.endereco,
+                data_nascimento: req.body.data_nascimento,
+                bairro: req.body.bairro,
+                cidade: req.body.cidade
+            }, 
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        );
 
-        res.status(201).json(pessoa);
+        res.status(200).json(pessoa);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
+
+router.get('/:id', async (req, res) => {
+    try {
+        const pessoa = await Pessoa.findOne({
+            where: {
+                id_usuario: req.params.id
+            }
+        });
+        res.json(pessoa);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 /**
  * @swagger

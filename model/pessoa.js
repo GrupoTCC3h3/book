@@ -8,18 +8,6 @@ const Pessoa = sequelize.define('Pessoa', {
         autoIncrement: true,
         primaryKey: true,
     },
-    nome: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-    },
-    usuario: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-    },
-    senha: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-    },
     data_nascimento: {
         type: DataTypes.DATE,
         allowNull: true,
@@ -36,15 +24,13 @@ const Pessoa = sequelize.define('Pessoa', {
         type: DataTypes.STRING(200),
         allowNull: true,
     },
+    id_usuario: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 }, {
     tableName: "pessoa",
     timestamps: false,
-});
-
-// Hook para criptografar senha antes de criar uma nova pessoa
-Pessoa.beforeCreate(async (pessoa) => {
-    const salt = await bcrypt.genSalt(10);
-    pessoa.senha = await bcrypt.hash(pessoa.senha, salt);
 });
 
 export { Pessoa };

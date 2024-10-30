@@ -22,22 +22,35 @@ const saveButton = document.querySelector('.save-button');
 
 // Função para preencher o perfil automaticamente ao carregar a página
 window.onload = function () {
-    const usuarioAtual = JSON.parse(sessionStorage.getItem('currentUser'));
+    const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
+
+    console.log("usuarioAtual: ", usuarioAtual);
 
     if (usuarioAtual) {
-        nomeUsuario.textContent = usuarioAtual.nome || 'Não informado ainda';
-        emailUsuario.textContent = usuarioAtual.email || 'Não informado ainda';
-        dataNascimento.textContent = usuarioAtual.dataNascimento || 'Não informado ainda';
-        endereco.textContent = usuarioAtual.endereco?.logradouro || 'Não informado ainda';
-        bairro.textContent = usuarioAtual.endereco?.bairro || 'Não informado ainda';
-        cidade.textContent = usuarioAtual.endereco?.cidade || 'Não informado ainda';
+        nomeUsuario.textContent = usuarioAtual.nome || 'Não informado';
+        emailUsuario.textContent = usuarioAtual.email || 'Não informado';
+        
+        fetch('http://localhost:3000/pessoa/' + usuarioAtual.userId, { // Certifique-se de que esta URL está correta
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {                
+                dataNascimento.textContent = data.data_nascimento || 'Não informado';
+                endereco.textContent = data.endereco || 'Não informado';
+                bairro.textContent = data.bairro || 'Não informado';
+                cidade.textContent = data.cidade || 'Não informado';                
+            })
+            .catch(error => {
+                msgError.setAttribute('style', 'display: block');
+                msgError.innerHTML = 'Erro: ' + error.message;
+            });
     } else {
         nomeUsuario.textContent = 'Não informado ainda';
         emailUsuario.textContent = 'Não informado ainda';
     }
 
     // Desabilita o botão de salvar inicialmente
-    saveButton.disabled = true;
+    // saveButton.disabled = true;
 
     // Adiciona event listeners para detectar alterações nos campos editáveis
     [dataNascimento, endereco, bairro, cidade].forEach((campo) => {
