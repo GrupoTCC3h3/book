@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import usuario from './routes/usuario.js';
 import pessoas from './routes/pessoa.js';
 import contato from './routes/contato.js';
-import livro from './routes/livro.js'; 
-import Troca from './routes/troca.js';
+import livro from './routes/livro.js';
+import troca from './routes/troca.js';
 import mensagem from './routes/mensagem.js';
 import { sequelize } from './db/database.js'; // Usando a instância de sequelize do arquivo de banco de dados
 import swaggerUI from 'swagger-ui-express';
@@ -28,7 +28,7 @@ const upload = multer({ storage: storage });
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors({
@@ -49,23 +49,30 @@ app.use("/usuario", usuario);
 app.use("/pessoa", pessoas);
 app.use("/contato", contato);
 app.use("/livro", livro);
-app.use("/troca", Troca); 
+app.use("/troca", troca); 
 app.use("/mensagem", mensagem);
 
 // Servir arquivos estáticos da pasta 'uploads'
 app.use('/uploads', express.static('uploads'));
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger)); // Swagger já configurado aqui
 
-// Rota para cadastro de livros com upload da capa
 app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
-    const { titulo, estado, ano_lancamento, autor, id_dono } = req.body;
+    console.log('Dados recebidos:', req.body); // Log dos dados recebidos
+    console.log('Arquivo recebido:', req.file); // Log do arquivo da capa
+
+    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body; // Altere para id_pessoa
     const capa = req.file ? req.file.path : null;
 
-    // Verifique se id_dono é válido
-    const usuario = await Usuario.findByPk(id_dono);
-    if (!usuario) {
-        console.error('ID do usuário não existe:', id_dono);
-        return res.status(400).json({ error: 'ID do usuário não existe.' });
+    // Verifique se id_pessoa é válido
+    if (!id_pessoa) {
+        console.error('ID da pessoa não foi enviado.');
+        return res.status(400).json({ error: 'ID da pessoa não foi enviado.' });
+    }
+
+    const pessoa = await Pessoa.findByPk(id_pessoa);
+    if (!pessoa) {
+        console.error('ID da pessoa não existe:', id_pessoa);
+        return res.status(400).json({ error: 'ID da pessoa não existe.' });
     }
 
     try {
@@ -74,7 +81,8 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
             estado,
             ano_lancamento,
             autor,
-            id_dono,
+            genero,
+            id_pessoa, 
             capa,
         });
 
@@ -85,6 +93,7 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
         res.status(500).json({ error: 'Erro ao cadastrar livro.' });
     }
 });
+
 
 // Sincronizando com o banco de dados
 sequelize.sync()

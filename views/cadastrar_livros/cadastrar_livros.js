@@ -22,7 +22,7 @@ document.getElementById('inputCapa').addEventListener('change', (event) => {
     reader.onload = (e) => {
         const img = document.getElementById('imgCapa');
         img.src = e.target.result;
-        img.style.display = 'block'; // Mostra a imagem
+        img.style.display = 'block';
     };
 
     if (file) {
@@ -43,38 +43,24 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
     const genero = document.getElementById('genero_livro').value;
     const capa_livro = document.getElementById('inputCapa').files[0];
 
-    // Obtém o ID do usuário do sessionStorage
-    const user = JSON.parse(sessionStorage.getItem('currentUser')); 
-    let pessoaId;
-
-    try {
-        pessoaId = await getIdPessoa();        
-    } catch (error) {
+    // Obtém o ID do usuário logado
+    const usuario = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!usuario) {
         alert('Usuário não está logado. Por favor, faça login.');
         return;
     }
 
-    // Corrigindo para usar id_pessoa
+    const id_pessoa = usuario.userId; 
+
     formData.append('titulo', titulo);
     formData.append('estado', estado);
     formData.append('ano_lancamento', ano_lancamento);
     formData.append('autor', autor);
     formData.append('genero', genero);
-    formData.append('id_pessoa', pessoaId);  // Alterado para id_pessoa
+    formData.append('id_pessoa', id_pessoa); 
     if (capa_livro) {
         formData.append('capa_livro', capa_livro);
     }
-
-    // Log de depuração
-    console.log('Form Data:', {
-        titulo,
-        estado,
-        ano_lancamento,
-        autor,
-        genero,
-        id_pessoa: pessoaId,
-        capa_livro
-    });
 
     try {
         const response = await fetch('http://localhost:3000/livro/cadastrar', {
@@ -86,36 +72,13 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
         if (response.ok) {
             alert('Livro cadastrado com sucesso!');
             document.getElementById('form_cadastrar_livros').reset();
+            document.getElementById('imgCapa').style.display = 'none'; // Ocultar imagem após cadastro
         } else {
             console.error('Erro ao cadastrar livro:', data);
             alert(data.error || 'Erro ao cadastrar livro.');
         }
     } catch (error) {
-        console.error('Erro ao cadastrar livro:', error);
+        // console.error('Erro ao cadastrar livro:', error);
         alert('Erro ao cadastrar livro.');
     }
 });
-
-function voltarPaginaAnterior() {
-    window.history.back();
-}
-
-const getIdPessoa = async () => {
-    const usuario = JSON.parse(sessionStorage.getItem("currentUser"));
-
-    if (usuario) {
-        const response =  await fetch('http://localhost:3000/pessoa/' + usuario.userId, {
-            method: 'GET'
-        });
-
-        if (response.ok) {
-            const pessoa = response.json();
-
-            return pessoa.id;
-        } else {
-            throw Error(`Erro ao consultar a pessoa: ${response.statusText}`);
-        }
-    }
-
-    throw Error("Não foi possível capturar o usuário");
-}
