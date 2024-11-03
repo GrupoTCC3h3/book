@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // Obtenha o usuário logado da sessionStorage
     const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
 
@@ -36,18 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Carregar livros e exibi-los
-    const livros = JSON.parse(localStorage.getItem('livros')) || [];
-    const listaLivros = document.getElementById('listaLivros');
-    listaLivros.innerHTML = ''; // Limpa a lista existente
-    livros.forEach(livro => {
-        const livroElemento = document.createElement('div');
-        livroElemento.className = 'livro-card'; // Classe para estilização
-        livroElemento.innerHTML = `
-            <img src="${livro.imagem}" alt="${livro.nome}" class="livro-imagem">
-            <h3>${livro.nome}</h3>
-            <p>${livro.autor}</p>
-        `;
-        listaLivros.appendChild(livroElemento);
-    });
+    // Função para carregar os livros via API
+    async function carregarLivros() {
+        try {
+            const response = await fetch('./livroRoutes'); // Rota para buscar os livros
+            if (!response.ok) throw new Error('Erro ao buscar livros');
+            const livros = await response.json();
+
+            const listaLivros = document.getElementById('listaLivros');
+            listaLivros.innerHTML = ''; // Limpa a lista existente
+
+            livros.forEach(livro => {
+                const livroElemento = document.createElement('div');
+                livroElemento.className = 'livro-card'; // Classe para estilização
+                livroElemento.innerHTML = `
+                    <img src="${livro.capa}" alt="${livro.titulo}" class="livro-imagem">
+                    <h3>${livro.titulo}</h3>
+                    <p>Gênero: ${livro.genero}</p>
+                    <p>Estado: ${livro.estado}</p>
+                    <p>Dono: ${livro.Pessoa.nome}</p>
+                `;
+                listaLivros.appendChild(livroElemento);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar livros:', error);
+        }
+    }
+
+    // Carregar livros ao inicializar
+    carregarLivros();
 });

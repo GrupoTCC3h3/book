@@ -6,7 +6,7 @@ import contato from './routes/contato.js';
 import livro from './routes/livro.js';
 import troca from './routes/troca.js';
 import mensagem from './routes/mensagem.js';
-import { sequelize } from './db/database.js'; // Usando a instância de sequelize do arquivo de banco de dados
+import { sequelize } from './db/database.js'; // 
 import swaggerUI from 'swagger-ui-express';
 import swagger from './swagger/swagger.js';
 import cors from 'cors';
@@ -22,6 +22,8 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)); // Renomeia o arquivo com um timestamp
     },
 });
+
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const upload = multer({ storage: storage });
 

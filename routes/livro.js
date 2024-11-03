@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import Livro from '../model/livro.js';
-import { Pessoa } from '../model/pessoa.js'; // Importando o modelo de usuário
+import { Pessoa } from '../model/pessoa.js'; // Importando o modelo de pessoa
 
 const router = express.Router();
 
@@ -19,8 +19,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Rota para cadastrar um livro
 router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
-    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body; // id_dono
+    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body;
     const capa = req.file ? req.file.path : null;
 
     try {
@@ -41,8 +42,27 @@ router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
 
         res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
     } catch (error) {
-        console.error("Erro ao cadastrar livro:", error); // Adicione um log de erro
+        console.error("Erro ao cadastrar livro:", error);
         res.status(500).json({ error: 'Erro ao cadastrar livro.' });
+    }
+});
+
+// Rota para obter todos os livros, incluindo o nome do dono (usuário)
+router.get('/livro', async (req, res) => {
+    try {
+        const livros = await Livro.findAll({
+            attributes: ['titulo', 'genero', 'estado', 'capa'], // Seleciona os campos que deseja retornar
+            include: {
+                model: Pessoa,
+                attributes: ['nome'], // Traz o nome do dono do livro
+                required: true
+            }
+        });
+
+        res.json(livros);
+    } catch (error) {
+        console.error('Erro ao buscar livros:', error);
+        res.status(500).json({ error: 'Erro ao buscar livros.' });
     }
 });
 
