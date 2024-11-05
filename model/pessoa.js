@@ -33,4 +33,6 @@ const Pessoa = sequelize.define('Pessoa', {
     timestamps: false,
 });
 
+
+
 export { Pessoa };

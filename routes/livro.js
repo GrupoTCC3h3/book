@@ -1,25 +1,26 @@
+// routes/livro.js
+
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import Livro from '../model/livro.js';
-import { Pessoa } from '../model/pessoa.js'; // Importando o modelo de pessoa
+import { Pessoa } from '../model/pessoa.js'; 
+import { Usuario } from '../model/usuario.js';
 
 const router = express.Router();
 
-// Configuração do multer para salvar imagens em uma pasta local chamada 'uploads'
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Pasta onde as imagens serão salvas
+        cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname)); // Nome único para cada imagem
+        cb(null, uniqueSuffix + path.extname(file.originalname));
     }
 });
 
 const upload = multer({ storage: storage });
 
-// Rota para cadastrar um livro
 router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
     const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body;
     const capa = req.file ? req.file.path : null;
@@ -47,16 +48,24 @@ router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
     }
 });
 
-// Rota para obter todos os livros, incluindo o nome do dono (usuário)
 router.get('/livro', async (req, res) => {
     try {
         const livros = await Livro.findAll({
-            attributes: ['titulo', 'genero', 'estado', 'capa'], // Seleciona os campos que deseja retornar
-            include: {
-                model: Pessoa,
-                attributes: ['nome'], // Traz o nome do dono do livro
-                required: true
-            }
+            attributes: ['titulo', 'genero', 'estado', 'capa'],
+            include: [
+                {
+                    model: Pessoa,
+                    attributes: ['id_usuario'],
+                    include: [
+                        {
+                            model: Usuario,
+                            attributes: ['nome'],
+                            required: true
+                        }
+                    ],
+                    required: true
+                }
+            ]
         });
 
         res.json(livros);

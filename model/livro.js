@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db/database.js";
+import { sequelize } from "../db/database.js"; // Caminho para o banco de dados
+import { Pessoa } from './pessoa.js'; // Importando corretamente
 
 const Livro = sequelize.define('livro', {
     titulo: {
@@ -17,7 +18,7 @@ const Livro = sequelize.define('livro', {
         type: DataTypes.STRING
     },
     capa: {
-        type: DataTypes.STRING // Mantendo apenas um campo para a capa
+        type: DataTypes.STRING
     },
     genero: {
         type: DataTypes.STRING,

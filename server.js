@@ -12,6 +12,7 @@ import swagger from './swagger/swagger.js';
 import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
+import './util/associations.js'; // Importando associações
 
 // Configuração do Multer
 const storage = multer.diskStorage({
