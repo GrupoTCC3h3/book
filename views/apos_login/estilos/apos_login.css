@@ -76,7 +76,6 @@ main .colorP {
     font-weight: bold;
     text-align: center;
     padding: 10px;
-    margin-bottom: 8%;
 }
 
 main .container_livros_amostra {
@@ -218,7 +217,9 @@ nav#sideMenu.visible {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    width: 100%;
+    width: 10%;
+    margin-left: auto;
+    margin-right: 0;
     text-align: center;
 }
 
