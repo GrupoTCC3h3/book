@@ -6,13 +6,13 @@ import contato from './routes/contato.js';
 import livro from './routes/livro.js';
 import troca from './routes/troca.js';
 import mensagem from './routes/mensagem.js';
-import { sequelize } from './db/database.js'; // 
+import { sequelize } from './db/database.js';
 import swaggerUI from 'swagger-ui-express';
 import swagger from './swagger/swagger.js';
 import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
-import './util/associations.js'; // Importando associações
+import './util/associations.js';
 
 // Configuração do Multer
 const storage = multer.diskStorage({
@@ -23,8 +23,6 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)); // Renomeia o arquivo com um timestamp
     },
 });
-
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const upload = multer({ storage: storage });
 

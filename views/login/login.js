@@ -34,26 +34,36 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.erro) {
-                    msgError.setAttribute('style', 'display: block');
+                    msgError.style.display = 'block';
                     msgError.innerHTML = data.message;
                 } else {
                     // Salva os dados do usuário no sessionStorage
                     sessionStorage.setItem('currentUser', JSON.stringify({
-                        userId: data.id,  // Aqui está o ID do usuário
+                        userId: data.id,  // ID do usuário
                         nome: data.nome,
                         email: data.email,
                     }));
+
+                    // Salva dados no localStorage se "lembrar-me" estiver marcado
+                    if (lembrarMe.checked) {
+                        localStorage.setItem('savedEmail', email);
+                        localStorage.setItem('savedPassword', senha);
+                        localStorage.setItem('rememberMe', 'true');
+                    } else {
+                        localStorage.removeItem('savedEmail');
+                        localStorage.removeItem('savedPassword');
+                        localStorage.setItem('rememberMe', 'false');
+                    }
 
                     window.location.href = '../apos_login/apos_login.html';  // Redireciona após o login
                 }
             })
             .catch(error => {
-                msgError.setAttribute('style', 'display: block');
+                msgError.style.display = 'block';
                 msgError.innerHTML = 'Erro: ' + error.message;
             });
     });
 });
-
 
 // Função para redirecionar para a tela de cadastro
 function TelaCadastrar() {
