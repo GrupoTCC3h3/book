@@ -13,6 +13,7 @@ import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import './util/associations.js';
+import Livro from './model/livro.js';  // Importe o modelo de Livro
 
 // Configuração do Multer
 const storage = multer.diskStorage({
@@ -57,6 +58,7 @@ app.use("/mensagem", mensagem);
 app.use('/uploads', express.static('uploads'));
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger)); // Swagger já configurado aqui
 
+// Endpoint para cadastrar um livro
 app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
     console.log('Dados recebidos:', req.body); // Log dos dados recebidos
     console.log('Arquivo recebido:', req.file); // Log do arquivo da capa
@@ -95,6 +97,25 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
     }
 });
 
+// Endpoint para deletar um livro
+app.delete('/livro/:id', async (req, res) => {
+    const livroId = req.params.id;
+
+    try {
+        // Verificar se o livro existe
+        const livro = await Livro.findByPk(livroId);
+        if (!livro) {
+            return res.status(404).json({ message: 'Livro não encontrado.' });
+        }
+
+        // Deletar o livro
+        await livro.destroy();
+        res.status(200).json({ message: 'Livro deletado com sucesso!' });
+    } catch (error) {
+        console.error('Erro ao deletar livro:', error);
+        res.status(500).json({ message: 'Erro ao deletar livro.' });
+    }
+});
 
 // Sincronizando com o banco de dados
 sequelize.sync()
