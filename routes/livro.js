@@ -1,5 +1,3 @@
-// routes/livro.js
-
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
@@ -10,10 +8,8 @@ import { Usuario } from '../model/usuario.js';
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, uniqueSuffix + path.extname(file.originalname));
     }
@@ -27,20 +23,9 @@ router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
 
     try {
         const pessoa = await Pessoa.findByPk(id_pessoa);
-        if (!pessoa) {
-            return res.status(400).json({ error: 'ID do usuário não existe.' });
-        }
+        if (!pessoa) return res.status(400).json({ error: 'ID do usuário não existe.' });
 
-        const novoLivro = await Livro.create({
-            titulo,
-            estado,
-            ano_lancamento,
-            autor,
-            genero,
-            id_pessoa,
-            capa,
-        });
-
+        const novoLivro = await Livro.create({ titulo, estado, ano_lancamento, autor, genero, id_pessoa, capa });
         res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
     } catch (error) {
         console.error("Erro ao cadastrar livro:", error);
@@ -51,27 +36,34 @@ router.post('/cadastrar', upload.single('capa_livro'), async (req, res) => {
 router.get('/livro', async (req, res) => {
     try {
         const livros = await Livro.findAll({
-            attributes: ['titulo', 'genero', 'estado', 'capa'],
-            include: [
-                {
-                    model: Pessoa,
-                    attributes: ['id_usuario'],
-                    include: [
-                        {
-                            model: Usuario,
-                            attributes: ['nome'],
-                            required: true
-                        }
-                    ],
-                    required: true
-                }
-            ]
+            include: [{
+                model: Pessoa,
+                attributes: ['id_usuario'],
+                include: [{ model: Usuario, attributes: ['nome'], required: true }],
+                required: true
+            }]
         });
-
         res.json(livros);
     } catch (error) {
         console.error('Erro ao buscar livros:', error);
         res.status(500).json({ error: 'Erro ao buscar livros.' });
+    }
+});
+
+router.delete('/livro/:id', async (req, res) => {
+    const { id } = req.params; // Obtém o ID do livro da URL
+
+    try {
+        // Verifica se o livro existe no banco de dados
+        const livro = await Livro.findByPk(id);
+        if (!livro) return res.status(404).json({ error: 'Livro não encontrado.' });
+
+        // Apaga o livro
+        await livro.destroy();
+        res.status(200).json({ message: 'Livro apagado com sucesso!' });
+    } catch (error) {
+        console.error('Erro ao apagar o livro:', error);
+        res.status(500).json({ error: 'Erro ao apagar o livro.' });
     }
 });
 

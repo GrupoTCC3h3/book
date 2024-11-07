@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="../img/favicon-bookswap.ico" type="image/x-icon">
+        <link rel="stylesheet" href="editarLivro.css">
+        <title>BookSwap</title>
+    </head>
+<body>
+    <div class="container">
+        <h1>Editar Informações do Livro</h1>
+        <form id="formEditarLivro">
+            <div class="input-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="input-group">
+                <label for="genero">Gênero</label>
+                <input type="text" id="genero" name="genero" required>
+            </div>
+            <div class="input-group">
+                <label for="estado">Estado</label>
+                <input type="text" id="estado" name="estado" required>
+            </div>
+            <div class="input-group">
+                <label for="capa">URL da Capa</label>
+                <input type="text" id="capa" name="capa">
+            </div>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <button id="voltar" onclick="voltarPagina()">Voltar</button>
+    </div>
+
+    <script src="editar_livro.js"></script>
+</body>
+</html>

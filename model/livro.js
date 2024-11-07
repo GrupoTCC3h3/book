@@ -3,6 +3,11 @@ import { sequelize } from "../db/database.js"; // Caminho para o banco de dados
 import { Pessoa } from './pessoa.js'; // Importando corretamente
 
 const Livro = sequelize.define('livro', {
+    id: {
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     titulo: {
         type: DataTypes.STRING,
         allowNull: false
