@@ -19,7 +19,9 @@
     </header>
 
     <main>
-        <h1>Editar Livro</h1>
+        <!-- Título dinâmico: "Editar Livro - {nome do livro}" -->
+        <h1 id="tituloPagina">Editar Livro</h1>
+
         <div class="container_editar_livros">
             <form id="editarLivroForm">
                 <div class="form-group">
@@ -34,6 +36,7 @@
                     <label for="estado">Estado:</label>
                     <input type="text" id="estado" name="estado" required>
                 </div>
+                <!-- O campo de capa foi removido -->
                 <button type="submit">Salvar Alterações</button>
             </form>
             <button onclick="voltar()">Voltar</button>
