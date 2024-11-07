@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,24 +20,23 @@
     </header>
 
     <main>
-        <!-- Título dinâmico: "Editar Livro - {nome do livro}" -->
-        <h1 id="tituloPagina">Editar Livro</h1>
-
+        <h1>Editar Livro - <span id="livroNome"></span></h1>
         <div class="container_editar_livros">
-            <form id="editarLivroForm">
-                <div class="form-group">
-                    <label for="titulo">Título:</label>
-                    <input type="text" id="titulo" name="titulo" required>
-                </div>
-                <div class="form-group">
-                    <label for="genero">Gênero:</label>
-                    <input type="text" id="genero" name="genero" required>
-                </div>
-                <div class="form-group">
-                    <label for="estado">Estado:</label>
-                    <input type="text" id="estado" name="estado" required>
-                </div>
-                <!-- O campo de capa foi removido -->
+            <form id="formEditarLivro">
+                <label for="nomeLivro">Nome do Livro:</label>
+                <input type="text" id="nomeLivro" name="nomeLivro">
+
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" name="autor">
+
+                <label for="genero">Gênero:</label>
+                <input type="text" id="genero" name="genero">
+
+                <label for="ano">Ano:</label>
+                <input type="text" id="ano" name="ano" maxlength="4" pattern="\d{4}"
+                    title="O campo Ano deve conter exatamente 4 dígitos numéricos.">
+
+
                 <button type="submit">Salvar Alterações</button>
             </form>
             <button onclick="voltar()">Voltar</button>
@@ -45,4 +45,5 @@
 
     <script src="editar_livro.js"></script>
 </body>
+
 </html>

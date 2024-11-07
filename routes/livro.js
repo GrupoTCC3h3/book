@@ -67,4 +67,17 @@ router.delete('/livro/:id', async (req, res) => {
     }
 });
 
+router.get('/livro/:id', async (req, res) => {
+    const { id } = req.params; // Extract book ID from URL
+    try {
+        const livro = await Livro.findByPk(id); // Fetch book from the database by ID
+        if (!livro) {
+            return res.status(404).json({ error: 'Livro não encontrado.' }); // Book not found
+        }
+        res.status(200).json(livro); // Return the book data
+    } catch (error) {
+        console.error('Erro ao buscar o livro:', error);
+        res.status(500).json({ error: 'Erro ao buscar o livro.' });
+    }
+});
 export default router;

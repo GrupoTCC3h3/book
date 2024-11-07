@@ -13,9 +13,9 @@ import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import './util/associations.js';
-import Livro from './model/livro.js';  // Importe o modelo de Livro
+import Livro from './model/livro.js';  // Importa o modelo de Livro
 
-// Configuração do Multer
+// Configuração do Multer para upload de capa de livro
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/'); // Pasta para armazenar as capas dos livros
@@ -97,6 +97,27 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
     }
 });
 
+// Endpoint para obter os dados de um livro por ID
+app.get('/livro/:id', async (req, res) => {
+    const livroId = req.params.id;  // Pega o ID do livro da URL
+    
+    try {
+        // Tenta buscar o livro no banco de dados usando o ID
+        const livro = await Livro.findByPk(livroId);  // Usando o Sequelize para buscar o livro por ID
+        
+        if (!livro) {
+            // Caso o livro não exista, retorna erro 404
+            return res.status(404).json({ message: 'Livro não encontrado.' });
+        }
+        
+        // Se o livro for encontrado, retorna os dados do livro
+        res.status(200).json(livro);
+    } catch (error) {
+        console.error('Erro ao buscar o livro:', error);
+        res.status(500).json({ message: 'Erro ao buscar o livro.' });
+    }
+});
+
 // Endpoint para deletar um livro
 app.delete('/livro/:id', async (req, res) => {
     const livroId = req.params.id;
@@ -114,6 +135,33 @@ app.delete('/livro/:id', async (req, res) => {
     } catch (error) {
         console.error('Erro ao deletar livro:', error);
         res.status(500).json({ message: 'Erro ao deletar livro.' });
+    }
+});
+
+app.put('/livro/:id', async (req, res) => {
+    const livroId = req.params.id; // Obtém o ID do livro a ser atualizado
+    const { titulo, autor, genero, ano_lancamento } = req.body; // Dados que serão atualizados
+    
+    try {
+        const livro = await Livro.findByPk(livroId); // Busca o livro pelo ID
+
+        if (!livro) {
+            return res.status(404).json({ message: 'Livro não encontrado.' });
+        }
+
+        // Atualiza os dados do livro com as novas informações
+        livro.titulo = titulo || livro.titulo;
+        livro.autor = autor || livro.autor;
+        livro.genero = genero || livro.genero;
+        livro.ano_lancamento = ano_lancamento || livro.ano_lancamento;
+
+        await livro.save(); // Salva as alterações no banco de dados
+
+        console.log('Livro atualizado com sucesso:', livro);
+        res.status(200).json({ message: 'Livro atualizado com sucesso!', livro });
+    } catch (error) {
+        console.error('Erro ao atualizar livro:', error);
+        res.status(500).json({ message: 'Erro ao atualizar livro.' });
     }
 });
 
