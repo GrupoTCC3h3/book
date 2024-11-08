@@ -97,7 +97,7 @@ input,
 
 input {
     background-color: #d5ccc7;
-    width: 50vw;
+    width: 65%;
     border-radius: 10px;
     padding: 15px;
     outline: none;
@@ -241,7 +241,9 @@ footer {
     margin-bottom: 10px;
 }
 
-.livros-nao-encontrados{
-    margin-top: 20px;
+.livros-nao-encontrados {
     text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
 }

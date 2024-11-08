@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () { 
+document.addEventListener("DOMContentLoaded", async function () {
     const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
 
     if (usuarioAtual && usuarioAtual.nome) {
@@ -73,6 +73,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <button class="contato-btn">Iniciar Contato</button>
                     </div>
                 `;
+                // Adicionar evento de clique no botão "Iniciar Contato"
+                livroElemento.querySelector('.contato-btn').addEventListener('click', () => {
+                    // Obter as informações do livro e do dono
+                    const livroInfo = {
+                        titulo: livro.titulo,
+                        genero: livro.genero,
+                        estado: livro.estado,
+                        capa: livro.capa,
+                        dono: livro.Pessoa.Usuario.nome, // Correção: passando nome do dono
+                    };
+
+                    // Armazenar as informações no sessionStorage
+                    sessionStorage.setItem('livroEmContato', JSON.stringify(livroInfo));
+
+                    // Redirecionar para a tela de iniciando_contato.html
+                    window.location.href = '../iniciando_contato/iniciando_contato.html';
+                });
+
                 listaLivros.appendChild(livroElemento);
             });
         } else {
