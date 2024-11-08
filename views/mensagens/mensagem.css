@@ -13,25 +13,58 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+}
+
 body {
-    position: relative;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f4f4f4;
 }
 
 header {
     color: var(--marromEscuro);
-    height: 100px;
+    height: 150px;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
-    position: relative;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .container_icones_laterais {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    left: 20px; /* Mantém o botão à esquerda */
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-text {
@@ -40,11 +73,11 @@ header {
     justify-content: center;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+    transform: translateX(-50%);
 }
 
 header .logo {
-    width: 50px;
+    width: 35px;
     height: auto;
     margin-right: 10px;
 }
@@ -54,33 +87,8 @@ h2 {
     color: var(--marromClaro);
 }
 
-#voltar {
-    background-color: var(--marromClaro);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
-}
-
 hr {
     margin-bottom: 15px;
-}
-
-header .logo-text {
-    display: flex;
-    align-items: center;
-}
-
-header .logo {
-    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
-    height: auto;
-    margin-right: 10px; /* Espaço entre a logo e o texto */
-}
-
-header > div  > h2 {
-    margin: 0;
-    color: var(--marromClaro);
 }
 
 h1 {
@@ -88,19 +96,87 @@ h1 {
     color: var(--marromClaro);
 }
 
+/* Container principal do chat */
+.container_chat {
+    width: 100%;
+    max-width: 70%;
+    margin: 20px auto;
+    background-color: var(--marromClaro);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.mensagem-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--marromEscuro);
+}
+
+.mensagem-header .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.nome-usuario {
+    font-weight: bold;
+    color: white;
+}
+
+.chat-messages {
+    padding: 20px;
+    background-color: var(--marromSuperClaro);
+    color: var(--marromEscuro);
+    flex-grow: 1;
+    overflow-y: auto;
+    height: calc(85vh - 150px);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid var(--marromMaisClaro);
+}
+
+.mensagem-input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid var(--marromMaisClaro);
+    margin-right: 5px;
+    background-color: var(--marromSuperClaro);
+}
+
+.enviar-btn {
+    background-color: var(--marromClaro);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    padding: 8px;
+}
 
 footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     background-color: var(--marromClaro);
     color: white;
     font-weight: bold;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
-.copy {
+footer .copy {
     margin-bottom: 10px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }

@@ -82,3 +82,7 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
         alert('Erro ao cadastrar livro.');
     }
 });
+
+function voltarPaginaAnterior(){
+    window.document.location.href = "../apos_login/apos_login.html"
+}
