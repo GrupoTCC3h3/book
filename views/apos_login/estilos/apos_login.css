@@ -217,7 +217,7 @@ nav#sideMenu.visible {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    width: 10%;
+    width: 22%;
     margin-left: auto;
     margin-right: 0;
     text-align: center;
@@ -239,4 +239,9 @@ footer {
 }
 .copy {
     margin-bottom: 10px;
+}
+
+.livros-nao-encontrados{
+    margin-top: 20px;
+    text-align: center;
 }

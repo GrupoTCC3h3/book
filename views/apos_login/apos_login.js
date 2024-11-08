@@ -47,11 +47,20 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return livro.Pessoa && livro.Pessoa.id_usuario !== usuarioAtual.userId; // Alterado para 'userId' baseado no login
             });
 
-            const listaLivros = document.getElementById('listaLivros');
-            listaLivros.innerHTML = '';  // Limpa a lista antes de exibir os livros
+            return livrosDeOutrosUsuarios;
+        } catch (error) {
+            console.error('Erro ao carregar livros:', error);
+            return [];
+        }
+    }
 
-            // Exibir livros filtrados
-            livrosDeOutrosUsuarios.forEach(livro => {
+    // Função para exibir os livros ou a mensagem caso não haja livros
+    function exibirLivros(livros, mensagem = '') {
+        const listaLivros = document.getElementById('listaLivros');
+        listaLivros.innerHTML = '';  // Limpa a lista antes de exibir os livros
+
+        if (livros.length > 0) {
+            livros.forEach(livro => {
                 const livroElemento = document.createElement('div');
                 livroElemento.className = 'livro-card';
                 livroElemento.innerHTML = `
@@ -66,11 +75,35 @@ document.addEventListener("DOMContentLoaded", async function () {
                 `;
                 listaLivros.appendChild(livroElemento);
             });
-        } catch (error) {
-            console.error('Erro ao carregar livros:', error);
+        } else {
+            const mensagemElemento = document.createElement('p');
+            mensagemElemento.textContent = mensagem;
+            mensagemElemento.className = 'livros-nao-encontrados'; // Classe CSS para centralizar a mensagem
+            listaLivros.appendChild(mensagemElemento);
         }
     }
 
-    // Carregar os livros ao inicializar a página
-    carregarLivros();
+    // Função para filtrar os livros com base no termo de pesquisa
+    async function filtrarLivros() {
+        const termoPesquisa = document.getElementById('catalogo').value.toLowerCase();
+        const livros = await carregarLivros();
+
+        const livrosFiltrados = livros.filter(livro => livro.titulo.toLowerCase().includes(termoPesquisa));
+
+        exibirLivros(livrosFiltrados, 'Nenhum livro disponível com este nome.');
+    }
+
+    // Adicionando o evento de pesquisa no input
+    const inputCatalogo = document.getElementById('catalogo');
+    inputCatalogo.addEventListener('input', filtrarLivros);
+
+    // Carregar e exibir todos os livros ao inicializar a página
+    const livrosIniciais = await carregarLivros();
+    
+    // Mensagem de "Nenhum livro cadastrado"
+    if (livrosIniciais.length === 0) {
+        exibirLivros(livrosIniciais, 'Nenhum livro cadastrado no momento.');
+    } else {
+        exibirLivros(livrosIniciais);
+    }
 });
