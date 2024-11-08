@@ -14,24 +14,20 @@
 <body>
     <header>
         <div class="container_icones_laterais">
-            <button id="voltar" class="icons_laterais"><i class="material-icons"
-                    onclick="voltarPaginaAnterior()">arrow_back</i></button>
+            <button id="voltar" class="icons_laterais"><i class="material-icons" onclick="voltarPaginaAnterior()">arrow_back</i></button>
         </div>
         <div class="logo-text">
             <img class="logo" src="../img/logo-bookswap.png" alt="Logo">
             <h2>BookSwap</h2>
         </div>
-
-      
     </header>
     <hr>
 
     <main>
-        <h1>Livros Disponiveis</h1>
-        <div class="container">
-
-        </div>
+        <h1>Livros Disponíveis</h1>
+        <div id="livros-disponiveis-container"></div>
     </main>
+
     <footer>
         <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
         <div class="contato">
@@ -39,13 +35,7 @@
         </div>
     </footer>
 
-
-    <script>
-        // Função para voltar à página anterior
-        function voltarPaginaAnterior() {
-            window.history.back();
-        }
-    </script>
+    <script src="livros_disponiveis.js"></script>
 </body>
 
 </html>

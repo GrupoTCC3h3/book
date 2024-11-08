@@ -80,4 +80,25 @@ router.get('/livro/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar o livro.' });
     }
 });
+
+// Rota para listar livros disponíveis (livros em estado "otimo", "bom", "regular")
+router.get('/livros-disponiveis', (req, res) => {
+    const query = `
+      SELECT livro.id, livro.titulo, livro.estado, livro.ano_lancamento, livro.autor, livro.genero, livro.capa,
+             pessoa.id_usuario, usuario.nome AS nome_dono
+      FROM livro
+      LEFT JOIN pessoa ON pessoa.id_livro = livro.id
+      LEFT JOIN usuario ON usuario.id = pessoa.id_usuario
+      WHERE livro.estado IN ('otimo', 'bom', 'regular')
+    `;
+  
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('Erro ao buscar livros:', err);
+        return res.status(500).send('Erro ao buscar livros');
+      }
+      res.json(results); // Envia os livros em formato JSON
+    });
+});
+  
 export default router;

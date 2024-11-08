@@ -13,7 +13,9 @@ import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import './util/associations.js';
-import Livro from './model/livro.js';  // Importa o modelo de Livro
+import Livro from './model/livro.js';
+import { Pessoa } from './model/pessoa.js';
+import { Usuario } from './model/usuario.js';
 
 // Configuração do Multer para upload de capa de livro
 const storage = multer.diskStorage({
@@ -169,6 +171,36 @@ app.put("/livro/:id", async (req, res) => {
         return res.status(500).json({ message: "Erro ao atualizar o livro" });
     }
 });
+
+app.get('/livros-disponiveis', async (req, res) => {
+    try {
+        // Buscar todos os livros no banco de dados, incluindo as informações do dono (Pessoa)
+        const livros = await Livro.findAll({
+            include: [
+                {
+                    model: Pessoa,
+                    required: true, // Isso garante que apenas livros com Pessoa associada sejam retornados
+                    include: [{
+                        model: Usuario, // Inclui o dono do livro (assumindo que Usuario tenha dados do dono)
+                        required: true // Garante que sempre terá um usuário associado à Pessoa
+                    }]
+                }
+            ]
+        });
+
+        if (livros.length === 0) {
+            return res.status(404).json({ message: 'Nenhum livro disponível.' });
+        }
+
+        // Retornar os livros encontrados
+        res.status(200).json(livros);
+    } catch (error) {
+        console.error('Erro ao listar livros disponíveis:', error);
+        res.status(500).json({ message: 'Erro ao listar livros disponíveis.' });
+    }
+});
+
+
 
 
   

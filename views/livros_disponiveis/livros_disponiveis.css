@@ -1,4 +1,3 @@
-/* Paleta de Cores */
 :root {
     --marromEscuro: #261c1a;
     --marromClaro: #ac8f83;
@@ -7,85 +6,101 @@
 }
 
 * {
-    padding: 0px;
-    margin: 0px;
-    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
     position: relative;
     min-height: 100vh;
+    background-color: #f4f4f9;
 }
 
 header {
     color: var(--marromEscuro);
     height: 100px;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
     align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    position: relative;
 }
 
 .container_icones_laterais {
     position: absolute;
-    left: 20px; /* Mantém o botão à esquerda */
+    left: 20px;
 }
 
 .logo-text {
     display: flex;
     align-items: center;
-    justify-content: center;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+    transform: translateX(-50%);
 }
 
-header .logo {
+.logo {
     width: 50px;
     height: auto;
     margin-right: 10px;
 }
 
-h2 {
-    margin: 0;
-    color: var(--marromClaro);
-}
-
-#voltar {
-    background-color: var(--marromClaro);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
-}
-
-hr {
-    margin-bottom: 15px;
-}
-
-header .logo-text {
-    display: flex;
-    align-items: center;
-}
-
-header .logo {
-    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
-    height: auto;
-    margin-right: 10px; /* Espaço entre a logo e o texto */
-}
-
-header > div  > h2 {
-    margin: 0;
-    color: var(--marromClaro);
-}
-
 h1 {
     text-align: center;
     color: var(--marromClaro);
+    margin-top: 20px;
+}
+
+#livros-disponiveis-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.livro {
+    border: 2px solid var(--marromClaro);
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--marromSuperClaro);
+    text-align: center;
+    width: 220px;
+}
+
+.livro img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.livro h3 {
+    font-size: 1.2em;
+    color: var(--marromEscuro);
+}
+
+.livro p {
+    font-size: 0.9em;
+    color: var(--marromMaisClaro);
+    margin: 5px 0;
+}
+
+.contact-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: var(--marromClaro);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+    background-color: #8b6e64;
 }
 
 footer {
@@ -93,13 +108,125 @@ footer {
     bottom: 0;
     width: 100%;
     background-color: var(--marromClaro);
-    color: white;
-    font-weight: bold;
-    padding: 30px;
+    color: #fff;
     text-align: center;
-    margin-top: 20px;
+    padding: 15px;
+    font-weight: bold;
 }
 
-.copy {
+#livros-disponiveis-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.livro {
+    width: 180px;
+    border: 1px solid var(--marromClaro);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--marromSuperClaro);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.livro img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
     margin-bottom: 10px;
+}
+
+.livro h3 {
+    font-size: 1.1em;
+    margin: 5px 0;
+    color: var(--marromEscuro);
+}
+
+.livro p {
+    font-size: 0.9em;
+    color: var(--marromMaisClaro);
+    margin: 2px 0;
+}
+
+header .container_icones_laterais {
+    position: absolute;
+    left: 20px;
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Container para Livros Disponíveis */
+#livros-disponiveis-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Card de Livro */
+.livro-card {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--marromClaro);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: var(--marromClaro);
+    color: #fff;
+    max-width: 300px;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.livro-imagem {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.livro-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.livro-info h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.livro-info p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+.contato-btn {
+    padding: 8px 12px;
+    margin-top: 10px;
+    color: var(--marromClaro);
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.contato-btn:hover {
+    background-color: #5a3e35;
+    color: white;
 }
