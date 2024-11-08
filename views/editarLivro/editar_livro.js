@@ -10,15 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    // Exibe o título do livro na página, se fornecido na URL
     if (livroTitulo) {
         livroNomeElement.textContent = livroTitulo;
     }
 
+    // Verifica se o id do livro foi fornecido na URL
     if (!livroId) {
         alert("ID do livro não fornecido.");
         return;
     }
 
+    // Carregar os dados do livro ao abrir a página
     fetch(`http://localhost:3000/livro/${livroId}`)
         .then(response => {
             if (!response.ok) {
@@ -40,11 +43,33 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Erro ao carregar os dados do livro.");
         });
 
+    // Função para validar o ano
     function validarAno(ano) {
         const anoRegex = /^\d{4}$/;
         return anoRegex.test(ano);
     }
 
+    // Função para atualizar a lista de livros localmente (caso não esteja usando pop-up)
+    function atualizarListaLivros() {
+        fetch('http://localhost:3000/livros')
+            .then(response => response.json())
+            .then(livros => {
+                // Aqui você pode atualizar a lista de livros na página
+                // Exemplo de atualização da lista
+                const listaLivros = document.getElementById('listaLivros');
+                listaLivros.innerHTML = '';  // Limpa a lista
+                livros.forEach(livro => {
+                    const li = document.createElement('li');
+                    li.textContent = livro.titulo;
+                    listaLivros.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao atualizar a lista de livros:", error);
+            });
+    }
+
+    // Submissão do formulário de edição
     formEditarLivro.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -53,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const genero = document.getElementById("genero").value;
         const ano = document.getElementById("ano").value;
 
+        // Validação do campo Ano
         if (!validarAno(ano)) {
             alert("O campo Ano deve conter exatamente 4 dígitos numéricos.");
             return;
@@ -64,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (genero !== '') livroAlterado.genero = genero;
         if (ano !== '') livroAlterado.ano_lancamento = ano;
 
+        // Verifica se houve alguma alteração
         if (Object.keys(livroAlterado).length === 0) {
             alert("Nenhuma alteração foi feita.");
             return;
@@ -71,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Dados para atualização:", livroAlterado);
 
+        // Enviar a solicitação de atualização
         fetch(`http://localhost:3000/livro/${livroId}`, {
             method: 'PUT',
             headers: {
@@ -78,23 +106,22 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(livroAlterado)
         })
-        .then(response => {
-            if (!response.ok) {
-                console.error("Erro ao atualizar o livro. Status:", response.status);
-                return response.text(); 
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            if (data) {
-                console.log("Resposta do servidor:", data);
-                if (data.message) {
-                    alert("Livro atualizado com sucesso!");
+            if (data.message === "Livro atualizado com sucesso!") {
+                alert("Livro atualizado com sucesso!");
+
+                // Verifica se a página foi aberta como uma janela pop-up
+                if (window.opener) {
                     window.opener.postMessage({ action: 'reloadLivros' }, '*');
-                    window.location.href = '../livros_cadastrados/livros_cadastrado.html';
                 } else {
-                    alert("Erro ao atualizar o livro: " + data.message);
+                    // Caso não seja uma pop-up, atualiza a lista localmente
+                    atualizarListaLivros();
                 }
+
+                window.location.href = '../livros_cadastrados/livros_cadastrado.html';
+            } else {
+                alert("Erro ao atualizar o livro: " + data.message);
             }
         })
         .catch(error => {

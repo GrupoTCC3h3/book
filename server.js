@@ -138,32 +138,40 @@ app.delete('/livro/:id', async (req, res) => {
     }
 });
 
-app.put('/livro/:id', async (req, res) => {
-    const livroId = req.params.id; // Obtém o ID do livro a ser atualizado
-    const { titulo, autor, genero, ano_lancamento } = req.body; // Dados que serão atualizados
-    
-    try {
-        const livro = await Livro.findByPk(livroId); // Busca o livro pelo ID
+// Exemplo de rota PUT para atualizar um livro
+// Endpoint para atualizar um livro
+app.put("/livro/:id", async (req, res) => {
+    const livroId = req.params.id;
+    const { titulo, autor, genero, ano_lancamento } = req.body;
 
+    try {
+        // Buscar o livro pelo ID
+        const livro = await Livro.findByPk(livroId);
+        
+        // Verificar se o livro existe
         if (!livro) {
-            return res.status(404).json({ message: 'Livro não encontrado.' });
+            return res.status(404).json({ message: "Livro não encontrado" });
         }
 
-        // Atualiza os dados do livro com as novas informações
-        livro.titulo = titulo || livro.titulo;
-        livro.autor = autor || livro.autor;
-        livro.genero = genero || livro.genero;
-        livro.ano_lancamento = ano_lancamento || livro.ano_lancamento;
+        // Atualizar os dados do livro
+        livro.titulo = titulo;
+        livro.autor = autor;
+        livro.genero = genero;
+        livro.ano_lancamento = ano_lancamento;
 
-        await livro.save(); // Salva as alterações no banco de dados
+        // Salvar as alterações no banco de dados
+        await livro.save();
 
-        console.log('Livro atualizado com sucesso:', livro);
-        res.status(200).json({ message: 'Livro atualizado com sucesso!', livro });
+        // Retornar a resposta de sucesso
+        return res.status(200).json({ message: "Livro atualizado com sucesso!" });
     } catch (error) {
-        console.error('Erro ao atualizar livro:', error);
-        res.status(500).json({ message: 'Erro ao atualizar livro.' });
+        console.error("Erro ao atualizar o livro:", error);
+        return res.status(500).json({ message: "Erro ao atualizar o livro" });
     }
 });
+
+
+  
 
 // Sincronizando com o banco de dados
 sequelize.sync()
