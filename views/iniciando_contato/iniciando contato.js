@@ -20,3 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'mensagens.html';  // Tela de mensagens em tempo real
     });
 });
+
+function voltarPaginaAnterior(){
+    window.document.location.href = "../apos_login/apos_login.html"
+}

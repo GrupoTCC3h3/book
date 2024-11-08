@@ -1,20 +1,78 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    color: var(--marromEscuro);
+    height: 140px;
+    display: block;
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header > div > h1 {
     margin: 0;
-    background-color: #f4f4f4;
+    color: var(--marromClaro);
+}
+
+hr {
+    max-width: 100%;
+    margin-top: 10px;
 }
 
 .container {
-    background-color: white;
+    background-color: var(--marromClaro);
+    color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 80%;
     max-width: 600px;
+    margin: auto;
+}
+
+.container_icones_laterais {
+    position: absolute;
+    left: 20px; /* Mantém o botão à esquerda */
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 }
 
 .livro-info {
@@ -35,13 +93,14 @@ h3 {
 
 p {
     font-size: 16px;
-    color: #333;
+    color: white;
     margin: 5px 0;
 }
 
 .btn {
-    background-color: #4CAF50;
-    color: white;
+    background-color: white;
+    color: var(--marromClaro);
+    font-weight: bold;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -51,5 +110,7 @@ p {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color:var(--marromMaisClaro);
+    color: white;
+    font-weight: bold;
 }

@@ -211,8 +211,9 @@ nav#sideMenu.visible {
     display: block;
     padding: 10px 15px;
     margin-top: 10px;
-    color: var(--marromClaro);
     background-color: white;
+    color: var(--marromClaro);
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -221,13 +222,15 @@ nav#sideMenu.visible {
     margin-left: auto;
     margin-right: 0;
     text-align: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .contato-btn:hover {
-    background-color: #5a3e35;
+    background-color:var(--marromMaisClaro);
     color: white;
+    font-weight: bold;
 }
-
 
 /* Rodapé */
 footer {
