@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const livroTitulo = params.get("titulo");
     const formEditarLivro = document.getElementById("formEditarLivro");
     const livroNomeElement = document.getElementById("livroNome");
+    const botaoSalvar = document.getElementById("salvarAlteracoes");  // Aqui pegamos o botão
 
     if (!formEditarLivro) {
         console.error("Formulário de edição não encontrado.");
@@ -49,25 +50,26 @@ document.addEventListener("DOMContentLoaded", function () {
         return anoRegex.test(ano);
     }
 
-    // Função para atualizar a lista de livros localmente (caso não esteja usando pop-up)
-    function atualizarListaLivros() {
-        fetch('http://localhost:3000/livros')
-            .then(response => response.json())
-            .then(livros => {
-                // Aqui você pode atualizar a lista de livros na página
-                // Exemplo de atualização da lista
-                const listaLivros = document.getElementById('listaLivros');
-                listaLivros.innerHTML = '';  // Limpa a lista
-                livros.forEach(livro => {
-                    const li = document.createElement('li');
-                    li.textContent = livro.titulo;
-                    listaLivros.appendChild(li);
-                });
-            })
-            .catch(error => {
-                console.error("Erro ao atualizar a lista de livros:", error);
-            });
+    // Função para verificar alterações
+    function verificarAlteracoes() {
+        const nomeLivro = document.getElementById("nomeLivro").value;
+        const autor = document.getElementById("autor").value;
+        const genero = document.getElementById("genero").value;
+        const ano = document.getElementById("ano").value;
+
+        // Verifica se houve alteração
+        if (nomeLivro !== '' || autor !== '' || genero !== '' || ano !== '') {
+            botaoSalvar.disabled = false;  // Habilita o botão salvar
+        } else {
+            botaoSalvar.disabled = true;   // Desabilita o botão salvar
+        }
     }
+
+    // Adiciona evento de input nos campos para monitorar alterações
+    document.getElementById("nomeLivro").addEventListener('input', verificarAlteracoes);
+    document.getElementById("autor").addEventListener('input', verificarAlteracoes);
+    document.getElementById("genero").addEventListener('input', verificarAlteracoes);
+    document.getElementById("ano").addEventListener('input', verificarAlteracoes);
 
     // Submissão do formulário de edição
     formEditarLivro.addEventListener("submit", function (e) {
@@ -106,27 +108,26 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(livroAlterado)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === "Livro atualizado com sucesso!") {
-                alert("Livro atualizado com sucesso!");
-
-                // Verifica se a página foi aberta como uma janela pop-up
-                if (window.opener) {
-                    window.opener.postMessage({ action: 'reloadLivros' }, '*');
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Livro atualizado com sucesso!") {
+                    alert("Livro atualizado com sucesso!");
+                    window.location.href = '../livros_cadastrados/livros_cadastrado.html';
                 } else {
-                    // Caso não seja uma pop-up, atualiza a lista localmente
-                    atualizarListaLivros();
+                    alert("Erro ao atualizar o livro: " + data.message);
                 }
-
-                window.location.href = '../livros_cadastrados/livros_cadastrado.html';
-            } else {
-                alert("Erro ao atualizar o livro: " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao salvar alterações:", error);
-            alert("Erro ao atualizar o livro.");
-        });
+            })
+            .catch(error => {
+                console.error("Erro ao salvar alterações:", error);
+                alert("Erro ao atualizar o livro.");
+            });
     });
+
+    // Inicialmente, desabilita o botão salvar
+    botaoSalvar.disabled = true;
 });
+
+
+function voltar() {
+    window.document.location.href = "../livros_cadastrados/livros_cadastrado.html"
+}
