@@ -71,10 +71,31 @@ app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger));
 io.on('connection', (socket) => {
     console.log('Usuário conectado');
 
-    socket.on('enviar-mensagem', (mensagem) => {
-        console.log('Mensagem recebida:', mensagem);
-        // Emitir a mensagem para todos os clientes conectados
-        io.emit('nova-mensagem', mensagem);
+    socket.on('enviar-mensagem', async (dadosMensagem) => {
+        try {
+            const { mensagem, id_remetente, id_destinatario } = dadosMensagem;
+
+            // Verifique se os dados necessários estão presentes
+            if (!id_remetente || !id_destinatario || !mensagem) {
+                throw new Error('Faltando informações necessárias.');
+            }
+
+            // Aqui você pode salvar a mensagem no banco de dados
+            const novaMensagem = await Mensagem.create({
+                mensagem,  // O conteúdo da mensagem
+                id_remetente,  // ID do remetente (agora passado dinamicamente)
+                id_destinatario, // ID do destinatário (agora passado dinamicamente)
+                criado_em: new Date(),
+            });
+
+            console.log('Mensagem salva:', novaMensagem);
+
+            // Emita a mensagem para os clientes conectados, você pode filtrar quem deve receber
+            io.emit('nova-mensagem', { mensagem, id_remetente, id_destinatario });
+
+        } catch (error) {
+            console.error('Erro ao salvar a mensagem:', error);
+        }
     });
 
     socket.on('disconnect', () => {
@@ -196,34 +217,6 @@ app.get('/livros-disponiveis', async (req, res) => {
         res.status(500).json({ message: 'Erro ao listar livros disponíveis.' });
     }
 });
-
-socket.on('enviar-mensagem', async (dadosMensagem) => {
-    try {
-        const { mensagem, id_remetente, id_destinatario } = dadosMensagem;
-
-        // Verifique se os dados necessários estão presentes
-        if (!id_remetente || !id_destinatario || !mensagem) {
-            throw new Error('Faltando informações necessárias.');
-        }
-
-        // Aqui você pode salvar a mensagem no banco de dados
-        const novaMensagem = await Mensagem.create({
-            mensagem,  // O conteúdo da mensagem
-            id_remetente,  // ID do remetente (agora passado dinamicamente)
-            id_destinatario, // ID do destinatário (agora passado dinamicamente)
-            criado_em: new Date(),
-        });
-
-        console.log('Mensagem salva:', novaMensagem);
-
-        // Emita a mensagem para os clientes conectados, você pode filtrar quem deve receber
-        io.emit('nova-mensagem', { mensagem, id_remetente, id_destinatario });
-
-    } catch (error) {
-        console.error('Erro ao salvar a mensagem:', error);
-    }
-});
-
 
 sequelize.sync()
     .then(() => {
