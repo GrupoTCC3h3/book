@@ -97,7 +97,7 @@ h1 {
 }
 
 /* Container principal do chat */
-.chatContainer {
+#chatContainer {
     width: 100%;
     max-width: 70%;
     margin: 20px auto;

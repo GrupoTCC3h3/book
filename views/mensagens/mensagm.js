@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Função para enviar a mensagem
 function enviarMensagem() {
-    const mensagemInput = document.getElementById('mensagemInput'); // Obter o input de mensagem
+    const mensagemInput = document.querySelector('.mensagem-input');  // Usa a classe do input
     const mensagem = mensagemInput.value;
 
     if (mensagem.trim() !== '') {
@@ -29,16 +29,23 @@ function enviarMensagem() {
     }
 }
 
-// Receber novas mensagens e atualizar a interface do chat
+// Adiciona evento de "Enter" para enviar a mensagem
+document.querySelector('.mensagem-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        enviarMensagem();
+    }
+});
+
 socket.on('nova-mensagem', (mensagem) => {
     console.log('Nova mensagem recebida:', mensagem);
 
     // Atualize a interface do chat com a nova mensagem
-    const chatContainer = document.getElementById('chatContainer');  // O contêiner de mensagens
-    const novaMensagem = document.createElement('div');  // Cria um novo elemento para a mensagem
-    novaMensagem.classList.add('mensagem');  // Adiciona uma classe (pode ser estilizada com CSS)
-    novaMensagem.textContent = mensagem;  // Define o texto da nova mensagem
+    const chatContainer = document.querySelector('.chat-messages');  // Agora usa a classe corretamente
+    const novaMensagem = document.createElement('div');
+    novaMensagem.classList.add('mensagem');  // Adiciona a classe para estilização
+    novaMensagem.textContent = mensagem;  // Define o texto da mensagem
 
-    chatContainer.appendChild(novaMensagem);  // Adiciona a mensagem ao contêiner de mensagens
-    chatContainer.scrollTop = chatContainer.scrollHeight;  // Rola a tela para mostrar a nova mensagem
+    chatContainer.appendChild(novaMensagem);  // Adiciona a nova mensagem
+    chatContainer.scrollTop = chatContainer.scrollHeight;  // Rola a tela para a última mensagem
 });
+
