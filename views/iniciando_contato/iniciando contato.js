@@ -16,11 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Ação ao clicar no botão "Iniciar Conversa"
     document.getElementById('iniciarConversa').addEventListener('click', function () {
+        // Armazenar o nome do dono no sessionStorage
+        sessionStorage.setItem('nomeDono', livro.dono);
+
         // Redirecionar para a tela de mensagens
-        window.location.href = 'mensagens.html';  // Tela de mensagens em tempo real
+        window.location.href = '../mensagens/mensagens.html';
     });
 });
 
-function voltarPaginaAnterior(){
-    window.document.location.href = "../apos_login/apos_login.html"
+  // Função para voltar à página anterior
+  function voltarPaginaAnterior() {
+    window.history.back();
 }
+

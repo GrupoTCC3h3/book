@@ -16,30 +16,38 @@ import './util/associations.js';
 import Livro from './model/livro.js';
 import { Pessoa } from './model/pessoa.js';
 import { Usuario } from './model/usuario.js';
-
-// Configuração do Multer para upload de capa de livro
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Pasta para armazenar as capas dos livros
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // Renomeia o arquivo com um timestamp
-    },
-});
-
-const upload = multer({ storage: storage });
+import { createServer } from 'http';
+import { Server as socketIo } from 'socket.io';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const httpServer = createServer(app);
+const io = new socketIo(httpServer, { 
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"],
+    },
+});
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage: storage });
+
 app.use(express.json());
 app.use(cors({
-    origin: '*' // Permitir todas as origens. Ajuste conforme necessário para produção.
+    origin: '*' // Ajuste conforme necessário para produção
 }));
 
-// Testar a conexão com o banco de dados
 sequelize.authenticate()
     .then(() => {
         console.log('Conexão com o banco de dados foi bem-sucedida!');
@@ -48,35 +56,43 @@ sequelize.authenticate()
         console.error('Não foi possível conectar ao banco de dados:', error);
     });
 
-// Definindo as rotas
-app.use("/usuario", usuario); 
+app.use("/usuario", usuario);
 app.use("/pessoa", pessoas);
 app.use("/contato", contato);
 app.use("/livro", livro);
-app.use("/troca", troca); 
+app.use("/troca", troca);
 app.use("/mensagem", mensagem);
 
 // Servir arquivos estáticos da pasta 'uploads'
 app.use('/uploads', express.static('uploads'));
-app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger)); // Swagger já configurado aqui
+app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger));
 
-// Endpoint para cadastrar um livro
+// Configuração do Socket.IO
+io.on('connection', (socket) => {
+    console.log('Usuário conectado');
+
+    socket.on('enviar-mensagem', (mensagem) => {
+        console.log('Mensagem recebida:', mensagem);
+        // Emitir a mensagem para todos os clientes conectados
+        io.emit('nova-mensagem', mensagem);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Usuário desconectado');
+    });
+});
+
+// Cadastro de livro
 app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
-    console.log('Dados recebidos:', req.body); // Log dos dados recebidos
-    console.log('Arquivo recebido:', req.file); // Log do arquivo da capa
-
-    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body; // Altere para id_pessoa
+    const { titulo, estado, ano_lancamento, autor, genero, id_pessoa } = req.body;
     const capa = req.file ? req.file.path : null;
 
-    // Verifique se id_pessoa é válido
     if (!id_pessoa) {
-        console.error('ID da pessoa não foi enviado.');
         return res.status(400).json({ error: 'ID da pessoa não foi enviado.' });
     }
 
     const pessoa = await Pessoa.findByPk(id_pessoa);
     if (!pessoa) {
-        console.error('ID da pessoa não existe:', id_pessoa);
         return res.status(400).json({ error: 'ID da pessoa não existe.' });
     }
 
@@ -87,11 +103,9 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
             ano_lancamento,
             autor,
             genero,
-            id_pessoa, 
+            id_pessoa,
             capa,
         });
-
-        console.log('Livro cadastrado com sucesso:', novoLivro);
         res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
     } catch (error) {
         console.error('Erro ao cadastrar livro:', error);
@@ -99,20 +113,15 @@ app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {
     }
 });
 
-// Endpoint para obter os dados de um livro por ID
+// Obter livro por ID
 app.get('/livro/:id', async (req, res) => {
-    const livroId = req.params.id;  // Pega o ID do livro da URL
-    
+    const livroId = req.params.id;
+
     try {
-        // Tenta buscar o livro no banco de dados usando o ID
-        const livro = await Livro.findByPk(livroId);  // Usando o Sequelize para buscar o livro por ID
-        
+        const livro = await Livro.findByPk(livroId);
         if (!livro) {
-            // Caso o livro não exista, retorna erro 404
             return res.status(404).json({ message: 'Livro não encontrado.' });
         }
-        
-        // Se o livro for encontrado, retorna os dados do livro
         res.status(200).json(livro);
     } catch (error) {
         console.error('Erro ao buscar o livro:', error);
@@ -120,18 +129,15 @@ app.get('/livro/:id', async (req, res) => {
     }
 });
 
-// Endpoint para deletar um livro
+// Deletar livro
 app.delete('/livro/:id', async (req, res) => {
     const livroId = req.params.id;
 
     try {
-        // Verificar se o livro existe
         const livro = await Livro.findByPk(livroId);
         if (!livro) {
             return res.status(404).json({ message: 'Livro não encontrado.' });
         }
-
-        // Deletar o livro
         await livro.destroy();
         res.status(200).json({ message: 'Livro deletado com sucesso!' });
     } catch (error) {
@@ -140,31 +146,23 @@ app.delete('/livro/:id', async (req, res) => {
     }
 });
 
-// Exemplo de rota PUT para atualizar um livro
-// Endpoint para atualizar um livro
+// Atualizar livro
 app.put("/livro/:id", async (req, res) => {
     const livroId = req.params.id;
     const { titulo, autor, genero, ano_lancamento } = req.body;
 
     try {
-        // Buscar o livro pelo ID
         const livro = await Livro.findByPk(livroId);
-        
-        // Verificar se o livro existe
         if (!livro) {
             return res.status(404).json({ message: "Livro não encontrado" });
         }
 
-        // Atualizar os dados do livro
         livro.titulo = titulo;
         livro.autor = autor;
         livro.genero = genero;
         livro.ano_lancamento = ano_lancamento;
 
-        // Salvar as alterações no banco de dados
         await livro.save();
-
-        // Retornar a resposta de sucesso
         return res.status(200).json({ message: "Livro atualizado com sucesso!" });
     } catch (error) {
         console.error("Erro ao atualizar o livro:", error);
@@ -172,17 +170,17 @@ app.put("/livro/:id", async (req, res) => {
     }
 });
 
+// Listar livros disponíveis
 app.get('/livros-disponiveis', async (req, res) => {
     try {
-        // Buscar todos os livros no banco de dados, incluindo as informações do dono (Pessoa)
         const livros = await Livro.findAll({
             include: [
                 {
                     model: Pessoa,
-                    required: true, // Isso garante que apenas livros com Pessoa associada sejam retornados
+                    required: true,
                     include: [{
-                        model: Usuario, // Inclui o dono do livro (assumindo que Usuario tenha dados do dono)
-                        required: true // Garante que sempre terá um usuário associado à Pessoa
+                        model: Usuario,
+                        required: true
                     }]
                 }
             ]
@@ -192,7 +190,6 @@ app.get('/livros-disponiveis', async (req, res) => {
             return res.status(404).json({ message: 'Nenhum livro disponível.' });
         }
 
-        // Retornar os livros encontrados
         res.status(200).json(livros);
     } catch (error) {
         console.error('Erro ao listar livros disponíveis:', error);
@@ -200,15 +197,9 @@ app.get('/livros-disponiveis', async (req, res) => {
     }
 });
 
-
-
-
-  
-
-// Sincronizando com o banco de dados
 sequelize.sync()
     .then(() => {
-        app.listen(PORT, () => {
+        httpServer.listen(PORT, () => {
             console.log(`Servidor rodando na porta ${PORT}`);
         });
     })

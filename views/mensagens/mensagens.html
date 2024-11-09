@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -25,10 +25,9 @@
     <main>
         <h1>Mensagens</h1>
         <form action="formMensagem" class="forMensagem">
-            <div class="container_chat">
+            <div class="chatContainer">
                 <div class="mensagem-header">
-                   
-                    <span class="nome-usuario">Usuario1</span>
+                    <span class="nome-usuario" id="donoNome">Usuario1</span> <!-- Elemento para o nome do dono -->
                 </div>
                 <div class="chat-messages">
                     <!-- Mensagens aparecerão aqui -->
@@ -46,6 +45,7 @@
             <p>Contato: <a href="#">bookswap@gmail.com</a></p>
         </div>
     </footer>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script src="mensagm.js"></script>
 </body>
 </html>
