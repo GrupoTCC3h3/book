@@ -104,14 +104,13 @@ h1 {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
+    position: relative;
     width: 100%;
     background-color: var(--marromClaro);
-    color: #fff;
-    text-align: center;
-    padding: 15px;
+    color: white;
     font-weight: bold;
+    padding: 20px;
+    text-align: center;
 }
 
 #livros-disponiveis-container {
