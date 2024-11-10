@@ -36,3 +36,7 @@ document.getElementById('formCadastro').addEventListener('submit', function(even
 function voltarTelaInicial(){
     window.history.back();
 }
+
+function TelaLogin(){
+    window.document.location.href = "../login/login.html";
+}

@@ -91,5 +91,5 @@ function editarLivro(livroId, livroTitulo) {
 
  // Função para voltar à página anterior
  function voltarPaginaAnterior() {
-    window.history.back();
+    window.document.location.href =  "../apos_login/apos_login.html"
 }

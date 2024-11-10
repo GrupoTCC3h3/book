@@ -16,6 +16,8 @@
 body {
     position: relative;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Organiza o layout de cima para baixo */
 }
 
 header {
@@ -168,10 +170,12 @@ h1 {
     background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
 }
 
+main {
+    flex: 1; /* Faz com que o conteúdo principal ocupe o espaço disponível */
+    padding-bottom: 100px; /* Espaço para garantir que o footer não sobreponha o conteúdo */
+}
 
 footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     background-color: var(--marromClaro);
     color: white;
@@ -179,6 +183,7 @@ footer {
     padding: 30px;
     text-align: center;
     margin-top: 20px;
+    position: relative; /* Remover o position absolute */
 }
 
 .copy {
