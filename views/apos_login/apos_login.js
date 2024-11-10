@@ -38,15 +38,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         try {
             const response = await fetch('http://localhost:3000/livro/livro');
             if (!response.ok) throw new Error('Erro ao buscar livros');
-
+    
             const livros = await response.json();
             if (!Array.isArray(livros)) throw new Error('Formato de dados inválido para os livros');
-
+    
             // Filtrar livros para exibir apenas os de outros usuários
             const livrosDeOutrosUsuarios = livros.filter(livro => {
                 return livro.Pessoa && livro.Pessoa.id_usuario !== usuarioAtual.userId; // Alterado para 'userId' baseado no login
             });
-
+    
             return livrosDeOutrosUsuarios;
         } catch (error) {
             console.error('Erro ao carregar livros:', error);

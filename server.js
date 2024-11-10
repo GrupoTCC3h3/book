@@ -67,31 +67,29 @@ app.use("/mensagem", mensagem);
 app.use('/uploads', express.static('uploads'));
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger));
 
-// Configuração do Socket.IO
 io.on('connection', (socket) => {
-    console.log('Usuário conectado');
+    console.log('Usuário conectado:', socket.id);
 
     socket.on('enviar-mensagem', async (dadosMensagem) => {
         try {
             const { mensagem, id_remetente, id_destinatario } = dadosMensagem;
 
-            // Verifique se os dados necessários estão presentes
             if (!id_remetente || !id_destinatario || !mensagem) {
                 throw new Error('Faltando informações necessárias.');
             }
 
-            // Aqui você pode salvar a mensagem no banco de dados
+            // Salvar a mensagem no banco de dados
             const novaMensagem = await Mensagem.create({
-                mensagem,  // O conteúdo da mensagem
-                id_remetente,  // ID do remetente (agora passado dinamicamente)
-                id_destinatario, // ID do destinatário (agora passado dinamicamente)
+                mensagem,
+                id_remetente,
+                id_destinatario,
                 criado_em: new Date(),
             });
 
             console.log('Mensagem salva:', novaMensagem);
 
-            // Emita a mensagem para os clientes conectados, você pode filtrar quem deve receber
-            io.emit('nova-mensagem', { mensagem, id_remetente, id_destinatario });
+            // Enviar a nova mensagem ao destinatário
+            socket.broadcast.emit(`nova-mensagem-${id_destinatario}`, { mensagem, id_remetente, id_destinatario });
 
         } catch (error) {
             console.error('Erro ao salvar a mensagem:', error);
@@ -99,9 +97,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('Usuário desconectado');
+        console.log('Usuário desconectado:', socket.id);
     });
 });
+
 
 // Cadastro de livro
 app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {

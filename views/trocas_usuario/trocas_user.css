@@ -7,14 +7,15 @@
 }
 
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
 }
 
 body {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -22,8 +23,7 @@ header {
     color: var(--marromEscuro);
     height: 100px;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     position: relative;
@@ -31,7 +31,7 @@ header {
 
 .container_icones_laterais {
     position: absolute;
-    left: 20px; /* Mantém o botão à esquerda */
+    left: 20px;
 }
 
 .logo-text {
@@ -40,7 +40,7 @@ header {
     justify-content: center;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+    transform: translateX(-50%);
 }
 
 header .logo {
@@ -49,10 +49,49 @@ header .logo {
     margin-right: 10px;
 }
 
-h2 {
-    margin: 0;
-    color: var(--marromClaro);
+h1, h2, h3 {
+    text-align: center;
+    color: #4b2e2e;
 }
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+section {
+    margin: 20px;
+    background-color: var(--marromClaro);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.troca {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.botaoTroca {
+    background-color: #4b2e2e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 10px;
+}
+
+.botaoTroca:hover {
+    background-color: #3a1f1f;
+}
+
 
 #voltar {
     background-color: var(--marromClaro);
@@ -60,45 +99,20 @@ h2 {
     border: none;
     border-radius: 10px;
     padding: 10px;
-    margin: 10px;
-}
-
-hr {
-    margin-bottom: 15px;
-}
-
-header .logo-text {
+    height: 35px;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-header .logo {
-    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
-    height: auto;
-    margin-right: 10px; /* Espaço entre a logo e o texto */
-}
-
-header > div  > h2 {
-    margin: 0;
-    color: var(--marromClaro);
-}
-
-h1 {
-    text-align: center;
-    color: var(--marromClaro);
-}
-
-
 footer {
-    position: absolute;
-    bottom: 0;
+    position: relative;
     width: 100%;
     background-color: var(--marromClaro);
     color: white;
     font-weight: bold;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
-    margin-top: 20px;
 }
 
 .copy {

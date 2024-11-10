@@ -5,6 +5,7 @@ function voltarPaginaAnterior() {
 
 // Conectar ao servidor Socket.IO
 const socket = io();
+const id_usuario = sessionStorage.getItem('id_usuario');
 
 // Exibir o nome do dono no topo da tela
 document.addEventListener("DOMContentLoaded", function () {
@@ -18,14 +19,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Função para enviar a mensagem
 function enviarMensagem() {
-    const mensagemInput = document.querySelector('.mensagem-input');  // Usa a classe do input
+    const mensagemInput = document.querySelector('.mensagem-input');
     const mensagem = mensagemInput.value;
+    
+    // Obtém os IDs de remetente e destinatário do sessionStorage ou de outra fonte dinâmica
+    const id_remetente = sessionStorage.getItem('id_remetente');  // ID do remetente
+    const id_destinatario = sessionStorage.getItem('id_destinatario');  // ID do destinatário
 
-    if (mensagem.trim() !== '') {
-        socket.emit('enviar-mensagem', mensagem);  // Envia a mensagem
+    if (mensagem.trim() !== '' && id_remetente && id_destinatario) {
+        // Envia a mensagem com IDs de remetente e destinatário
+        socket.emit('enviar-mensagem', { mensagem, id_remetente, id_destinatario });
         mensagemInput.value = '';  // Limpa o campo de input após enviar
     } else {
-        alert('Digite uma mensagem para enviar!');
+        alert('Digite uma mensagem e verifique os IDs de remetente e destinatário!');
     }
 }
 
@@ -36,16 +42,15 @@ document.querySelector('.mensagem-input').addEventListener('keypress', function(
     }
 });
 
-socket.on('nova-mensagem', (mensagem) => {
-    console.log('Nova mensagem recebida:', mensagem);
+socket.on(`nova-mensagem-${id_usuario}`, (dadosMensagem) => {
+    console.log('Nova mensagem recebida:', dadosMensagem.mensagem);
 
-    // Atualize a interface do chat com a nova mensagem
-    const chatContainer = document.querySelector('.chat-messages');  // Agora usa a classe corretamente
+    const chatContainer = document.querySelector('.chat-messages');
     const novaMensagem = document.createElement('div');
-    novaMensagem.classList.add('mensagem');  // Adiciona a classe para estilização
-    novaMensagem.textContent = mensagem;  // Define o texto da mensagem
+    novaMensagem.classList.add('mensagem');
+    novaMensagem.textContent = dadosMensagem.mensagem;
 
-    chatContainer.appendChild(novaMensagem);  // Adiciona a nova mensagem
-    chatContainer.scrollTop = chatContainer.scrollHeight;  // Rola a tela para a última mensagem
+    chatContainer.appendChild(novaMensagem);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 });
 

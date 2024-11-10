@@ -101,6 +101,39 @@ footer {
     margin-top: 20px;
 }
 
+#detalhesTroca {
+    margin-top: 20px;
+}
+
+#detalhesTroca h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+#detalhesTroca p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.capa-livro {
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
 .copy {
     margin-bottom: 10px;
 }
