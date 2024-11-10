@@ -3,6 +3,14 @@ function voltarPaginaAnterior() {
     window.history.back();
 }
 
+const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
+
+if (usuarioAtual && usuarioAtual.nome) {
+    document.getElementById('userName').textContent = usuarioAtual.nome;
+} else {
+    document.getElementById('userName').textContent = "Usuário";
+}
+
 // Carregar trocas do localStorage ou inicializar como array vazio
 let trocasAtivas = JSON.parse(localStorage.getItem('trocasAtivas')) || [];
 let trocasConcluidas = JSON.parse(localStorage.getItem('trocasConcluidas')) || [];
@@ -10,8 +18,8 @@ let livrosDeOutrosUsuarios = JSON.parse(localStorage.getItem('livrosDeOutrosUsua
 
 // Função para adicionar uma troca ativa
 function adicionarTrocaAtiva(livro, dono, estado, genero, status = 'Troca Agendada') {
-    // Verificar se o livro já existe nas trocas ativas
-    const livroExistente = trocasAtivas.some(troca => troca.livro === livro);
+    // Verificar se o livro já existe nas trocas ativas do usuário logado
+    const livroExistente = trocasAtivas.some(troca => troca.livro === livro && troca.usuario === usuarioAtual.nome);
     
     if (livroExistente) {
         alert("Este livro já está em uma troca ativa.");
@@ -23,7 +31,8 @@ function adicionarTrocaAtiva(livro, dono, estado, genero, status = 'Troca Agenda
         dono,
         estado,
         genero,
-        status
+        status,
+        usuario: usuarioAtual.nome  // Associa a troca ao usuário logado
     };
 
     // Adiciona a nova troca no final do array
@@ -43,14 +52,17 @@ function adicionarTrocaAtiva(livro, dono, estado, genero, status = 'Troca Agenda
 // Função para exibir as trocas ativas
 function exibirTrocasAtivas() {
     const listaTrocasAtivas = document.getElementById('listaTrocasAtivas');
-    listaTrocasAtivas.innerHTML = '';
+    listaTrocasAtivas.innerHTML = ''; // Limpa a lista
 
-    if (trocasAtivas.length === 0) {
+    // Filtrar as trocas ativas do usuário logado
+    const trocasUsuario = trocasAtivas.filter(troca => troca.usuario === usuarioAtual.nome);
+
+    if (trocasUsuario.length === 0) {
         listaTrocasAtivas.innerHTML = '<p>Você ainda não iniciou nenhuma troca.</p>';
         return;
     }
 
-    trocasAtivas.forEach((troca, index) => {
+    trocasUsuario.forEach((troca, index) => {
         const trocaDiv = document.createElement('div');
         trocaDiv.classList.add('troca');
         trocaDiv.innerHTML = `
@@ -64,7 +76,6 @@ function exibirTrocasAtivas() {
             <div>
                 <button class="botaoTroca" onclick="confirmarRecebimento(${index})">Confirmar Recebimento</button>
                 <button class="botaoTroca" onclick="cancelarTroca(${index})">Cancelar Troca</button>
-                 <button class="botaoTroca" data-id="${troca.id}">Ver Detalhes</button>
             </div>
         `;
         listaTrocasAtivas.appendChild(trocaDiv);
@@ -105,14 +116,16 @@ function cancelarTroca(index) {
 function exibirTrocasConcluidas() {
     const listaTrocasConcluidas = document.getElementById('listaTrocasCompletas');  // Corrigido para o id correto
 
-    listaTrocasConcluidas.innerHTML = '';
+    listaTrocasConcluidas.innerHTML = ''; // Limpa a lista
 
-    if (trocasConcluidas.length === 0) {
+    const trocasUsuarioConcluidas = trocasConcluidas.filter(troca => troca.usuario === usuarioAtual.nome);
+
+    if (trocasUsuarioConcluidas.length === 0) {
         listaTrocasConcluidas.innerHTML = '<p>Nenhuma troca concluída até o momento.</p>';
         return;
     }
 
-    trocasConcluidas.forEach((troca) => {
+    trocasUsuarioConcluidas.forEach((troca) => {
         const trocaDiv = document.createElement('div');
         trocaDiv.classList.add('troca');
         trocaDiv.innerHTML = `

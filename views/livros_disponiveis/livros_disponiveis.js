@@ -47,6 +47,7 @@ function listarLivrosDisponiveis() {
 
 document.addEventListener('DOMContentLoaded', listarLivrosDisponiveis);
 
-function voltarPaginaAnterior(){
-    window.document.location.href = "../apos_login/apos_login.html"
+ // Função para voltar à página anterior
+ function voltarPaginaAnterior() {
+    window.history.back();
 }

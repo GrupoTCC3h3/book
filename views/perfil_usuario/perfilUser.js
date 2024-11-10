@@ -74,9 +74,9 @@ function verificarAlteracoes() {
     saveButton.disabled = !hasChanges;
 }
 
-// Função para voltar à página anterior
-function voltarPaginaAnterior() {
-    window.document.location.href = "../apos_login/apos_login.html";
+ // Função para voltar à página anterior
+ function voltarPaginaAnterior() {
+    window.history.back();
 }
 
 // Função para redirecionar para a página de edição de perfil

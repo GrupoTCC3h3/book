@@ -89,6 +89,7 @@ function editarLivro(livroId, livroTitulo) {
     window.location.href = `../editarLivro/editarLivro.html?id=${livroId}&titulo=${encodeURIComponent(livroTitulo)}`;
 }
 
-function voltarPaginaAnterior() {
-    window.location.href = '../apos_login/apos_login.html';
+ // Função para voltar à página anterior
+ function voltarPaginaAnterior() {
+    window.history.back();
 }
