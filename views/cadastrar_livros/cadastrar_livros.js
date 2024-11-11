@@ -43,6 +43,13 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
     const genero = document.getElementById('genero_livro').value;
     const capa_livro = document.getElementById('inputCapa').files[0];
 
+    // Validação do ano de lançamento
+    const anoAtual = new Date().getFullYear();
+    if (ano_lancamento < 0 || ano_lancamento > anoAtual) {
+        alert("Por favor, insira um ano válido.");
+        return;
+    }
+
     // Obtém o ID do usuário logado
     const usuario = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!usuario) {
@@ -78,12 +85,12 @@ document.getElementById('form_cadastrar_livros').addEventListener('submit', asyn
             alert(data.error || 'Erro ao cadastrar livro.');
         }
     } catch (error) {
-        // console.error('Erro ao cadastrar livro:', error);
+        console.error('Erro ao cadastrar livro:', error);
         alert('Erro ao cadastrar livro.');
     }
 });
 
- // Função para voltar à página anterior
- function voltarPaginaAnterior() {
+// Função para voltar à página anterior
+function voltarPaginaAnterior() {
     window.history.back();
 }
