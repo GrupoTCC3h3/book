@@ -52,129 +52,14 @@ h1 {
     margin-top: 20px;
 }
 
-#livros-disponiveis-container {
+#listaLivros {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
-    gap: 20px;
-}
-
-.livro {
-    border: 2px solid var(--marromClaro);
-    padding: 15px;
-    border-radius: 10px;
-    background-color: var(--marromSuperClaro);
-    text-align: center;
-    width: 220px;
-}
-
-.livro img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.livro h3 {
-    font-size: 1.2em;
-    color: var(--marromEscuro);
-}
-
-.livro p {
-    font-size: 0.9em;
-    color: var(--marromMaisClaro);
-    margin: 5px 0;
-}
-
-.contact-button {
-    margin-top: 10px;
-    padding: 8px 12px;
-    background-color: var(--marromClaro);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contact-button:hover {
-    background-color: #8b6e64;
-}
-
-footer {
-    position: relative;
-    width: 100%;
-    background-color: var(--marromClaro);
-    color: white;
-    font-weight: bold;
-    padding: 20px;
-    text-align: center;
-}
-
-#livros-disponiveis-container {
-    display: flex;
-    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-    justify-content: center;
 }
 
-.livro {
-    width: 180px;
-    border: 1px solid var(--marromClaro);
-    border-radius: 10px;
-    padding: 15px;
-    background-color: var(--marromSuperClaro);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.livro img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.livro h3 {
-    font-size: 1.1em;
-    margin: 5px 0;
-    color: var(--marromEscuro);
-}
-
-.livro p {
-    font-size: 0.9em;
-    color: var(--marromMaisClaro);
-    margin: 2px 0;
-}
-
-header .container_icones_laterais {
-    position: absolute;
-    left: 20px;
-}
-
-#voltar {
-    background-color: var(--marromClaro);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* Container para Livros Disponíveis */
-#livros-disponiveis-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    gap: 20px;
-}
-
-/* Card de Livro */
 .livro-card {
     display: flex;
     align-items: center;
@@ -228,4 +113,46 @@ header .container_icones_laterais {
 .contato-btn:hover {
     background-color: #5a3e35;
     color: white;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+}
+
+#livros-disponiveis-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Para garantir que os livros fiquem lado a lado e quebrem responsivamente */
+.livro-card {
+    width: 220px;
+    border: 1px solid var(--marromClaro);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--marromClaro);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Responsividade - Ajuste de largura em telas menores */
+@media (max-width: 768px) {
+    .livro-card {
+        width: 180px;  /* Reduz a largura dos cards em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .livro-card {
+        width: 150px;  /* Reduz mais a largura em telas muito pequenas */
+    }
 }
