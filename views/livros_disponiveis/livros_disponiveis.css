@@ -38,12 +38,22 @@ header {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    color: var(--marromClaro);
 }
 
 .logo {
     width: 50px;
     height: auto;
     margin-right: 10px;
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 }
 
 h1 {
