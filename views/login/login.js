@@ -31,11 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({ email, senha }),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    // Caso a resposta da API indique erro (ex.: status 401)
+                    throw new Error('Email ou senha incorretos.');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.erro) {
                     msgError.style.display = 'block';
-                    msgError.innerHTML = data.message;
+                    msgError.innerHTML = 'Email ou senha incorretos.';
                 } else {
                     // Salva os dados do usuário no sessionStorage
                     sessionStorage.setItem('currentUser', JSON.stringify({
@@ -59,8 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => {
+                // Exibe o erro de autenticação para o usuário
                 msgError.style.display = 'block';
-                msgError.innerHTML = 'Erro: ' + error.message;
+                msgError.innerHTML = error.message;
             });
     });
 });

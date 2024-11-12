@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // Mensagem de "Nenhum livro cadastrado"
     if (livrosIniciais.length === 0) {
-        exibirLivros(livrosIniciais, 'Nenhum livro cadastrado no momento.');
+        exibirLivros(livrosIniciais, 'Nenhum livro disponivel no momento.');
     } else {
         exibirLivros(livrosIniciais);
     }
