@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon-bookswap.ico" type="image/x-icon">
+    <link rel="stylesheet" href="estilos-tela-inicial/styles.css" media="all">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-text">
+            <img src="img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h2>BookSwap</h2>
+        </div>
+        <a href="#" onclick="telaComofunciona()">Como Funciona?</a>
+        <div>
+            <a href="#" onclick="TelaLogin()">Entrar</a>
+            <button onclick="TelaCadastrar()">Cadastrar</button>
+        </div>
+    </header>
+    <div class="imagem-frase">
+        <img src="img/banner-bookswap.jpg"
+            alt="banner-bookswap">
+    </div>
+    <main>
+        <h2>Troca de Livros na Biblioteca da ETEC Sylvio de Mattos Carvalho</h2>
+        <p>
+            Nosso site oferece uma plataforma fácil e gratuita para a troca de livros entre alunos, professores(a) e
+            membros da comunidade da ETEC Sylvio de Mattos Carvalho, em Matão, SP. As trocas são realizadas na
+            biblioteca da escola, um espaço dedicado ao aprendizado e à interação comunitária. Para participar, basta se
+            cadastrar, explorar os livros disponíveis e agendar sua visita à biblioteca para efetuar a troca
+        </p>
+
+        <div class="container-button">
+            <button class="btnTelaInicial" id="btnCadastre" onclick="TelaCadastrar()">Cadastre-se gratuitamente no nosso site</button>
+        </div>
+    </main>
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function TelaLogin(){
+             window.location.href = "login/login.html"
+        }
+
+        function TelaCadastrar(){
+             window.location.href = "cadastro/cadastro.html"
+        }
+
+        function telaComofunciona() {
+            window.location.href = 'comoFunciona/como_funciona.html'
+        }
+    </script>
+</body>
+</html>

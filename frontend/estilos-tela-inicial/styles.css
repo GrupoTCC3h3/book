@@ -1,0 +1,169 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    color: var(--marromEscuro);
+    height: 150px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px; /* Espaço entre a logo e o texto */
+}
+
+header > div  > h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+header a, header button {
+    color: var(--marromClaro);
+    margin-left: 20px;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+    color: var(--marromEscuro);
+}
+
+header button {
+    background-color: #ac8f83;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+header button:hover{
+    background-color: var(--marromMaisClaro);
+    color: var(--marromEscuro);
+}
+
+.imagem-frase img {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+}
+
+main > h2 {
+    color: var(--marromClaro);
+    text-align: center;
+    margin-top: 60px;
+    padding: 10px;
+}
+
+main p {
+    padding: 2rem; /* Usando rem para padding relativo ao tamanho da fonte */
+    text-align: justify;
+    line-height: 2.5rem; /* Aumentando o line-height para mais espaço */
+}
+
+/* Media queries para diferentes tamanhos de tela */
+@media (max-width: 1200px) {
+    main p {
+        padding: 1.5rem;
+        line-height: 2rem; /* Ajustando o line-height */
+    }
+}
+
+@media (max-width: 768px) {
+    main p {
+        padding: 1rem;
+        line-height: 1.8rem; /* Ajustando o line-height */
+    }
+}
+
+@media (max-width: 480px) {
+    main p {
+        padding: 0.5rem;
+        line-height: 1.5rem; /* Ajustando o line-height */
+    }
+}
+
+
+.container-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btnCadastre {
+    margin-bottom: 200px;
+}
+
+.btnTelaInicial {
+    color: white;
+    background-color: var(--marromClaro);
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+    padding: 10px 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btnTelaInicial:hover{
+    background-color: var(--marromMaisClaro);
+    color: var(--marromEscuro);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+}
+
+.copy {
+    margin-bottom: 10px;
+}
+
+.contato {
+    margin-bottom: 10px;
+}
+
+.contato a {
+    color: rgb(67, 67, 241);
+    text-decoration: none;
+    padding: 10px;
+}

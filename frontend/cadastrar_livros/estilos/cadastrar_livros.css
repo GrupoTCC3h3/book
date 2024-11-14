@@ -1,0 +1,354 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    color: var(--marromEscuro);
+    padding: 20px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+hr {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+main h1 {
+    text-align: center;
+    color: var(--marromClaro);
+    margin-bottom: 15px;
+}
+
+.container_icones_laterais {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+    background-color: #fff;
+}
+
+.icons_laterais {
+    background-color: #ada0a2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5.5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+/* Menu lateral */
+nav#sideMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background-color: var(--marromSuperClaro);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+nav#sideMenu ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav#sideMenu ul li {
+    margin: 15px 0;
+}
+
+nav#sideMenu ul li a {
+    color: var(--marromEscuro);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav#sideMenu.hidden {
+    transform: translateX(100%);
+}
+
+nav#sideMenu.visible {
+    transform: translateX(0);
+}
+
+#closeMenu {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#closeMenu i {
+    color: var(--marromEscuro);
+}
+
+.container_cadastrar_livros {
+    background-color: #D9CFC9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
+    border-radius: 15px;
+    width: 100%; /* Agora ocupa toda a largura */
+    max-width: 1200px; /* Limita a largura máxima em telas maiores */
+    height: auto;
+    margin-bottom: 15px;
+}
+
+form input {
+    width: 50vw; /* Agora os inputs ocupam toda a largura do contêiner */
+    /*max-width: 600px;  Limita a largura máxima dos inputs */
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+#ano_livro {
+    margin-bottom: 10px;
+}
+
+/* Responsividade para diferentes dispositivos */
+
+/* Para telas de laptops (a partir de 1024px) */
+@media (max-width: 1024px) {
+    .container_cadastrar_livros {
+        width: 90%;
+        height: auto;    
+    }
+
+    form input {
+        width: 90%; /* Ajusta os inputs para telas menores */
+    }
+
+    #cond_livro{
+        width: 90%;
+    }
+}
+
+/* Para tablets (a partir de 768px) */
+@media (max-width: 768px) {
+    .container_cadastrar_livros {
+        width: 95%;
+        height: auto;
+    }
+
+    form input {
+        width: 95%; /* Ajusta os inputs para tablets */
+    }
+
+    input#ano_livro {
+        width: 40%; /* Ajusta o campo de ano */
+    }
+
+    #cond_livro{
+        width: 95vw;
+    }
+}
+
+/* Para smartphones (abaixo de 576px) */
+@media (max-width: 576px) {
+    .container_cadastrar_livros {
+        width: 100%; /* Ocupa toda a largura da tela */
+        padding: 10px;
+    }
+
+    form input {
+        width: 100%; /* Inputs ocupam toda a largura disponível */
+    }
+
+    input#ano_livro {
+        width: 100%; /* O campo de ano também ocupa toda a largura */
+    }
+
+    #cond_livro{
+        width: 100%;
+    }
+}
+
+#form_cadastrar_livros label {
+    color: white;
+    padding-left: 7px;
+    align-self: flex-start;
+}
+
+.container_ano_livro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container_ano_livro > #lblAnoLivro {
+    align-self: center;
+    margin-bottom: 5px;
+    color: white;
+}
+
+input#ano_livro {
+    width: 20vw;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.imagem_capa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.imagem_capa img {
+    display: block;
+    margin-bottom: 20px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.btnEscolherFoto {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 50px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.btnEscolherFoto:hover {
+    background-color: var(--marromClaro);
+    color: var(--marromEscuro);
+    font-weight: bolder;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#form_cadastrar_livros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+#form_cadastrar_livros label {
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+button {
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 15px;
+    margin: auto;
+    border: none;
+}
+
+button:hover {
+    color: var(--marromEscuro);
+}
+
+#cond_livro{
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 50vw;
+    padding: 10px;
+}
+
+/* Footer */
+footer {
+    position: relative; /* Troquei de absolute para relative */
+    background-color: var(--marromClaro);
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 50px;
+    clear: both; /* Evitar sobreposição */
+}
+
+/* Ajustando o main para evitar sobreposição */
+main {
+    min-height: calc(100vh - 100px); /* Altura mínima para garantir que o conteúdo ocupe o espaço restante */
+    padding-bottom: 50px; /* Adicione um padding inferior que corresponda à altura do footer */
+}
+
+/* Media Query para telas menores */
+@media (max-width: 600px) {
+    footer {
+        padding: 20px; /* Reduzir o padding em telas menores */
+    }
+
+    main {
+        min-height: calc(100vh - 80px); /* Ajuste o main conforme o tamanho do footer menor */
+        padding-bottom: 80px; /* Ajuste conforme necessário */
+    }
+}
+
+.copy {
+    margin-bottom: 10px;
+}

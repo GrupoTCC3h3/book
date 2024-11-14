@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/favicon-bookswap.ico" type="image/x-icon">
+    <link rel="stylesheet" href="trocas_user.css">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <header>
+        <div class="container_icones_laterais">
+            <button id="voltar" class="icons_laterais"><i class="material-icons"
+                    onclick="voltarPaginaAnterior()">arrow_back</i></button>
+        </div>
+        <div class="logo-text">
+            <img src="../img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h2>BookSwap</h2>
+        </div>
+    </header>
+    <hr>
+    <main>
+        <h1>Minhas Trocas - <span id="userName"></span></h1>
+        
+        <section id="trocasAtivas">
+            <h3>Trocas Ativas</h3>
+            <div id="listaTrocasAtivas"></div>
+        </section>
+
+        <section id="trocasCompletas">
+            <h3>Trocas Completas</h3>
+            <div id="listaTrocasCompletas"></div> 
+        </section>
+    </main>
+
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
+        </div>
+    </footer>
+
+
+    <script src="trocas_usuario.js"> </script>
+</body>
+
+</html>

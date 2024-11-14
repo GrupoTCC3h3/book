@@ -1,0 +1,191 @@
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Organiza o layout de cima para baixo */
+}
+
+header {
+    color: var(--marromEscuro);
+    height: 100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between; /* Distribui os elementos de forma a colocar o botão à esquerda e o logo-texto no centro */
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.container_icones_laterais {
+    position: absolute;
+    left: 20px; /* Mantém o botão à esquerda */
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza a logo e o texto no meio da tela */
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+#voltar {
+    background-color: var(--marromClaro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+hr {
+    margin-bottom: 15px;
+}
+
+header .logo-text {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-right: 10px; /* Espaço entre a logo e o texto */
+}
+
+header > div  > h2 {
+    margin: 0;
+    color: var(--marromClaro);
+}
+
+h1 {
+    text-align: center;
+    color: var(--marromClaro);
+}
+
+/* Card de Livro */
+.livro-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 25px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--marromClaro);
+    color: #fff;
+    max-width: 90%;
+    position: relative;
+}
+
+.livro-imagem {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.livro-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.livro-info h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.livro-info p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+/* Botão de opções (três pontinhos) */
+.opcoes-btn {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Menu de opções */
+.menu-opcoes {
+    display: none; /* Inicialmente oculto */
+    position: absolute;
+    right: 0;
+    top: 100%; /* Posiciona logo abaixo do botão */
+    background-color: white; /* Fundo branco para o menu */
+    border: 1px solid #ccc; /* Borda para o menu */
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para efeito */
+    z-index: 10; /* Garante que o menu fique acima de outros elementos */
+}
+
+.menu-opcoes button {
+    display: block;
+    width: 100%; /* Para que o botão ocupe toda a largura do menu */
+    padding: 8px 10px; /* Estilização dos botões do menu */
+    border: none; /* Remove bordas do botão */
+    background: none; /* Fundo transparente */
+    text-align: left; /* Alinha texto à esquerda */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+}
+
+.menu-opcoes button:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+}
+
+main {
+    flex: 1; /* Faz com que o conteúdo principal ocupe o espaço disponível */
+    padding-bottom: 100px; /* Espaço para garantir que o footer não sobreponha o conteúdo */
+}
+
+footer {
+    width: 100%;
+    background-color: var(--marromClaro);
+    color: white;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+    position: relative; /* Remover o position absolute */
+}
+
+.copy {
+    margin-bottom: 10px;
+}

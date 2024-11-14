@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/favicon-bookswap.ico" type="image/x-icon">
+    <link rel="stylesheet" href="estilos/apos_login.css">
+    <title>BookSwap</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-text">
+            <img src="../img/logo-bookswap.png" alt="Logo do site" class="logo">
+            <h1>BookSwap</h1>
+        </div>
+        <hr>
+    </header>
+
+    <main>
+        <h2>Olá, <span id="userName"></span></h2>
+        <button id="menu"><i class="material-icons">menu</i></button>
+        <p class="colorP">
+            Seja muito bem-vindo ao BookSwap,<br> Comece dando uma olhada nos livros disponíveis para trocas
+            ou pesquisando por um livro disponível.
+        </p>
+
+        <h2>Troque livros com colegas da sua escola!</h2>
+
+        <div class="container_livros_amostra">
+            <input type="text" name="catalogo" id="catalogo" placeholder="Procure um livro em nosso catálogo" required minlength="3" maxlength="50">
+        </div>
+
+        <!-- Contêiner que vai exibir os livros -->
+        <div id="listaLivros"></div>
+    </main>
+
+    <!-- Menu lateral direito -->
+    <nav id="sideMenu" class="hidden">
+        <button id="closeMenu"><i class="material-icons">close</i></button>
+        <ul>
+            <li><a href="../perfil_usuario/perfilUser.html">Perfil</a></li>
+            <li><a href="../comoFunciona_logado/como_funciona.html">Como Funciona</a></li>
+            <li><a href="../livros_disponiveis/livros_disponiveis.html">Livros Disponíveis</a></li>
+            <li><a href="../cadastrar_livros/cadastrar_livros.html">Cadastrar Livros</a></li>
+            <li><a href="../livros_cadastrados/livros_cadastrado.html">Livros Cadastrados</a></li>
+            <li><a href="../trocas_usuario/trocas_user.html">Minhas Trocas</a></li>
+            <!-- <li><a href="../mensagens/mensagens.html">Mensagens</a></li> -->
+            <li><a href="../lista_mensagens/lista_mensagens.html">Lista de Mensagens</a></li>
+            <li><a href="#" id="logout">Sair</a></li>
+        </ul>
+    </nav>
+
+    <footer>
+        <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
+        <div class="contato">
+            <p>Contato: <a href="#">bookswap@gmail.com</a></p>
+        </div>
+    </footer>
+    
+    <script src="../util/livros.js"></script>
+    <script src="../util/api.js"></script>
+    <script src="../util/usuario.js"></script>
+    <script src="apos_login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/* Paleta de Cores */
+:root {
+    --marromEscuro: #261c1a;
+    --marromClaro: #ac8f83;
+    --marromMaisClaro: #ada0a2;
+    --marromSuperClaro: #d5ccc7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+body, html {
+    height: 100dvh;
+    width: 100vw;
+}
+
+main {
+    background-color: var(--marromMaisClaro);
+    display: flexbox;    
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#voltar {
+    background-color: var(--marromEscuro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+#voltar:hover {
+    background-color: var(--marromClaro);
+}
+
+form {
+    position: relative;
+    background-color: var(--marromClaro);
+    width: 80%;
+    max-width: 400px; /* Limita a largura máxima do formulário */
+    height: auto; /* Ajustado para ser responsivo */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+main > form > nav > button.btnLogin {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    color: var(--marromClaro);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+}
+
+main > form > nav > button.btnLogin:hover {
+    background-color: var(--marromMaisClaro);
+    color: white;
+}
+
+form h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.campo {
+    background-color: var(--marromMaisClaro);
+    text-align: center;
+    margin: 15px auto;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    position: relative; /* Adicionada para posicionar corretamente as mensagens de erro */
+}
+
+.campo i {
+    padding: 10px;
+}
+
+.campo input {
+    background-color: var(--marromMaisClaro);
+    border: none;
+    outline: none;
+    flex: 1;
+    height: 45px;
+    border-radius: 0 15px 15px 0;
+    padding: 0 15px;
+    font-size: 20px;
+}
+
+#btnCadastrar {
+    background-color: white;
+    color: var(--marromClaro);
+    font-weight: bold;
+    width: 95%;
+    display: block;
+    margin: auto;
+    height: 45px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+}
+
+#btnCadastrar:hover {
+    background-color: var(--marromMaisClaro);
+    color: white;
+}
+
+/* Mensagens de erro */
+.errorMessage {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: -15px; /* Posição para ficar logo abaixo do input */
+    left: 10px; /* Alinhamento à esquerda */
+    text-align: left;
+    width: 100%;
+}
+
+/* Ajustes na borda dos campos ao validar */
+/* input:invalid {
+    border: 2px solid red;
+}
+
+input:valid {
+    border: 2px solid green;
+} */
