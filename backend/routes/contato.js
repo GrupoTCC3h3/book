@@ -1,5 +1,7 @@
 import express from 'express';
 import Contato from '../model/contato.js'; // Importando o modelo Contato
+import { Pessoa } from '../model/pessoa.js';
+import { Usuario } from '../model/usuario.js';
 
 const router = express.Router();
 
@@ -49,6 +51,49 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/iniciado', async (req, res) => {
+    try {
+        const contatos = await Contato.findAll({
+            where: {
+                id_livro: req.query.idLivro,
+                id_iniciador: req.query.idIniciador
+            },
+            limit: 1
+        }); // Busca todos os contatos
+        res.json(contatos); // Retorna a lista de contatos
+    } catch (error) {
+        res.status(500).json({ error: error.message }); // Retorna erro 500
+    }
+});
+
+router.get('/destinatario', async (req, res) => {
+    try {
+        const contatos = await Contato.findAll({
+            where: {
+                id_dono_livro: req.query.id_dono_livro
+            },
+            include: [
+                {
+                    model: Pessoa,
+                    as: "Iniciador",
+                    include: [
+                        { 
+                            model: Usuario, 
+                            attributes: ['nome'], 
+                            required: true 
+                        }
+                    ],
+                    required: true
+                }
+            ]
+        }); // Busca todos os contatos
+        res.json(contatos); // Retorna a lista de contatos
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message }); // Retorna erro 500
+    }
+});
+
 /**
  * @swagger
  * /contato:
@@ -78,12 +123,8 @@ router.get('/', async (req, res) => {
  *         description: Erro ao criar o contato
  */
 router.post('/', async (req, res) => {
-    try {
-        console.log("req.body: ", req.body);
+    try {        
         const { id_livro, id_iniciador, id_dono_livro } = req.body;
-        console.log("id_livro: ", id_livro);
-        console.log("id_iniciador: ", id_iniciador);
-        console.log("id_dono_livro: ", id_dono_livro);
         const contato = await Contato.create({id_dono_livro, id_livro, id_iniciador}); // Cria um novo contato
         res.status(201).json(contato); // Retorna o contato criado
     } catch (error) {

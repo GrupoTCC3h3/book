@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Recuperar as informações do livro armazenadas no sessionStorage
-    const livro = JSON.parse(sessionStorage.getItem('livroEmContato'));
+    const livro = getOtherUserBooks()[getQueryString("idLivro")];
 
     if (livro) {
         // Preencher as informações do livro na tela
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('livroTitulo').textContent = livro.titulo;
         document.getElementById('livroGenero').textContent = `Gênero: ${livro.genero}`;
         document.getElementById('livroEstado').textContent = `Estado: ${livro.estado}`;
-        document.getElementById('livroDono').textContent = `Dono: ${livro.dono}`; // Corrigido para 'livro.dono'
+        document.getElementById('livroDono').textContent = `Dono: ${livro.Pessoa.Usuario.nome}`; // Corrigido para 'livro.dono'
     } else {
         // Caso não encontre o livro no sessionStorage, redireciona para a página inicial ou outra página
         window.location.href = 'index.html';

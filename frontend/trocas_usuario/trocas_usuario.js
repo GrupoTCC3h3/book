@@ -70,7 +70,7 @@ function exibirTrocasAtivas() {
                 <p><strong>Livro:</strong> ${troca.livro}</p>
                 <p><strong>Com:</strong> ${troca.dono}</p>
                 <p><strong>Estado:</strong> ${troca.estado}</p>
-                <p><strong>Gênero:</strong> ${troca.genero}</p>
+                <p><strong>Gênero:</strong> ${troca.genero}</p>'
                 <p><strong>Status:</strong> ${troca.status}</p>
             </div>
             <div>

@@ -17,7 +17,7 @@ import Livro from './model/livro.js';
 import { Pessoa } from './model/pessoa.js';
 import { Usuario } from './model/usuario.js';
 import { createServer } from 'http';
-import { Server as socketIo } from 'socket.io';
+/*import { Server as socketIo } from 'socket.io';*/
 
 dotenv.config();
 
@@ -25,12 +25,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const httpServer = createServer(app);
-const io = new socketIo(httpServer, { 
-    cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-    },
-});
+// const io = new socketIo(httpServer, { 
+//     cors: {
+//       origin: "http://localhost:3000",
+//       methods: ["GET", "POST"],
+//     },
+// });
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -66,41 +66,6 @@ app.use("/mensagem", mensagem);
 // Servir arquivos estáticos da pasta 'uploads'
 app.use('/uploads', express.static('uploads'));
 app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swagger));
-
-io.on('connection', (socket) => {
-    console.log('Usuário conectado:', socket.id);
-
-    socket.on('enviar-mensagem', async (dadosMensagem) => {
-        try {
-            const { mensagem, id_remetente, id_destinatario } = dadosMensagem;
-
-            if (!id_remetente || !id_destinatario || !mensagem) {
-                throw new Error('Faltando informações necessárias.');
-            }
-
-            // Salvar a mensagem no banco de dados
-            const novaMensagem = await Mensagem.create({
-                mensagem,
-                id_remetente,
-                id_destinatario,
-                criado_em: new Date(),
-            });
-
-            console.log('Mensagem salva:', novaMensagem);
-
-            // Enviar a nova mensagem ao destinatário
-            socket.broadcast.emit(`nova-mensagem-${id_destinatario}`, { mensagem, id_remetente, id_destinatario });
-
-        } catch (error) {
-            console.error('Erro ao salvar a mensagem:', error);
-        }
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Usuário desconectado:', socket.id);
-    });
-});
-
 
 // Cadastro de livro
 app.post('/livro/cadastrar', upload.single('capa_livro'), async (req, res) => {

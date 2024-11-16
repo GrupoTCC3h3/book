@@ -4,36 +4,95 @@ function voltarPaginaAnterior() {
 }
 
 const usuario = getUsuarioLogado();
-const idContato = getQueryString("idContato");
-const contato = getContacts()[idContato];
-alert(JSON.stringify(contato));
+const contato = getContacts()[getQueryString("idContato")];
 
 // Exibir o nome do dono no topo da tela
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const nomeDono = usuario.nome;
     if (nomeDono) {
         document.getElementById('donoNome').textContent = nomeDono;
     } else {
         document.getElementById('donoNome').textContent = 'Usuário desconhecido';
     }
+
+    await carregaMensagens();
 });
 
 // Função para enviar a mensagem
-function enviarMensagem() {
+async function enviarMensagem() {
     const mensagemInput = document.querySelector('.mensagem-input');
     const mensagem = mensagemInput.value;
     
-    // Obtém os IDs de remetente e destinatário do sessionStorage ou de outra fonte dinâmica
-    const id_remetente = sessionStorage.getItem('id_remetente');  // ID do remetente
-    const id_destinatario = sessionStorage.getItem('id_destinatario');  // ID do destinatário
+    const id_remetente = usuario.userId;
+    const id_destinatario = contato.id_dono_livro;
 
     if (mensagem.trim() !== '' && id_remetente && id_destinatario) {
-        // Envia a mensagem com IDs de remetente e destinatário
-        socket.emit('enviar-mensagem', { mensagem, id_remetente, id_destinatario });
+        await dispatchMessage(id_remetente, id_destinatario, mensagem);
         mensagemInput.value = '';  // Limpa o campo de input após enviar
     } else {
         alert('Digite uma mensagem e verifique os IDs de remetente e destinatário!');
     }
+}
+
+async function dispatchMessage(id_remetente, id_destinatario, mensagem) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const baseUrl = await getAPIURL();
+    const response = await fetch(`${baseUrl}/mensagem`, {
+        method: "POST",
+        body: JSON.stringify({
+            id_contato: contato.id,
+            id_remetente,
+            id_destinatario,
+            mensagem
+        }),
+        headers: myHeaders,
+    });
+
+    if (!response.ok) {
+        alert("Não foi possível enviar a mensagem");
+        return;
+    }
+
+    await carregaMensagens();
+}
+
+async function carregaMensagens() {
+    const baseUrl = await getAPIURL();
+    const response = await fetch(`${baseUrl}/mensagem?id_contato=${contato.id}`);
+
+    if (!response.ok) {
+        alert("Não foi possível carregar as mensagens");
+        return;
+    }
+
+    mostraMensagens(await response.json());
+}
+
+function mostraMensagens(mensagens) {
+    const listaMensagens = document.querySelector('.box-messages');
+    Array.from(listaMensagens.childNodes).forEach(node => node.remove()); //limpa todas as mensagens da div    
+
+    mensagens.forEach(mensagem => {        
+        const boxMensagem = document.createElement("div");
+        boxMensagem.style = "display: flex; flex-direction: column; margin-bottom: 5px;";
+
+        const textoMensagem = document.createElement("p");
+        textoMensagem.textContent = mensagem.mensagem;
+
+        if (mensagem.id_remetente == usuario.userId) {
+            textoMensagem.style = "text-align: right;";
+        }
+
+        const linha = document.createElement("hr");
+        linha.style = "width: 100%";
+
+        boxMensagem.appendChild(textoMensagem);
+        boxMensagem.appendChild(linha);
+
+        listaMensagens.appendChild(boxMensagem);        
+    });
 }
 
 // Adiciona evento de "Enter" para enviar a mensagem

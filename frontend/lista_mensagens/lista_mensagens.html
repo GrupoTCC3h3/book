@@ -42,11 +42,13 @@
                 <!-- Área para as mensagens -->
             </div>
             <div class="input-container" id="inputContainer" style="display: none;">
-                <input type="text" placeholder="Digite sua mensagem...">
-                <button type="button">Enviar</button>
+                <input type="text" class="mensagem-input" placeholder="Digite sua mensagem...">
+                <button type="button" onclick="enviarMensagem()">Enviar</button>
             </div>
         </div>
     </div>
+    <script src="../util/api.js"></script>  
+    <script src="../util/usuario.js"></script>  
     <script src="lista_mensagens.js"></script>  
 </body>
 </html>

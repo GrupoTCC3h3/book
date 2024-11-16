@@ -44,7 +44,14 @@ const router = express.Router();
  */
 router.get('/', async (req, res) => {
     try {
-        const mensagens = await Mensagem.findAll();
+        const mensagens = await Mensagem.findAll({
+            where: {
+                id_contato: req.query.id_contato,
+            },
+            order: [
+                ['id', 'ASC']
+            ]
+        });
         res.json(mensagens);
     } catch (error) {
         res.status(500).json({ error: error.message });

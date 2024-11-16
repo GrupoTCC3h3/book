@@ -24,21 +24,18 @@
     <hr>
     <main>
         <h1>Mensagens</h1>
-        <form action="formMensagem" class="forMensagem">
-            <div class="chat-messages" id="chatContainer">
-                <div class="mensagem-header">
-                    <span class="nome-usuario" id="donoNome">Usuario1</span> <!-- Elemento para o nome do dono -->
-                </div>
-                <div class="chat-messages">
-                    <!-- Mensagens aparecerão aqui -->
-                </div>
-                <div class="input-container">
-                    <input type="text" placeholder="Aa" class="mensagem-input">
-                    <button class="enviar-btn" onclick="enviarMensagem()"><i class="material-icons">send</i></button>
-
-                </div>
+        <div class="chat-messages" id="chatContainer">
+            <div class="mensagem-header">
+                <span class="nome-usuario" id="donoNome">Usuario1</span> <!-- Elemento para o nome do dono -->
             </div>
-        </form>
+            <div class="chat-messages box-messages">
+                <!-- Mensagens aparecerão aqui -->
+            </div>
+            <div class="input-container">
+                <input type="text" placeholder="Aa" class="mensagem-input">
+                <button class="enviar-btn" onclick="enviarMensagem()"><i class="material-icons">send</i></button>
+            </div>
+        </div>        
     </main>
     <footer>
         <p class="copy">&copy; 2024 GrupoTCC3h3 - Todos os direitos reservados.</p>
@@ -51,6 +48,7 @@
     <script src="../util/usuario.js"></script>
     <script src="../util/param.js"></script>
     <script src="../util/contato.js"></script>
+    <script src="../util/api.js"></script>
     <script src="mensagem.js"></script>
 </body>
 </html>

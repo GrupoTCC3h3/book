@@ -1,7 +1,10 @@
 import Livro from '../model/livro.js'; 
 import {Pessoa} from '../model/pessoa.js'; 
 import {Usuario} from '../model/usuario.js';
+import Contato from '../model/contato.js';
 
+Contato.belongsTo(Pessoa, { as: "Iniciador", foreignKey: "id_iniciador" });
+Contato.belongsTo(Pessoa, { as: "DonoLivro", foreignKey: "id_dono_livro" });
 
 // Associação entre Usuario e Pessoa (um-para-um)
 Usuario.hasOne(Pessoa, { foreignKey: 'id_usuario' });

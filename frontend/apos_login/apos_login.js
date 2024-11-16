@@ -53,13 +53,36 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    async function carregaContatoIniciado(idLivro) {
+        try {
+            const usuario = getUsuarioLogado();
+            const baseUrl = await getAPIURL();
+            const response = await fetch(`${baseUrl}/contato/iniciado?idLivro=${idLivro}&idIniciador=${usuario.userId}`);
+            if (!response.ok) throw new Error('Erro ao buscar livros');
+    
+            const contatos = await response.json();
+
+            if (contatos.length > 0) {
+                return contatos[0];
+            }            
+
+            return null;
+        } catch (error) {
+            console.error('Erro ao carregar livros:', error);
+            return [];
+        }
+    }
+
     // Função para exibir os livros ou a mensagem caso não haja livros
     function exibirLivros(livros, mensagem = '') {
         const listaLivros = document.getElementById('listaLivros');
         listaLivros.innerHTML = '';  // Limpa a lista antes de exibir os livros
 
         if (livros.length > 0) {
-            livros.forEach(livro => {
+            livros.forEach(async livro => {
+                const contatoIniciado = await carregaContatoIniciado(livro.id);
+                const textoBotao = contatoIniciado ? "Entrar na Conversa" : "Iniciar Contato"
+
                 const livroElemento = document.createElement('div');
                 livroElemento.className = 'livro-card';
                 livroElemento.innerHTML = `
@@ -69,11 +92,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <p>Gênero: ${livro.genero}</p>
                         <p>Estado: ${livro.estado}</p>
                         <p>Dono: ${livro.Pessoa.Usuario.nome}</p>
-                        <button class="contato-btn">Iniciar Contato</button>
+                        <button class="contato-btn">${textoBotao}</button>
                     </div>
                 `;
                 // Adicionar evento de clique no botão "Iniciar Contato"
                 livroElemento.querySelector('.contato-btn').addEventListener('click', () => {
+                    if (contatoIniciado) {
+                        window.location.href = `../mensagens/mensagens.html?idContato=${contatoIniciado.id}`;
+                        return;
+                    }
+                    
                     // Redirecionar para a tela de iniciando_contato.html
                     window.location.href = `../iniciando_contato/iniciando_contato.html?idLivro=${livro.id}`;
                 });
