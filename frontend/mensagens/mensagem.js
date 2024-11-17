@@ -3,8 +3,20 @@ function voltarPaginaAnterior() {
     window.history.back();
 }
 
+// Recupera o usuário logado e o contato com base no parâmetro 'idContato' da URL
 const usuario = getUsuarioLogado();
-const contato = getContacts()[getQueryString("idContato")];
+const contatoId = getQueryString("idContato");
+const contato = getContacts()[contatoId];
+
+// Verifica se o usuário e o contato estão definidos
+if (!usuario) {
+    alert('Usuário não está logado!');
+    window.history.back();  // Retorna à página anterior, se o usuário não estiver logado
+}
+if (!contato) {
+    alert('Contato não encontrado!');
+    window.history.back();  // Retorna à página anterior, se o contato não for encontrado
+}
 
 // Exibir o nome do dono no topo da tela
 document.addEventListener("DOMContentLoaded", async function () {
@@ -26,6 +38,7 @@ async function enviarMensagem() {
     const id_remetente = usuario.userId;
     const id_destinatario = contato.id_dono_livro;
 
+    // Verifica se a mensagem e os IDs estão presentes
     if (mensagem.trim() !== '' && id_remetente && id_destinatario) {
         await dispatchMessage(id_remetente, id_destinatario, mensagem);
         mensagemInput.value = '';  // Limpa o campo de input após enviar
@@ -34,6 +47,7 @@ async function enviarMensagem() {
     }
 }
 
+// Função para enviar a mensagem via API
 async function dispatchMessage(id_remetente, id_destinatario, mensagem) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -58,6 +72,7 @@ async function dispatchMessage(id_remetente, id_destinatario, mensagem) {
     await carregaMensagens();
 }
 
+// Função para carregar as mensagens do contato
 async function carregaMensagens() {
     const baseUrl = await getAPIURL();
     const response = await fetch(`${baseUrl}/mensagem?id_contato=${contato.id}`);
@@ -67,9 +82,15 @@ async function carregaMensagens() {
         return;
     }
 
-    mostraMensagens(await response.json());
+    const mensagens = await response.json();
+    if (!mensagens || mensagens.length === 0) {
+        // alert("Nenhuma mensagem encontrada!");
+    }
+
+    mostraMensagens(mensagens);
 }
 
+// Função para exibir as mensagens na tela
 function mostraMensagens(mensagens) {
     const listaMensagens = document.querySelector('.box-messages');
     Array.from(listaMensagens.childNodes).forEach(node => node.remove()); // Limpa todas as mensagens da div
@@ -91,12 +112,9 @@ function mostraMensagens(mensagens) {
 
         boxMensagem.appendChild(textoMensagem);
 
-
         listaMensagens.appendChild(boxMensagem);
     });
 }
-
-
 
 // Adiciona evento de "Enter" para enviar a mensagem
 document.querySelector('.mensagem-input').addEventListener('keypress', function(e) {
@@ -104,4 +122,3 @@ document.querySelector('.mensagem-input').addEventListener('keypress', function(
         enviarMensagem();
     }
 });
-
