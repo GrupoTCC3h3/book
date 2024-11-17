@@ -116,13 +116,13 @@ hr {
     background-color: var(--marromMaisClaro);
 }
 
-.avatar {
+/* .avatar {
     width: 30px;
     height: 30px;
     background-color: #ddd;
     border-radius: 50%;
     margin-right: 10px;
-}
+} */
 
 .contact-name {
     font-size: 14px;
