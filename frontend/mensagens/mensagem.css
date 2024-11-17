@@ -154,6 +154,31 @@ h1 {
     background-color: var(--marromSuperClaro);
 }
 
+/* Estilo para o balão de mensagem do remetente */
+.txtMensagem.remetente {
+    align-self: flex-end; /* Coloca a mensagem à direita */
+    background-color: #007bff; /* Cor de fundo para o remetente */
+    color: white; /* Cor do texto do remetente */
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 60%; /* Limita a largura máxima */
+    word-wrap: break-word; /* Quebra de linha no texto se necessário */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo para o balão de mensagem do destinatário */
+.txtMensagem.destinatario {
+    align-self: flex-start; /* Coloca a mensagem à esquerda */
+    background-color: #f1f1f1; /* Cor de fundo para o destinatário */
+    color: #333; /* Cor do texto do destinatário */
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 60%; /* Limita a largura máxima */
+    word-wrap: break-word; /* Quebra de linha no texto se necessário */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+
 .enviar-btn {
     background-color: var(--marromClaro);
     border: none;

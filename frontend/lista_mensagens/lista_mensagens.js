@@ -69,30 +69,30 @@ async function carregaMensagens(contatoId) {
 
 function mostraMensagens(mensagens) {
   const listaMensagens = document.querySelector('.messages');
-  Array.from(listaMensagens.childNodes).forEach(node => node.remove()); //limpa todas as mensagens da div    
+  Array.from(listaMensagens.childNodes).forEach(node => node.remove()); // Limpa todas as mensagens da div
 
-  mensagens.forEach(mensagem => {        
-      const boxMensagem = document.createElement("div");
-      boxMensagem.style = "display: flex; flex-direction: column; margin-bottom: 5px;";
+  mensagens.forEach(mensagem => {
+    const boxMensagem = document.createElement("div");
+    boxMensagem.style = "display: flex; flex-direction: column; margin-bottom: 5px;";
 
-      const textoMensagem = document.createElement("p");
-      textoMensagem.textContent = mensagem.mensagem;
+    const textoMensagem = document.createElement("p");
+    textoMensagem.textContent = mensagem.mensagem;
+    textoMensagem.className = "txtMensagem";
 
-      if (mensagem.id_remetente == usuario.userId) {
-          textoMensagem.style = "text-align: right;";
-      }
+    // Adiciona a classe remetente ou destinatário
+    if (mensagem.id_remetente == usuario.userId) {
+      textoMensagem.classList.add("remetente");
+    } else {
+      textoMensagem.classList.add("destinatario");
+    }
 
-      const linha = document.createElement("hr");
-      linha.style = "width: 100%";
-
-      boxMensagem.appendChild(textoMensagem);
-      boxMensagem.appendChild(linha);
-
-      listaMensagens.appendChild(boxMensagem);        
+    boxMensagem.appendChild(textoMensagem);
+    listaMensagens.appendChild(boxMensagem);
   });
 
   showChat();
 }
+
 
 async function enviarMensagem() {
   const mensagemInput = document.querySelector('.mensagem-input');

@@ -181,3 +181,52 @@ hr {
 .input-container button:hover {
     background-color: var(--roxoHover);
 }
+
+
+/* Estilo genérico para as mensagens */
+.txtMensagem {
+    display: inline-block;
+    max-width: 60%; /* Limita o tamanho do balão */
+    padding: 10px 15px; /* Espaçamento interno */
+    border-radius: 15px; /* Arredonda os cantos */
+    margin: 5px 0; /* Espaçamento entre mensagens */
+    font-size: 14px; /* Tamanho do texto */
+    word-wrap: break-word; /* Permite quebra de palavras */
+    position: relative; /* Necessário para a ponta */
+}
+
+/* Mensagem do remetente (direita) */
+.txtMensagem.remetente {
+    background-color: #0084ff; /* Cor de fundo do remetente */
+    color: white; /* Cor do texto */
+    align-self: flex-end; /* Alinha à direita */
+    text-align: left; /* Alinha o texto dentro do balão */
+}
+
+.txtMensagem.remetente::after {
+    content: "";
+    position: absolute;
+    top: 10px; /* Ajusta a altura da ponta */
+    right: -10px; /* Desloca para fora do balão */
+    border-width: 10px; /* Tamanho da ponta */
+    border-style: solid;
+    border-color: transparent transparent transparent #0084ff; /* Cor igual ao fundo */
+}
+
+/* Mensagem do destinatário (esquerda) */
+.txtMensagem.destinatario {
+    background-color: #e4e6eb; /* Cor de fundo do destinatário */
+    color: black; /* Cor do texto */
+    align-self: flex-start; /* Alinha à esquerda */
+    text-align: left; /* Alinha o texto dentro do balão */
+}
+
+.txtMensagem.destinatario::before {
+    content: "";
+    position: absolute;
+    top: 10px; /* Ajusta a altura da ponta */
+    left: -10px; /* Desloca para fora do balão */
+    border-width: 10px; /* Tamanho da ponta */
+    border-style: solid;
+    border-color: transparent #e4e6eb transparent transparent; /* Cor igual ao fundo */
+}
