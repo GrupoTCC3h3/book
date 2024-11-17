@@ -123,3 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     carregarLivros();
 });
+
+function voltarPaginaAnterior(){
+    window.history.back();
+}
