@@ -38,14 +38,10 @@ function mostraContatos(contatos) {
       carregaMensagens(c.id);
     });
 
-    // const div = document.createElement('div');
-    // div.classList.add("avatar");
-
     const span = document.createElement('span');
     span.classList.add("contact-name");
     span.textContent = c.Iniciador.Usuario.nome;
 
-    // li.appendChild(div);
     li.appendChild(span);
 
     listaContatos.appendChild(li);
@@ -77,7 +73,6 @@ function mostraMensagens(mensagens) {
     textoMensagem.textContent = mensagem.mensagem;
     textoMensagem.className = "txtMensagem";
 
-    // Adiciona a classe remetente ou destinatário
     if (mensagem.id_remetente === usuario.userId) {
       textoMensagem.classList.add("remetente");
     } else {
@@ -126,7 +121,5 @@ async function dispatchMessage(id_remetente, id_destinatario, mensagem) {
     alert("Não foi possível enviar a mensagem");
     return;
   }
-
-  // Após o envio, carrega as mensagens para atualizar a tela
   await carregaMensagens(contato.id);
 }

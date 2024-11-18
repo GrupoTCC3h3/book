@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM carregado");
     const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
 
     let trocasAtivas = JSON.parse(localStorage.getItem('trocasAtivas')) || [];
@@ -13,116 +12,75 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('userName').textContent = "Usuário";
     }
 
+    // Exibir Trocas Ativas
     function exibirTrocasAtivas() {
         const listaTrocas = document.getElementById('listaTrocasAtivas');
-        if (!listaTrocas) {
-            console.error('Elemento #listaTrocasAtivas não encontrado');
-            return;
-        }
-
-        listaTrocas.innerHTML = '';
-
-        if (trocasAtivas.length === 0) {
-            listaTrocas.innerHTML = 'Você ainda não possui trocas ativas.';
-            return;
-        }
+        listaTrocas.innerHTML = ''; // Limpa a lista antes de adicionar
 
         trocasAtivas.forEach(troca => {
-            const divTroca = document.createElement('div');
-            divTroca.className = 'troca-card';
-            divTroca.innerHTML = `
-                <h4>${troca.livro}</h4>
-                <p>Dono: ${troca.dono}</p>
-                <p>Gênero: ${troca.genero}</p>
-                <p>Estado: ${troca.estado}</p>
-                <p>Status: ${troca.status}</p>
+            const trocaElemento = document.createElement('div');
+            trocaElemento.className = 'troca-card';
+            trocaElemento.innerHTML = `
+                <img src="http://localhost:3000/${troca.capa}" alt="${troca.titulo}" class="troca-imagem">
+                <div class="troca-info">
+                    <h3>${troca.titulo}</h3>
+                    <p>Gênero: ${troca.genero}</p>
+                    <p>Estado: ${troca.estado}</p>
+                    <p>Dono: ${troca.dono}</p>
+                    <button class="confirmar-btn">Confirmar Recebimento</button>
+                    <button class="cancelar-btn">Cancelar Troca</button>
+                </div>
             `;
-            listaTrocas.appendChild(divTroca);
+            // Adicionar eventos aos botões
+            trocaElemento.querySelector('.confirmar-btn').addEventListener('click', () => confirmarTroca(troca));
+            trocaElemento.querySelector('.cancelar-btn').addEventListener('click', () => cancelarTroca(troca));
+
+            listaTrocas.appendChild(trocaElemento);
         });
     }
 
+    // Exibir Trocas Concluídas
     function exibirTrocasCompletas() {
-        const listaTrocasCompletas = document.getElementById('listaTrocasCompletas');
-        if (!listaTrocasCompletas) {
-            console.error('Elemento #listaTrocasCompletas não encontrado');
-            return;
-        }
-
-        listaTrocasCompletas.innerHTML = '';
-
-        if (trocasConcluidas.length === 0) {
-            listaTrocasCompletas.innerHTML = 'Você ainda não possui trocas completas.';
-            return;
-        }
+        const listaConcluidas = document.getElementById('listaTrocasCompletas');
+        listaConcluidas.innerHTML = ''; // Limpa a lista antes de adicionar
 
         trocasConcluidas.forEach(troca => {
-            const divTroca = document.createElement('div');
-            divTroca.className = 'troca-card';
-            divTroca.innerHTML = `
-                <h4>${troca.livro}</h4>
-                <p>Dono: ${troca.dono}</p>
-                <p>Gênero: ${troca.genero}</p>
-                <p>Estado: ${troca.estado}</p>
-                <p>Status: ${troca.status}</p>
+            const trocaElemento = document.createElement('div');
+            trocaElemento.className = 'troca-card';
+            trocaElemento.innerHTML = `
+                <img src="http://localhost:3000/${troca.capa}" alt="${troca.titulo}" class="troca-imagem">
+                <div class="troca-info">
+                    <h3>${troca.titulo}</h3>
+                    <p>Gênero: ${troca.genero}</p>
+                    <p>Estado: ${troca.estado}</p>
+                    <p>Dono: ${troca.dono}</p>
+                </div>
             `;
-            listaTrocasCompletas.appendChild(divTroca);
+            listaConcluidas.appendChild(trocaElemento);
         });
     }
 
-    async function carregarLivros() {
-        try {
-            if (!usuarioAtual || !usuarioAtual.userId) {
-                throw new Error('Usuário não logado');
-            }
+    // Confirmar Troca
+    function confirmarTroca(troca) {
+        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
+        trocasConcluidas.push(troca);
 
-            const baseUrl = await getAPIURL();
-            const response = await fetch(`${baseUrl}/livro/otherUsers?id_pessoa=${usuarioAtual.userId}`);
-            if (!response.ok) throw new Error('Erro ao buscar livros');
+        localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
+        localStorage.setItem('trocasConcluidas', JSON.stringify(trocasConcluidas));
 
-            const livros = await response.json();
-            if (!Array.isArray(livros)) throw new Error('Formato de dados inválido para os livros');
-
-            localStorage.setItem('livrosDeOutrosUsuarios', JSON.stringify(livros));
-            exibirLivros(livros); // Chama a função para exibir os livros na tela
-        } catch (error) {
-            console.error('Erro ao carregar livros:', error);
-        }
+        exibirTrocasAtivas();
+        exibirTrocasCompletas();
     }
 
-    function exibirLivros(livros) {
-        const listaLivros = document.getElementById('listaLivros');
-        
-        console.log('Elemento #listaLivros:', listaLivros); // Log para depuração
+    // Cancelar Troca
+    function cancelarTroca(troca) {
+        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
+        localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
 
-        if (!listaLivros) {
-            console.error('Elemento #listaLivros não encontrado');
-            return;
-        }
-
-        listaLivros.innerHTML = '';
-
-        if (livros.length === 0) {
-            listaLivros.innerHTML = 'Nenhum livro encontrado.';
-            return;
-        }
-
-        livros.forEach(livro => {
-            const divLivro = document.createElement('div');
-            divLivro.className = 'livro-card';
-            divLivro.innerHTML = `
-                <h4>${livro.titulo}</h4>
-                <p>Autor: ${livro.autor}</p>
-                <p>Gênero: ${livro.genero}</p>
-                <p>Ano: ${livro.ano_lancamento}</p>
-                <p>Estado: ${livro.estado}</p>
-                <img src="${livro.capa}" alt="${livro.titulo}" />
-            `;
-            listaLivros.appendChild(divLivro);
-        });
+        exibirTrocasAtivas();
     }
-
-    carregarLivros();
 });
+
 
 function voltarPaginaAnterior(){
     window.history.back();

@@ -40,12 +40,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             const baseUrl = await getAPIURL();
             const response = await fetch(`${baseUrl}/livro/otherUsers?id_pessoa=${usuario.userId}`);
             if (!response.ok) throw new Error('Erro ao buscar livros');
-    
+
             const livros = await response.json();
             if (!Array.isArray(livros)) throw new Error('Formato de dados inválido para os livros');
-    
+
             saveOtherUserBooks(livros);
-    
+
             return livros;
         } catch (error) {
             console.error('Erro ao carregar livros:', error);
@@ -59,12 +59,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             const baseUrl = await getAPIURL();
             const response = await fetch(`${baseUrl}/contato/iniciado?idLivro=${idLivro}&idIniciador=${usuario.userId}`);
             if (!response.ok) throw new Error('Erro ao buscar livros');
-    
+
             const contatos = await response.json();
 
             if (contatos.length > 0) {
                 return contatos[0];
-            }            
+            }
 
             return null;
         } catch (error) {
@@ -101,7 +101,21 @@ document.addEventListener("DOMContentLoaded", async function () {
                         window.location.href = `../mensagens/mensagens.html?idContato=${contatoIniciado.id}`;
                         return;
                     }
-                    
+
+                    // Armazenar a troca no localStorage
+                    const novaTroca = {
+                        idLivro: livro.id,
+                        titulo: livro.titulo,
+                        genero: livro.genero,
+                        estado: livro.estado,
+                        dono: livro.Pessoa.Usuario.nome,
+                        capa: livro.capa,
+                        
+                    };
+                    let trocasAtivas = JSON.parse(localStorage.getItem('trocasAtivas')) || [];
+                    trocasAtivas.push(novaTroca);
+                    localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
+
                     // Redirecionar para a tela de iniciando_contato.html
                     window.location.href = `../iniciando_contato/iniciando_contato.html?idLivro=${livro.id}`;
                 });
@@ -132,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Carregar e exibir todos os livros ao inicializar a página
     const livrosIniciais = await carregarLivros();
-    
+
     // Mensagem de "Nenhum livro cadastrado"
     if (livrosIniciais.length === 0) {
         exibirLivros(livrosIniciais, 'Livros indisponiveis no momento.');
