@@ -66,30 +66,106 @@ section {
     padding: 15px;
 }
 
-.troca {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px 0;
+/* Estilo das seções */
+section {
+    margin-bottom: 30px;
 }
 
-.botaoTroca {
-    background-color: #4b2e2e;
+section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    flex-flow: row nowrap;
-    margin-top: 10px;
 }
 
-.botaoTroca:hover {
-    background-color: #3a1f1f;
+/* Estilização da imagem do livro */
+.troca-imagem {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+/* Informações da troca */
+.troca-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Título do livro */
+.troca-info h3 {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Detalhes do livro */
+.troca-info p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: white;
+}
+
+/* Contêiner para alinhar os botões */
+.troca-botoes {
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 10px; /* Espaço entre os botões */
+    flex-wrap: wrap; /* Permite que os botões fiquem responsivos */
+}
+
+/* Botões com tamanhos iguais */
+button.confirmar-btn,
+button.cancelar-btn {
+    flex: 1 1 40%; /* Ocupa até 40% do espaço disponível */
+    max-width: 20%; /* Define um limite máximo de largura */
+    min-width: 150px; /* Largura mínima para boa usabilidade */
+    margin: 10px 0; /* Espaçamento vertical */
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+/* Estilo específico para cada botão */
+button.confirmar-btn {
+    background-color: #4CAF50;
+}
+
+button.cancelar-btn {
+    background-color: #f44336;
+}
+
+button.confirmar-btn:hover {
+    background-color: #45a049;
+}
+
+button.cancelar-btn:hover {
+    background-color: #e53935;
+}
+
+
+/* Layout do cartão */
+.troca-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    background-color: var(--marromSuperClaro);
+    border: 1px solid var(--marromMaisClaro);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+.troca-card:hover {
+    transform: scale(1.02);
 }
 
 

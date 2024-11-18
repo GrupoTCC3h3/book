@@ -27,8 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>Gênero: ${troca.genero}</p>
                     <p>Estado: ${troca.estado}</p>
                     <p>Dono: ${troca.dono}</p>
+                    <div class="troca-botoes">
                     <button class="confirmar-btn">Confirmar Recebimento</button>
                     <button class="cancelar-btn">Cancelar Troca</button>
+                    </div>
                 </div>
             `;
             // Adicionar eventos aos botões
