@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            // Adicionar eventos aos botões
+            // Adicionar eventos aos botões com confirmação
             trocaElemento.querySelector('.confirmar-btn').addEventListener('click', () => confirmarTroca(troca));
             trocaElemento.querySelector('.cancelar-btn').addEventListener('click', () => cancelarTroca(troca));
 
@@ -66,32 +66,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Confirmar Troca
+    // Confirmar Troca com confirmação
     function confirmarTroca(troca) {
-        let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
-        let trocasConcluidas = JSON.parse(localStorage.getItem(`trocasConcluidas_${usuarioAtual.userId}`)) || [];
+        if (window.confirm('Você realmente deseja confirmar o recebimento desta troca?')) {
+            let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
+            let trocasConcluidas = JSON.parse(localStorage.getItem(`trocasConcluidas_${usuarioAtual.userId}`)) || [];
 
-        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
-        trocasConcluidas.push(troca);
+            trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
+            trocasConcluidas.push(troca);
 
-        // Atualizar no localStorage
-        localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
-        localStorage.setItem(`trocasConcluidas_${usuarioAtual.userId}`, JSON.stringify(trocasConcluidas));
+            // Atualizar no localStorage
+            localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
+            localStorage.setItem(`trocasConcluidas_${usuarioAtual.userId}`, JSON.stringify(trocasConcluidas));
 
-        exibirTrocasAtivas(trocasAtivas);
-        exibirTrocasCompletas(trocasConcluidas);
+            exibirTrocasAtivas(trocasAtivas);
+            exibirTrocasCompletas(trocasConcluidas);
+        }
     }
 
-    // Cancelar Troca
+    // Cancelar Troca com confirmação
     function cancelarTroca(troca) {
-        let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
+        if (window.confirm('Você realmente deseja cancelar esta troca?')) {
+            let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
 
-        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
+            trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
 
-        // Atualizar no localStorage
-        localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
+            // Atualizar no localStorage
+            localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
 
-        exibirTrocasAtivas(trocasAtivas);
+            exibirTrocasAtivas(trocasAtivas);
+        }
     }
 });
 
