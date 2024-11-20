@@ -95,14 +95,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <button class="contato-btn">${textoBotao}</button>
                     </div>
                 `;
-                // Adicionar evento de clique no botão "Iniciar Contato"
                 livroElemento.querySelector('.contato-btn').addEventListener('click', () => {
                     if (contatoIniciado) {
                         window.location.href = `../mensagens/mensagens.html?idContato=${contatoIniciado.id}`;
                         return;
                     }
-
-                    // Armazenar a troca no localStorage
+                
+                    // Armazenar a troca no localStorage, associando ao userId
+                    const usuario = getUsuarioLogado(); // Obtém o usuário logado
                     const novaTroca = {
                         idLivro: livro.id,
                         titulo: livro.titulo,
@@ -110,12 +110,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                         estado: livro.estado,
                         dono: livro.Pessoa.Usuario.nome,
                         capa: livro.capa,
-                        
                     };
-                    let trocasAtivas = JSON.parse(localStorage.getItem('trocasAtivas')) || [];
+                
+                    // Carregar as trocas do usuário logado ou criar uma nova lista
+                    let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuario.userId}`)) || [];
                     trocasAtivas.push(novaTroca);
-                    localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
-
+                
+                    // Salvar as trocas no localStorage para o usuário atual
+                    localStorage.setItem(`trocasAtivas_${usuario.userId}`, JSON.stringify(trocasAtivas));
+                
                     // Redirecionar para a tela de iniciando_contato.html
                     window.location.href = `../iniciando_contato/iniciando_contato.html?idLivro=${livro.id}`;
                 });

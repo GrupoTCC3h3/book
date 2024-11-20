@@ -1,19 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
     const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    let trocasAtivas = JSON.parse(localStorage.getItem('trocasAtivas')) || [];
-    let trocasConcluidas = JSON.parse(localStorage.getItem('trocasConcluidas')) || [];
-
+    // Verificar se o usuário está logado e carregar suas trocas
     if (usuarioAtual && usuarioAtual.nome) {
         document.getElementById('userName').textContent = usuarioAtual.nome;
-        exibirTrocasAtivas();
-        exibirTrocasCompletas();
+
+        // Carregar as trocas ativas e concluídas para o usuário logado
+        let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
+        let trocasConcluidas = JSON.parse(localStorage.getItem(`trocasConcluidas_${usuarioAtual.userId}`)) || [];
+
+        // Exibir as trocas
+        exibirTrocasAtivas(trocasAtivas);
+        exibirTrocasCompletas(trocasConcluidas);
     } else {
         document.getElementById('userName').textContent = "Usuário";
     }
 
     // Exibir Trocas Ativas
-    function exibirTrocasAtivas() {
+    function exibirTrocasAtivas(trocasAtivas) {
         const listaTrocas = document.getElementById('listaTrocasAtivas');
         listaTrocas.innerHTML = ''; // Limpa a lista antes de adicionar
 
@@ -42,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Exibir Trocas Concluídas
-    function exibirTrocasCompletas() {
+    function exibirTrocasCompletas(trocasConcluidas) {
         const listaConcluidas = document.getElementById('listaTrocasCompletas');
         listaConcluidas.innerHTML = ''; // Limpa a lista antes de adicionar
 
@@ -64,25 +68,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Confirmar Troca
     function confirmarTroca(troca) {
+        let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
+        let trocasConcluidas = JSON.parse(localStorage.getItem(`trocasConcluidas_${usuarioAtual.userId}`)) || [];
+
         trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
         trocasConcluidas.push(troca);
 
-        localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
-        localStorage.setItem('trocasConcluidas', JSON.stringify(trocasConcluidas));
+        // Atualizar no localStorage
+        localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
+        localStorage.setItem(`trocasConcluidas_${usuarioAtual.userId}`, JSON.stringify(trocasConcluidas));
 
-        exibirTrocasAtivas();
-        exibirTrocasCompletas();
+        exibirTrocasAtivas(trocasAtivas);
+        exibirTrocasCompletas(trocasConcluidas);
     }
 
     // Cancelar Troca
     function cancelarTroca(troca) {
-        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
-        localStorage.setItem('trocasAtivas', JSON.stringify(trocasAtivas));
+        let trocasAtivas = JSON.parse(localStorage.getItem(`trocasAtivas_${usuarioAtual.userId}`)) || [];
 
-        exibirTrocasAtivas();
+        trocasAtivas = trocasAtivas.filter(t => t.idLivro !== troca.idLivro);
+
+        // Atualizar no localStorage
+        localStorage.setItem(`trocasAtivas_${usuarioAtual.userId}`, JSON.stringify(trocasAtivas));
+
+        exibirTrocasAtivas(trocasAtivas);
     }
 });
-
 
 function voltarPaginaAnterior(){
     window.history.back();
