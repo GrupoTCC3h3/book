@@ -16,6 +16,10 @@ import './util/associations.js';
 import Livro from './model/livro.js';
 import { Pessoa } from './model/pessoa.js';
 import { Usuario } from './model/usuario.js';
+import Mensagem from './model/mensagem.js';
+import Contato from './model/contato.js';
+
+
 import { createServer } from 'http';
 /*import { Server as socketIo } from 'socket.io';*/
 
@@ -113,23 +117,54 @@ app.get('/livro/:id', async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar o livro.' });
     }
 });
-
-// Deletar livro
-app.delete('/livro/:id', async (req, res) => {
-    const livroId = req.params.id;
-
+// Rota para deletar o contato e as mensagens associadas ao livro
+app.delete('/livro/deletarContatoEMensagem/:id', async (req, res) => {
+    const id = req.params.id;
     try {
-        const livro = await Livro.findByPk(livroId);
-        if (!livro) {
-            return res.status(404).json({ message: 'Livro não encontrado.' });
+        // Encontrar o contato associado ao livro
+        const contato = await Contato.findOne({ where: { id_livro: id } });
+
+        if (contato) {
+            // Excluir mensagens associadas ao contato
+            await Mensagem.destroy({
+                where: { id_contato: contato.id }
+            });
+
+            // Excluir o contato
+            await Contato.destroy({
+                where: { id_livro: id }
+            });
         }
-        await livro.destroy();
-        res.status(200).json({ message: 'Livro deletado com sucesso!' });
+
+        res.status(200).send({ message: 'Contato e mensagens deletados com sucesso.' });
     } catch (error) {
-        console.error('Erro ao deletar livro:', error);
-        res.status(500).json({ message: 'Erro ao deletar livro.' });
+        console.error('Erro ao deletar contato ou mensagens:', error);
+        res.status(500).send({ message: 'Erro ao deletar contato ou mensagens.' });
     }
 });
+
+
+// Rota para deletar o livro
+app.delete('/livro/deletar/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const livroDeletado = await Livro.destroy({
+            where: { id: id }
+        });
+
+        if (!livroDeletado) {
+            return res.status(404).send({ message: 'Livro não encontrado.' });
+        }
+
+        res.status(200).send({ message: 'Livro deletado com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao deletar livro:', error);
+        res.status(500).send({ message: 'Erro ao deletar livro.' });
+    }
+});
+
+
+
 
 // Atualizar livro
 app.put("/livro/:id", async (req, res) => {

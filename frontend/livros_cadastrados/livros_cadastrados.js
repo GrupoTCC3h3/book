@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (event.target && event.target.classList.contains('apagar-btn')) {
             const livroId = event.target.getAttribute('data-id');
             if (livroId) {
-                apagarLivro(livroId);
+                apagarLivro(livroId, usuarioAtual); // Passando o usuário atual como argumento
             } else {
                 console.error("ID do livro não encontrado.");
             }
@@ -58,27 +58,57 @@ async function carregarLivros(userId) {
     }
 }
 
-async function apagarLivro(id) {
+async function apagarLivro(id, usuarioAtual) {
     if (!id) {
         console.error("ID do livro não fornecido.");
         return;
     }
 
+    // Pergunta ao usuário se ele tem certeza de que deseja excluir o livro
+    const confirmacao = confirm("Você tem certeza de que deseja apagar este livro?");
+
+    if (!confirmacao) {
+        console.log("Exclusão do livro cancelada.");
+        return; // Se o usuário cancelar, a função termina aqui
+    }
+
     try {
-        const response = await fetch(`http://localhost:3000/livro/${id}`, {
+        // Fazer a requisição para excluir as mensagens e contatos associados ao livro
+        const response = await fetch(`http://localhost:3000/livro/deletarContatoEMensagem/${id}`, {
             method: 'DELETE',
         });
 
         if (!response.ok) {
-            throw new Error("Erro ao apagar livro.");
+            console.error("Erro ao deletar contato ou mensagens.");
+            return;
         }
 
-        const usuarioAtual = JSON.parse(sessionStorage.getItem("currentUser"));
-        await carregarLivros(usuarioAtual.userId);
+        // Excluir o livro
+        const livroDeletado = await fetch(`http://localhost:3000/livro/deletar/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!livroDeletado.ok) {
+            console.error("Livro não encontrado.");
+            return;
+        }
+
+        console.log("Livro deletado com sucesso.");
+        // Atualize a lista de livros após a exclusão
+        carregarLivros(usuarioAtual.userId);
     } catch (error) {
-        console.error("Erro ao apagar livro:", error);
+        console.error('Erro ao deletar livro ou mensagens:', error);
     }
 }
+
+
+
+
+
+
+
+
+
 
 function toggleMenu(event) {
     const menu = event.target.nextElementSibling;
