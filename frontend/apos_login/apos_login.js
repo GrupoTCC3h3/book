@@ -97,7 +97,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 `;
                 livroElemento.querySelector('.contato-btn').addEventListener('click', () => {
                     if (contatoIniciado) {
-                        window.location.href = `../mensagens/mensagens.html?idContato=${contatoIniciado.id}`;
+                        const nomeDono = encodeURIComponent(livro.Pessoa.Usuario.nome);
+                        window.location.href = `../mensagens/mensagens.html?idContato=${contatoIniciado.id}&nomeDono=${nomeDono}`;
                         return;
                     }
                 

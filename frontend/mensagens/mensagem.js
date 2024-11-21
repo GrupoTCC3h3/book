@@ -20,7 +20,8 @@ if (!contato) {
 
 // Exibir o nome do dono no topo da tela
 document.addEventListener("DOMContentLoaded", async function () {
-    const nomeDono = usuario.nome;
+    // Recupera o nome do dono da URL
+    const nomeDono = decodeURIComponent(getQueryString("nomeDono")); // Decodifica o nome da URL
     if (nomeDono) {
         document.getElementById('donoNome').textContent = nomeDono;
     } else {
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await carregaMensagens();
 });
+
 
 // Função para enviar a mensagem
 async function enviarMensagem() {

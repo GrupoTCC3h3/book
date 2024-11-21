@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('iniciarConversa').addEventListener('click', async function () {
         const livro = JSON.parse(sessionStorage.getItem('livroEmContato'));
         const baseUrl = await getAPIURL();
-        const usuario = getUsuarioLogado();   
+        const usuario = getUsuarioLogado();
 
         const id = getQueryString('idLivro');
 
@@ -41,19 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
             const contato = await response.json();
             saveContacts(contato);
-            
-            window.location.href = `../mensagens/mensagens.html?idContato=${contato.id}`; 
+
+            // Inclui o nome do dono na URL para a tela de mensagens
+            const nomeDono = encodeURIComponent(book.Pessoa.Usuario.nome); // Codifica para evitar problemas na URL
+            window.location.href = `../mensagens/mensagens.html?idContato=${contato.id}&nomeDono=${nomeDono}`;
         } else {
             alert(`deu erro: ${response.statusText}`);
         }
-        
+
         // Redirecionar para a tela de mensagens
         // window.location.href = '../mensagens/mensagens.html';
     });
 });
 
-  // Função para voltar à página anterior
-  function voltarPaginaAnterior() {
+// Função para voltar à página anterior
+function voltarPaginaAnterior() {
     window.history.back();
 }
 
