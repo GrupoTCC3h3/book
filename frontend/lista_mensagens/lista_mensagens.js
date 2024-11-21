@@ -32,9 +32,11 @@ function mostraContatos(contatos) {
 
   contatos.forEach(c => {
     const li = document.createElement('li');
+    const linha = document.createElement('hr')
     li.classList.add("contact");
     li.addEventListener("click", () => {
       contato = c;
+      linhaAbaixo = linha;
       carregaMensagens(c.id);
     });
 
@@ -43,8 +45,10 @@ function mostraContatos(contatos) {
     span.textContent = c.Iniciador.Usuario.nome;
 
     li.appendChild(span);
+    
 
     listaContatos.appendChild(li);
+    listaContatos.appendChild(linha)
   });
 }
 
