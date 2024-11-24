@@ -196,7 +196,7 @@ hr {
 }
 
 /* Mensagem do remetente (direita) */
-.txtMensagem.remetente {
+.textMensagem.remetente {
     background-color: #0084ff; /* Cor de fundo do remetente */
     color: white; /* Cor do texto */
     align-self: flex-end; /* Alinha à direita */

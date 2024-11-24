@@ -2,6 +2,8 @@ import express from 'express';
 import Contato from '../model/contato.js'; // Importando o modelo Contato
 import { Pessoa } from '../model/pessoa.js';
 import { Usuario } from '../model/usuario.js';
+import { Op } from 'sequelize';
+
 
 const router = express.Router();
 
@@ -67,32 +69,44 @@ router.get('/iniciado', async (req, res) => {
 });
 
 router.get('/destinatario', async (req, res) => {
-    try {
-        const contatos = await Contato.findAll({
-            where: {
-                id_dono_livro: req.query.id_dono_livro
-            },
-            include: [
-                {
-                    model: Pessoa,
-                    as: "Iniciador",
-                    include: [
-                        { 
-                            model: Usuario, 
-                            attributes: ['nome'], 
-                            required: true 
-                        }
-                    ],
-                    required: true
-                }
-            ]
-        }); // Busca todos os contatos
-        res.json(contatos); // Retorna a lista de contatos
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message }); // Retorna erro 500
+    const userId = req.query.id_dono_livro;
+  
+    if (!userId) {
+      return res.status(400).json({ error: "ID do usuário logado é obrigatório." });
     }
-});
+  
+    try {
+      const contatos = await Contato.findAll({
+        where: {
+          [Op.or]: [
+            { id_dono_livro: userId },
+            { id_iniciador: userId }
+          ]
+        },
+        include: [
+          {
+            model: Pessoa,
+            as: "Iniciador",
+            include: [{ model: Usuario, attributes: ['nome'], required: true }],
+            required: true
+          },
+          {
+            model: Pessoa,
+            as: "DonoLivro",
+            include: [{ model: Usuario, attributes: ['nome'], required: true }],
+            required: true
+          }
+        ]
+      });
+  
+      res.json(contatos);
+    } catch (error) {
+      console.error("Erro ao buscar contatos:", error);
+      res.status(500).json({ error: "Erro interno ao buscar contatos." });
+    }
+  });
+  
+
 
 /**
  * @swagger
