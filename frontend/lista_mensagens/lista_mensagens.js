@@ -85,7 +85,7 @@ function mostraMensagens(mensagens) {
     // Determinar o nome do remetente ou destinatário
     let nomeUsuarioMensagem;
     if (mensagem.id_remetente === usuario.userId) {
-      nomeUsuarioMensagem = "";
+      nomeUsuarioMensagem = ""; // Pode ser vazio se não precisar exibir o nome do remetente
     } else if (mensagem.id_remetente === contato.id_dono_livro && contato.DonoLivro?.Usuario?.nome) {
       nomeUsuarioMensagem = contato.DonoLivro.Usuario.nome;
     } else if (mensagem.id_remetente === contato.id_iniciador && contato.Iniciador?.Usuario?.nome) {
@@ -98,29 +98,33 @@ function mostraMensagens(mensagens) {
     const boxMensagem = document.createElement("div");
     boxMensagem.style = "display: flex; flex-direction: column; margin-bottom: 5px;";
 
-    // Adiciona estilo baseado no remetente ou destinatário
+    // Adiciona o nome do usuário acima da mensagem
+    const nomeUsuario = document.createElement("span");
+    nomeUsuario.textContent = nomeUsuarioMensagem;
+    nomeUsuario.style = "font-size: 12px; color: gray; margin-bottom: 2px;";
+
+    // Criação do texto da mensagem
     const textoMensagem = document.createElement("p");
     textoMensagem.textContent = mensagem.mensagem;
-    textoMensagem.className = "txtMensagem";
+    textoMensagem.className = "txtMensagem"; // Classe padrão para estilização de mensagens
+    
+    // Adiciona classe baseada no remetente ou destinatário
     if (mensagem.id_remetente === usuario.userId) {
       textoMensagem.classList.add("remetente");
     } else {
       textoMensagem.classList.add("destinatario");
     }
 
-    // Adiciona o nome do usuário acima da mensagem
-    const nomeUsuario = document.createElement("span");
-    nomeUsuario.textContent = nomeUsuarioMensagem;
-    nomeUsuario.style = "font-size: 12px; color: gray; margin-bottom: 2px;";
-
-    // Organiza elementos no contêiner
+    // Organiza elementos no contêiner da mensagem
     boxMensagem.appendChild(nomeUsuario);
     boxMensagem.appendChild(textoMensagem);
     listaMensagens.appendChild(boxMensagem);
   });
 
-  showChat();
+  showChat(); // Função para exibir o chat corretamente
 }
+
+
 
 
 
