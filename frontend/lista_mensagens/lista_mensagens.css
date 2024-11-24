@@ -126,7 +126,7 @@ hr {
 
 .contact-name {
     font-size: 14px;
-    color: var(--marromClaro);
+    color: rgba(255, 255, 255, 0.805);
 }
 
 .chat-box {
