@@ -84,14 +84,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // Função para filtrar os livros com base no termo de pesquisa
-    async function filtrarLivros() {
-        const termoPesquisa = document.getElementById('catalogo').value.toLowerCase();
-        const livros = await carregarLivros();
+    // async function filtrarLivros() {
+    //     const termoPesquisa = document.getElementById('catalogo').value.toLowerCase();
+    //     const livros = await carregarLivros();
 
-        const livrosFiltrados = livros.filter(livro => livro.titulo.toLowerCase().includes(termoPesquisa));
+    //     const livrosFiltrados = livros.filter(livro => livro.titulo.toLowerCase().includes(termoPesquisa));
 
-        exibirLivros(livrosFiltrados, 'Nenhum livro disponível com este nome.');
-    }
+    //     exibirLivros(livrosFiltrados, 'Nenhum livro disponível com este nome.');
+    // }
 
     // Carregar e exibir todos os livros ao inicializar a página
     const livrosIniciais = await carregarLivros();
