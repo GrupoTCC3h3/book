@@ -2,6 +2,7 @@ import express from 'express';
 import Contato from '../model/contato.js'; // Importando o modelo Contato
 import { Pessoa } from '../model/pessoa.js';
 import { Usuario } from '../model/usuario.js';
+import Livro  from '../model/livro.js';
 import { Op } from 'sequelize';
 
 
@@ -84,6 +85,12 @@ router.get('/destinatario', async (req, res) => {
           ]
         },
         include: [
+          {
+            model: Livro,
+            as: "Livro",
+            attributes: [ "titulo" ],
+            required: true
+          },
           {
             model: Pessoa,
             as: "Iniciador",

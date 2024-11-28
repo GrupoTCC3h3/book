@@ -51,7 +51,7 @@ function mostraContatos(contatos) {
     li.addEventListener("click", () => {
       contato = c;
       carregaMensagens(c.id);
-      exibeNomeUsuario(nomeDonoLivro);
+      exibeNomeUsuario(`${nomeDonoLivro} - (${c.Livro.titulo})`);
     });
 
     const span = document.createElement('span');

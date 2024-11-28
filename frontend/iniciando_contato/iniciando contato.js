@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('livroTitulo').textContent = livro.titulo;
         document.getElementById('livroGenero').textContent = `Gênero: ${livro.genero}`;
         document.getElementById('livroEstado').textContent = `Estado: ${livro.estado}`;
-        document.getElementById('livroDono').textContent = `Dono: ${livro.Pessoa.Usuario.nome}`; // Corrigido para 'livro.dono'
+        document.getElementById('livroDono').textContent = `Dono: ${livro.Pessoa.Usuario.nome}`; 
     } else {
         // Caso não encontre o livro no sessionStorage, redireciona para a página inicial ou outra página
         window.location.href = 'index.html';
